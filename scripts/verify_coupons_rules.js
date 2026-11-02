@@ -118,3 +118,4 @@ if (hasError) {
     console.log('✅ 3. Minimum 1.20 oran kuralına uyuldu.');
     console.log('✅ 4. 15 kupon 3 seansa (5 Sabah, 5 Öğlen, 5 Akşam) dengeli dağıtıldı.');
 }
+

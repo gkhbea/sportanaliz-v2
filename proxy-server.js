@@ -1252,6 +1252,25 @@ setInterval(() => syncLiveFeedsInBackground(), 45 * 1000); // Her 45 saniyede bi
 setTimeout(() => emailService.checkAndSendDueEmails().catch(() => {}), 8000); // 8 sn sonra ilk kontrol
 setInterval(() => emailService.checkAndSendDueEmails().catch(() => {}), 10 * 60 * 1000); // Her 10 dakikada bir kontrol
 
+// Nesine Günlük Otomatik Kupon Zamanlayıcısını Başlat (Her Gece Saat 00:15)
+try {
+    const nesineScheduler = require('./scripts/nesine_daily_scheduler');
+    nesineScheduler.startScheduler();
+} catch (e) {
+    console.warn('Nesine zamanlayıcı başlatma uyarısı:', e.message);
+}
+
+// Anında Kupon Kaydetme API'si
+app.post('/api/nesine/save-coupons-now', (req, res) => {
+    try {
+        const nesineScheduler = require('./scripts/nesine_daily_scheduler');
+        nesineScheduler.runDailyCouponAutomation('Kullanıcı Talebi (/api/nesine/save-coupons-now)');
+        res.json({ success: true, message: 'Nesine otomatik kupon kaydedici arka planda başlatıldı.' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`
 ╔══════════════════════════════════════════════════╗

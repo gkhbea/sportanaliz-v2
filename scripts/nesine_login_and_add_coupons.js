@@ -177,7 +177,7 @@ app.whenReady().then(async () => {
 
     // Kullanıcının giriş yapmasını bekle (otomatik giriş 3-5 saniyede tamamlanır)
     let loggedIn = false;
-    for (let sec = 0; sec < 45; sec++) {
+    for (let sec = 0; sec < 180; sec++) {
         await new Promise(r => setTimeout(r, 1000));
         try {
             loggedIn = await win.webContents.executeJavaScript(`
