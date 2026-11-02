@@ -131,6 +131,33 @@ async function main() {
         coupons: formattedCoupons
     };
 
+    // KURAL DENETİMİ (En Fazla 2 Tekrar ve Farklı Seçenek Kuralı)
+    const matchCounts = {};
+    const matchPicks = {};
+    formattedCoupons.forEach(cp => {
+        cp.picks.forEach(p => {
+            const mKey = (p.homeTeam + ' vs ' + p.awayTeam).trim().toLowerCase();
+            matchCounts[mKey] = (matchCounts[mKey] || 0) + 1;
+            if (!matchPicks[mKey]) matchPicks[mKey] = [];
+            matchPicks[mKey].push({ coupon: cp.couponNumber, pickTitle: p.pickTitle, marketCode: p.marketCode });
+
+            if (matchCounts[mKey] > 2) {
+                throw new Error(`[KURAL İHLALİ] ${p.homeTeam} vs ${p.awayTeam} maçı ${matchCounts[mKey]} kez kullanıldı! En fazla 2 kez kuralı aşıldı.`);
+            }
+        });
+    });
+
+    for (const [mKey, picks] of Object.entries(matchPicks)) {
+        if (picks.length === 2) {
+            const p1 = (picks[0].marketCode || picks[0].pickTitle || '').trim();
+            const p2 = (picks[1].marketCode || picks[1].pickTitle || '').trim();
+            if (p1 === p2) {
+                throw new Error(`[KURAL İHLALİ] ${mKey} maçı Kupon ${picks[0].coupon} ve Kupon ${picks[1].coupon}'de AYNI seçenek (${p1}) ile oynandı! Farklı seçenek olmalıdır.`);
+            }
+        }
+    }
+    console.log('✅ [KURAL TEYİDİ] Tüm kuponlar "En fazla 2 maç ve farklı seçenekler" kuralına %100 uygundur.');
+
     const nesineCouponsPath = path.join(CACHE_DIR, 'nesine_coupons_today.json');
     fs.writeFileSync(nesineCouponsPath, JSON.stringify(nesineCouponsFile, null, 2), 'utf8');
     console.log(`💾 [KAYDEDİLDİ] ${nesineCouponsPath}`);
