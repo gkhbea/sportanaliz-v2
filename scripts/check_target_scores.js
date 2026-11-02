@@ -16,3 +16,4 @@ matches.forEach(m => {
         console.log(`[${st}] ${h} ${sc} ${a}`);
     }
 });
+

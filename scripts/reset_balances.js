@@ -61,3 +61,4 @@ console.log('✅ [2/2] Kasa profili sıfırlandı -> 500 TL:', profilePath);
 console.log('=====================================================');
 console.log('🎉 BAKİYELER BAŞARIYLA 500 TL OLARAK SIFIRLANDI!');
 console.log('=====================================================');
+
