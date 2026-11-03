@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// 25 Elite Matches
+// 25 Elite Matches (Tonight 03.11.2026 - All active and scheduled after 18:00)
 const matches = {
     // 1. UEFA Champions League
     bayern: {
@@ -62,51 +62,19 @@ const matches = {
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.65' }
     },
 
-    // 3. Asya Şampiyonlar Ligi Elite
+    // 3. Asya Şampiyonlar Ligi Elite & Suudi Ligi
     alhilal: {
         iddaaCode: '3264710', homeTeam: 'Al Hilal', awayTeam: 'Al Ahli Dubai', league: 'Asya Şampiyonlar Ligi Elite', timeStr: '21:15',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Al Hilal Kazanır)', marketCode: 'MS1', odd: '1.31' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.26' }
     },
-    jeonbuk: {
-        iddaaCode: '3264660', homeTeam: 'Jeonbuk', awayTeam: 'Johor Darul', league: 'Asya Şampiyonlar Ligi Elite', timeStr: '13:00',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (Johor Darul Kazanır)', marketCode: 'MS2', odd: '1.98' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.52' }
+    alraed: {
+        iddaaCode: '3264705', homeTeam: 'AL Raed', awayTeam: 'AL Wehda', league: 'Suudi Arabistan 1. Lig', timeStr: '18:00',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (AL Wehda Kazanır)', marketCode: 'MS2', odd: '1.65' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.45' }
     },
 
-    // 4. Brezilya Serie A & Güney Amerika
-    bragantino: {
-        iddaaCode: '3266672', homeTeam: 'Bragantino', awayTeam: 'Santos SP', league: 'Brezilya Serie A', timeStr: '02:00',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Bragantino Kazanır)', marketCode: 'MS1', odd: '1.79' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.39' }
-    },
-    goias: {
-        iddaaCode: '3253324', homeTeam: 'Goias GO', awayTeam: 'Crb Al', league: 'Brezilya Serie B', timeStr: '02:30',
-        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.21' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.49' }
-    },
-    defjusticia: {
-        iddaaCode: '3258448', homeTeam: 'Def. Justicia', awayTeam: 'Independiente', league: 'Arjantin Primera LPF', timeStr: '01:00',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Def. Justicia Kazanır)', marketCode: 'MS1', odd: '1.96' },
-        opt2: { marketTitle: 'Çifte Şans', pickTitle: 'X-2 Çifte Şans', marketCode: 'CSX2', odd: '1.47' }
-    },
-    tucuman: {
-        iddaaCode: '3258962', homeTeam: 'Atl Tucuman', awayTeam: 'Argentinos J.', league: 'Arjantin Primera LPF', timeStr: '03:15',
-        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.31' },
-        opt2: { marketTitle: 'Çifte Şans', pickTitle: 'X-2 Çifte Şans', marketCode: 'CSX2', odd: '1.25' }
-    },
-    concepcion: {
-        iddaaCode: '3259015', homeTeam: 'Dep. Concepcion', awayTeam: 'Palestino', league: 'Şili Premier Ligi', timeStr: '02:30',
-        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.24' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.62' }
-    },
-    bucaramanga: {
-        iddaaCode: '3259164', homeTeam: 'CA Bucaramanga', awayTeam: 'Atl. Nacional Medellin', league: 'Kolombiya Primera A', timeStr: '04:15',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (Atl. Nacional Kazanır)', marketCode: 'MS2', odd: '1.92' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.67' }
-    },
-
-    // 5. İskoçya Kupa & Avrupa Kupaları
+    // 4. İskoçya Kupa & Avrupa Kupaları (Hepsi Bu Gece 22:45)
     airdrie: {
         iddaaCode: '3321728', homeTeam: 'Airdrieonian', awayTeam: 'Elgin City', league: 'İskoçya Challenge Cup', timeStr: '22:45',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Airdrieonian Kazanır)', marketCode: 'MS1', odd: '1.54' },
@@ -122,6 +90,16 @@ const matches = {
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Inverness Kazanır)', marketCode: 'MS1', odd: '1.26' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.27' }
     },
+    arbroath: {
+        iddaaCode: '3321726', homeTeam: 'Arbroath', awayTeam: 'Queen of The South', league: 'İskoçya Challenge Cup', timeStr: '22:45',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Arbroath Kazanır)', marketCode: 'MS1', odd: '1.46' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.36' }
+    },
+    edinburgh: {
+        iddaaCode: '3321737', homeTeam: 'Edinburgh', awayTeam: 'P. Thistle', league: 'İskoçya Challenge Cup', timeStr: '22:45',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (P. Thistle Kazanır)', marketCode: 'MS2', odd: '1.31' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.35' }
+    },
     wigan: {
         iddaaCode: '3346883', homeTeam: 'Wigan Ath', awayTeam: 'Mansfield', league: 'İngiltere Football League Trophy', timeStr: '22:45',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (Mansfield Kazanır)', marketCode: 'MS2', odd: '1.82' },
@@ -136,6 +114,23 @@ const matches = {
         iddaaCode: '3365364', homeTeam: 'Mamel Sundow', awayTeam: 'Gold. Arrow', league: 'Güney Afrika Premier Ligi', timeStr: '20:00',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Mamelodi Kazanır)', marketCode: 'MS1', odd: '1.21' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.74' }
+    },
+
+    // 5. Güney Amerika & Özel Ligler (Bu Gece 23:30 / 18:00)
+    tolima: {
+        iddaaCode: '3335725', homeTeam: 'Dep. Pereira', awayTeam: 'CD Tolima', league: 'Kolombiya Liga Dimayor', timeStr: '23:30',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (CD Tolima Kazanır)', marketCode: 'MS2', odd: '1.41' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.68' }
+    },
+    manta: {
+        iddaaCode: '3259938', homeTeam: 'Mushuc Runa', awayTeam: 'Manta', league: 'Ekvador Pro Lig', timeStr: '23:30',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Mushuc Runa Kazanır)', marketCode: 'MS1', odd: '1.34' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.67' }
+    },
+    academico: {
+        iddaaCode: '3264808', homeTeam: 'Academico V. U23', awayTeam: 'Torreense U23', league: 'Portekiz U23 Next Gen', timeStr: '18:00',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Academico Kazanır)', marketCode: 'MS1', odd: '1.77' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.40' }
     }
 };
 
@@ -192,7 +187,7 @@ const couponDefs = [
         picks: [
             createPick(matches.southampton, 'opt1'), // W. Bromwich 1-X (1.28)
             createPick(matches.swansea, 'opt1'),     // Portsmouth 1-X (1.34)
-            createPick(matches.goias, 'opt1')        // Goias 1-X (1.21)
+            createPick(matches.arbroath, 'opt1')     // Arbroath MS1 (1.46)
         ]
     },
     {
@@ -254,10 +249,10 @@ const couponDefs = [
 
     // --- 🌙 AKŞAM SEANSI (Kupon 11-15) ---
     {
-        couponNumber: 11, title: "🌙 Akşam Şampiyonlar Ligi & Brezilya Kasa Katlama",
+        couponNumber: 11, title: "🌙 Akşam Şampiyonlar Ligi & Güney Amerika Kasa Katlama",
         timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#F59E0B', icon: '🌙', badge: "🌙 Kasa Katlama",
         picks: [
-            createPick(matches.bragantino, 'opt1'),  // Bragantino MS1 (1.79)
+            createPick(matches.manta, 'opt1'),       // Mushuc Runa MS1 (1.34)
             createPick(matches.sheffield, 'opt1'),   // Sheffield Utd MS2 (2.07)
             createPick(matches.glogow, 'opt1')       // C. Glogow 1-X (1.28)
         ]
@@ -266,17 +261,17 @@ const couponDefs = [
         couponNumber: 12, title: "🛡️ Akşam Sıfır Risk Sigortalı Kombin",
         timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#10B981', icon: '🛡️', badge: "🛡️ Sıfır Risk",
         picks: [
-            createPick(matches.tucuman, 'opt1'),     // Tucuman 1-X (1.31)
-            createPick(matches.concepcion, 'opt1'),  // Concepcion 1-X (1.24)
-            createPick(matches.defjusticia, 'opt2')  // Def. Justicia X-2 (1.47)
+            createPick(matches.edinburgh, 'opt1'),   // P. Thistle MS2 (1.31)
+            createPick(matches.arbroath, 'opt2'),    // Arbroath 2.5 ÜST (1.36)
+            createPick(matches.tolima, 'opt1')       // CD Tolima MS2 (1.41)
         ]
     },
     {
-        couponNumber: 13, title: "⚽ Akşam Gol Yağmuru (Devler Ligi & Samba Şöleni)",
+        couponNumber: 13, title: "⚽ Akşam Gol Yağmuru (Devler Ligi & Kupa Şöleni)",
         timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#EC4899', icon: '⚽', badge: "⚽ Gol Yağmuru",
         picks: [
-            createPick(matches.bragantino, 'opt2'),  // Bragantino 2.5 ÜST (1.39)
-            createPick(matches.goias, 'opt2'),       // Goias 2.5 ÜST (1.49)
+            createPick(matches.manta, 'opt2'),       // Mushuc Runa 2.5 ÜST (1.67)
+            createPick(matches.alraed, 'opt2'),      // AL Raed vs AL Wehda 2.5 ÜST (1.45)
             createPick(matches.sheffield, 'opt2')    // Preston vs Sheffield 2.5 ÜST (1.65)
         ]
     },
@@ -284,8 +279,8 @@ const couponDefs = [
         couponNumber: 14, title: "💎 Akşam Yüksek Değer Kombini (Süper Oran)",
         timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#8B5CF6', icon: '💎', badge: "💎 Yüksek Değer",
         picks: [
-            createPick(matches.defjusticia, 'opt1'), // Def. Justicia MS1 (1.96)
-            createPick(matches.bucaramanga, 'opt1'), // Atl. Nacional MS2 (1.92)
+            createPick(matches.tolima, 'opt2'),      // Tolima 2.5 ÜST (1.68)
+            createPick(matches.academico, 'opt1'),   // Academico MS1 (1.77)
             createPick(matches.wigan, 'opt1')        // Mansfield MS2 (1.82)
         ]
     },
@@ -293,8 +288,8 @@ const couponDefs = [
         couponNumber: 15, title: "🌟 Akşam Kapanış Süper Kombini",
         timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#F59E0B', icon: '🌟', badge: "🌟 Kapanış Kombini",
         picks: [
-            createPick(matches.bucaramanga, 'opt2'), // Bucaramanga 2.5 ÜST (1.67)
-            createPick(matches.concepcion, 'opt2'),  // Concepcion 2.5 ÜST (1.62)
+            createPick(matches.academico, 'opt2'),   // Academico 2.5 ÜST (1.40)
+            createPick(matches.edinburgh, 'opt2'),   // Edinburgh vs P. Thistle 2.5 ÜST (1.35)
             createPick(matches.glogow, 'opt2')       // Glogow 2.5 ÜST (1.62)
         ]
     }
