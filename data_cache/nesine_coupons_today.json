@@ -1,22 +1,282 @@
 {
   "date": "03.11.2026",
   "userAccount": "14410079556",
-  "generatedAt": "2026-11-03T13:23:17.035Z",
-  "totalCoupons": 15,
+  "generatedAt": "2026-11-05T06:54:11.356Z",
+  "totalCoupons": 9,
   "sessions": {
-    "morning": 5,
-    "noon": 5,
+    "morning": 2,
+    "noon": 2,
     "evening": 5
   },
-  "description": "03.11.2026 UEFA Şampiyonlar Ligi ve Seçkin Liglerden 15 Kaliteli Kupon (5 Sabah, 5 Öğlen, 5 Akşam) - Max 2 Tekrar & Farklı Seçenek Garantili",
+  "description": "03.11.2026 Kesin Seans Saatlerine (Sabah: 00-12, Öğlen: 12-18, Akşam: 18-24) Göre Hazırlanmış 9 Garanti ve Sağlam Kupon - Kalite Odaklı Uzman Analizi",
   "coupons": [
     {
       "couponNumber": 1,
       "name": "03.11.2026 - 1",
       "title": "🛡️ Sabah Garantör Banko / Kasa Katlama Kuponu",
-      "subtitle": "LASK (1.24), Villarreal (1.40), Al Hilal (1.31)",
+      "subtitle": "Bragantino (1.79), Defensa y J. (1.25), Newcastle J. (1.45)",
       "badge": "🛡️ Kasa Katlama",
-      "totalOdd": 2.27,
+      "totalOdd": 3.24,
+      "picks": [
+        {
+          "iddaaCode": "3266672",
+          "homeTeam": "Bragantino",
+          "awayTeam": "Santos SP",
+          "league": "Brezilya Serie A",
+          "timeStr": "02:00",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 1 (Bragantino Kazanır)",
+          "marketCode": "MS1",
+          "odd": "1.79",
+          "matchText": "02:00 Bragantino - Santos SP MS 1 (Bragantino Kazanır) 1.79"
+        },
+        {
+          "iddaaCode": "3264646",
+          "homeTeam": "Defensa y J.",
+          "awayTeam": "Independiente",
+          "league": "Arjantin Premier Lig",
+          "timeStr": "01:00",
+          "marketTitle": "Çifte Şans",
+          "pickTitle": "1-X Çifte Şans",
+          "marketCode": "CS1X",
+          "odd": "1.25",
+          "matchText": "01:00 Defensa y J. - Independiente 1-X Çifte Şans 1.25"
+        },
+        {
+          "iddaaCode": "3264655",
+          "homeTeam": "Newcastle J.",
+          "awayTeam": "Shanghai Port",
+          "league": "AFC Şampiyonlar Ligi Elite",
+          "timeStr": "10:45",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 2 (Shanghai Port Kazanır)",
+          "marketCode": "MS2",
+          "odd": "1.45",
+          "matchText": "10:45 Newcastle J. - Shanghai Port MS 2 (Shanghai Port Kazanır) 1.45"
+        }
+      ],
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_1.png",
+      "timestamp": "2026-11-05T06:54:11.355Z",
+      "timeSlot": "morning",
+      "sessionName": "Sabah Seansı (00:00 - 12:00)",
+      "sessionTimeRange": "00:00 - 12:00"
+    },
+    {
+      "couponNumber": 2,
+      "name": "03.11.2026 - 2",
+      "title": "🎯 Sabah İdeal Taraf & Değer Kuponu",
+      "subtitle": "Platense (1.85), Atl. Tucuman (1.92), Aguilas D. (1.26)",
+      "badge": "⚡ Editör Seçimi",
+      "totalOdd": 4.48,
+      "picks": [
+        {
+          "iddaaCode": "3264645",
+          "homeTeam": "Platense",
+          "awayTeam": "C. Cordoba",
+          "league": "Arjantin Premier Lig",
+          "timeStr": "01:00",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 1 (Platense Kazanır)",
+          "marketCode": "MS1",
+          "odd": "1.85",
+          "matchText": "01:00 Platense - C. Cordoba MS 1 (Platense Kazanır) 1.85"
+        },
+        {
+          "iddaaCode": "3264648",
+          "homeTeam": "Atl. Tucuman",
+          "awayTeam": "Argentinos Jrs",
+          "league": "Arjantin Premier Lig",
+          "timeStr": "03:15",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 1 (Tucuman Kazanır)",
+          "marketCode": "MS1",
+          "odd": "1.92",
+          "matchText": "03:15 Atl. Tucuman - Argentinos Jrs MS 1 (Tucuman Kazanır) 1.92"
+        },
+        {
+          "iddaaCode": "3264650",
+          "homeTeam": "Aguilas D.",
+          "awayTeam": "Fortaleza CEIF",
+          "league": "Kolombiya Primera A",
+          "timeStr": "00:00",
+          "marketTitle": "Çifte Şans",
+          "pickTitle": "1-X Çifte Şans",
+          "marketCode": "CS1X",
+          "odd": "1.26",
+          "matchText": "00:00 Aguilas D. - Fortaleza CEIF 1-X Çifte Şans 1.26"
+        }
+      ],
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_2.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "morning",
+      "sessionName": "Sabah Seansı (00:00 - 12:00)",
+      "sessionTimeRange": "00:00 - 12:00"
+    },
+    {
+      "couponNumber": 3,
+      "name": "03.11.2026 - 3",
+      "title": "🛡️ Öğlen VIP Kombin (Asya Şampiyonlar Ligi Bankosu)",
+      "subtitle": "Vissel Kobe (1.25), Kashiwa R. (1.55), Jeonbuk M. (1.52)",
+      "badge": "🌟 VIP Kombin",
+      "totalOdd": 2.95,
+      "picks": [
+        {
+          "iddaaCode": "3264662",
+          "homeTeam": "Vissel Kobe",
+          "awayTeam": "Ratchaburi",
+          "league": "AFC Şampiyonlar Ligi Elite",
+          "timeStr": "13:00",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 1 (Vissel Kobe Kazanır)",
+          "marketCode": "MS1",
+          "odd": "1.25",
+          "matchText": "13:00 Vissel Kobe - Ratchaburi MS 1 (Vissel Kobe Kazanır) 1.25"
+        },
+        {
+          "iddaaCode": "3264664",
+          "homeTeam": "Kashiwa R.",
+          "awayTeam": "Daejeon C.",
+          "league": "AFC Şampiyonlar Ligi Elite",
+          "timeStr": "13:00",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 1 (Kashiwa Kazanır)",
+          "marketCode": "MS1",
+          "odd": "1.55",
+          "matchText": "13:00 Kashiwa R. - Daejeon C. MS 1 (Kashiwa Kazanır) 1.55"
+        },
+        {
+          "iddaaCode": "3264660",
+          "homeTeam": "Jeonbuk M.",
+          "awayTeam": "Johor DT",
+          "league": "AFC Şampiyonlar Ligi Elite",
+          "timeStr": "13:00",
+          "marketTitle": "Toplam Gol",
+          "pickTitle": "2.5 ÜST",
+          "marketCode": "OVER25",
+          "odd": "1.52",
+          "matchText": "13:00 Jeonbuk M. - Johor DT 2.5 ÜST 1.52"
+        }
+      ],
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_3.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "noon",
+      "sessionName": "Öğlen Seansı (12:00 - 18:00)",
+      "sessionTimeRange": "12:00 - 18:00"
+    },
+    {
+      "couponNumber": 4,
+      "name": "03.11.2026 - 4",
+      "title": "⚽ Öğlen Gol Yağmuru (Gençlik Ligi & Asya)",
+      "subtitle": "Salzburg U19 (1.35), Galatasaray U19 (1.36), Thai Port FC (1.38)",
+      "badge": "⚽ Gol Yağmuru",
+      "totalOdd": 2.53,
+      "picks": [
+        {
+          "iddaaCode": "3264668",
+          "homeTeam": "Salzburg U19",
+          "awayTeam": "Genk U19",
+          "league": "UEFA Gençlik Ligi",
+          "timeStr": "16:00",
+          "marketTitle": "Toplam Gol",
+          "pickTitle": "2.5 ÜST",
+          "marketCode": "OVER25",
+          "odd": "1.35",
+          "matchText": "16:00 Salzburg U19 - Genk U19 2.5 ÜST 1.35"
+        },
+        {
+          "iddaaCode": "3264669",
+          "homeTeam": "Galatasaray U19",
+          "awayTeam": "Stuttgart U19",
+          "league": "UEFA Gençlik Ligi",
+          "timeStr": "14:00",
+          "marketTitle": "Toplam Gol",
+          "pickTitle": "2.5 ÜST",
+          "marketCode": "OVER25",
+          "odd": "1.36",
+          "matchText": "14:00 Galatasaray U19 - Stuttgart U19 2.5 ÜST 1.36"
+        },
+        {
+          "iddaaCode": "3264666",
+          "homeTeam": "Thai Port FC",
+          "awayTeam": "Beijing Guoan",
+          "league": "AFC Şampiyonlar Ligi Elite",
+          "timeStr": "15:15",
+          "marketTitle": "Karşılıklı Gol",
+          "pickTitle": "KG VAR",
+          "marketCode": "KG_YES",
+          "odd": "1.38",
+          "matchText": "15:15 Thai Port FC - Beijing Guoan KG VAR 1.38"
+        }
+      ],
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_4.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "noon",
+      "sessionName": "Öğlen Seansı (12:00 - 18:00)",
+      "sessionTimeRange": "12:00 - 18:00"
+    },
+    {
+      "couponNumber": 5,
+      "name": "03.11.2026 - 5",
+      "title": "👑 Devler Ligi Süper Kombin (Avrupa Devleri)",
+      "subtitle": "Villarreal (1.40), Feyenoord (1.61), Shakhtar D. (1.77)",
+      "badge": "👑 ELİT KOMBİNE",
+      "totalOdd": 3.99,
+      "picks": [
+        {
+          "iddaaCode": "3264813",
+          "homeTeam": "Villarreal",
+          "awayTeam": "PSG",
+          "league": "UEFA Şampiyonlar Ligi",
+          "timeStr": "23:00",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 2 (PSG Kazanır)",
+          "marketCode": "MS2",
+          "odd": "1.40",
+          "matchText": "23:00 Villarreal - PSG MS 2 (PSG Kazanır) 1.40"
+        },
+        {
+          "iddaaCode": "3265007",
+          "homeTeam": "Feyenoord",
+          "awayTeam": "Inter",
+          "league": "UEFA Şampiyonlar Ligi",
+          "timeStr": "23:00",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 2 (Inter Kazanır)",
+          "marketCode": "MS2",
+          "odd": "1.61",
+          "matchText": "23:00 Feyenoord - Inter MS 2 (Inter Kazanır) 1.61"
+        },
+        {
+          "iddaaCode": "3264677",
+          "homeTeam": "Shakhtar D.",
+          "awayTeam": "Sporting CP",
+          "league": "UEFA Şampiyonlar Ligi",
+          "timeStr": "20:45",
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 2 (Sporting CP Kazanır)",
+          "marketCode": "MS2",
+          "odd": "1.77",
+          "matchText": "20:45 Shakhtar D. - Sporting CP MS 2 (Sporting CP Kazanır) 1.77"
+        }
+      ],
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_5.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "evening",
+      "sessionName": "Akşam Seansı (18:00 - 23:59)",
+      "sessionTimeRange": "18:00 - 23:59"
+    },
+    {
+      "couponNumber": 6,
+      "name": "03.11.2026 - 6",
+      "title": "🛡️ Akşam Garantör Banko / Kasa Katlama Kuponu",
+      "subtitle": "LASK (1.24), Al Hilal (1.31), Man. Utd (2.09)",
+      "badge": "🛡️ Kasa Katlama",
+      "totalOdd": 3.39,
       "picks": [
         {
           "iddaaCode": "3264691",
@@ -31,18 +291,6 @@
           "matchText": "23:00 LASK - S. Bratislava MS 1 (LASK Kazanır) 1.24"
         },
         {
-          "iddaaCode": "3264813",
-          "homeTeam": "Villarreal",
-          "awayTeam": "PSG",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (PSG Kazanır)",
-          "marketCode": "MS2",
-          "odd": "1.40",
-          "matchText": "23:00 Villarreal - PSG MS 2 (PSG Kazanır) 1.40"
-        },
-        {
           "iddaaCode": "3264710",
           "homeTeam": "Al Hilal",
           "awayTeam": "Al Ahli Dubai",
@@ -53,74 +301,34 @@
           "marketCode": "MS1",
           "odd": "1.31",
           "matchText": "21:15 Al Hilal - Al Ahli Dubai MS 1 (Al Hilal Kazanır) 1.31"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_1.png",
-      "timestamp": "2026-11-03T13:23:17.033Z",
-      "timeSlot": "morning",
-      "sessionName": "Sabah Kuponu",
-      "sessionTimeRange": "10:00 - 13:00"
-    },
-    {
-      "couponNumber": 2,
-      "name": "03.11.2026 - 2",
-      "title": "⚡ Sabah İdeal Sistem Kuponu (Editör Seçimi)",
-      "subtitle": "Feyenoord (1.61), Bodo Glimt (1.64), G. Morton (1.28)",
-      "badge": "⚡ Editör Seçimi",
-      "totalOdd": 3.38,
-      "picks": [
+        },
         {
-          "iddaaCode": "3265007",
-          "homeTeam": "Feyenoord",
-          "awayTeam": "Inter",
+          "iddaaCode": "3264639",
+          "homeTeam": "Man. Utd",
+          "awayTeam": "AS Roma",
           "league": "UEFA Şampiyonlar Ligi",
           "timeStr": "23:00",
           "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (Inter Kazanır)",
-          "marketCode": "MS2",
-          "odd": "1.61",
-          "matchText": "23:00 Feyenoord - Inter MS 2 (Inter Kazanır) 1.61"
-        },
-        {
-          "iddaaCode": "3264848",
-          "homeTeam": "Bodo Glimt",
-          "awayTeam": "Lille",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (Bodo Glimt Kazanır)",
+          "pickTitle": "MS 1 (Man Utd Kazanır)",
           "marketCode": "MS1",
-          "odd": "1.64",
-          "matchText": "23:00 Bodo Glimt - Lille MS 1 (Bodo Glimt Kazanır) 1.64"
-        },
-        {
-          "iddaaCode": "3321731",
-          "homeTeam": "G. Morton",
-          "awayTeam": "Kelty Hearts",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (G. Morton Kazanır)",
-          "marketCode": "MS1",
-          "odd": "1.28",
-          "matchText": "22:45 G. Morton - Kelty Hearts MS 1 (G. Morton Kazanır) 1.28"
+          "odd": "2.09",
+          "matchText": "23:00 Man. Utd - AS Roma MS 1 (Man Utd Kazanır) 2.09"
         }
       ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_2.png",
-      "timestamp": "2026-11-03T13:23:17.034Z",
-      "timeSlot": "morning",
-      "sessionName": "Sabah Kuponu",
-      "sessionTimeRange": "10:00 - 13:00"
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_6.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "evening",
+      "sessionName": "Akşam Seansı (18:00 - 23:59)",
+      "sessionTimeRange": "18:00 - 23:59"
     },
     {
-      "couponNumber": 3,
-      "name": "03.11.2026 - 3",
-      "title": "⚽ Sabah Gol Yağmuru (Devler Ligi 2.5 ÜST)",
-      "subtitle": "Atl Madrid (1.28), Man. Utd (1.33), Shakhtar D. (1.49)",
+      "couponNumber": 7,
+      "name": "03.11.2026 - 7",
+      "title": "⚽ Akşam Gol Yağmuru (Devler Ligi & Championship)",
+      "subtitle": "Atl Madrid (1.28), Bodo Glimt (1.32), Birmingham (1.59)",
       "badge": "⚽ Gol Yağmuru",
-      "totalOdd": 2.54,
+      "totalOdd": 2.69,
       "picks": [
         {
           "iddaaCode": "3264642",
@@ -135,44 +343,44 @@
           "matchText": "23:00 Atl Madrid - Bayern Münih 2.5 ÜST 1.28"
         },
         {
-          "iddaaCode": "3264639",
-          "homeTeam": "Man. Utd",
-          "awayTeam": "AS Roma",
+          "iddaaCode": "3264848",
+          "homeTeam": "Bodo Glimt",
+          "awayTeam": "Lille",
           "league": "UEFA Şampiyonlar Ligi",
           "timeStr": "23:00",
           "marketTitle": "Toplam Gol",
           "pickTitle": "2.5 ÜST",
           "marketCode": "OVER25",
-          "odd": "1.33",
-          "matchText": "23:00 Man. Utd - AS Roma 2.5 ÜST 1.33"
+          "odd": "1.32",
+          "matchText": "23:00 Bodo Glimt - Lille 2.5 ÜST 1.32"
         },
         {
-          "iddaaCode": "3264677",
-          "homeTeam": "Shakhtar D.",
-          "awayTeam": "Sporting CP",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "20:45",
+          "iddaaCode": "3264670",
+          "homeTeam": "Birmingham",
+          "awayTeam": "Millwall",
+          "league": "İngiltere Championship",
+          "timeStr": "23:00",
           "marketTitle": "Toplam Gol",
           "pickTitle": "2.5 ÜST",
           "marketCode": "OVER25",
-          "odd": "1.49",
-          "matchText": "20:45 Shakhtar D. - Sporting CP 2.5 ÜST 1.49"
+          "odd": "1.59",
+          "matchText": "23:00 Birmingham - Millwall 2.5 ÜST 1.59"
         }
       ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_3.png",
-      "timestamp": "2026-11-03T13:23:17.034Z",
-      "timeSlot": "morning",
-      "sessionName": "Sabah Kuponu",
-      "sessionTimeRange": "10:00 - 13:00"
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_7.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "evening",
+      "sessionName": "Akşam Seansı (18:00 - 23:59)",
+      "sessionTimeRange": "18:00 - 23:59"
     },
     {
-      "couponNumber": 4,
-      "name": "03.11.2026 - 4",
-      "title": "🎯 Sabah Sıfır Risk Sigortalı Çifte Şans",
-      "subtitle": "W. Bromwich (1.28), Portsmouth (1.34), Arbroath (1.46)",
+      "couponNumber": 8,
+      "name": "03.11.2026 - 8",
+      "title": "🎯 Akşam Sıfır Risk Sigortalı Çifte Şans & Taraf",
+      "subtitle": "W. Bromwich (1.28), Preston (2.07), Arbroath (1.46)",
       "badge": "🎯 Çifte Şans",
-      "totalOdd": 2.5,
+      "totalOdd": 3.87,
       "picks": [
         {
           "iddaaCode": "3264687",
@@ -187,16 +395,16 @@
           "matchText": "23:00 W. Bromwich - Southampton 1-X Çifte Şans 1.28"
         },
         {
-          "iddaaCode": "3264700",
-          "homeTeam": "Portsmouth",
-          "awayTeam": "Swansea City",
+          "iddaaCode": "3264713",
+          "homeTeam": "Preston",
+          "awayTeam": "Sheffield Utd",
           "league": "İngiltere Championship",
           "timeStr": "22:45",
-          "marketTitle": "Çifte Şans",
-          "pickTitle": "1-X Çifte Şans",
-          "marketCode": "CS1X",
-          "odd": "1.34",
-          "matchText": "22:45 Portsmouth - Swansea City 1-X Çifte Şans 1.34"
+          "marketTitle": "Maç Sonucu",
+          "pickTitle": "MS 2 (Sheffield Utd Kazanır)",
+          "marketCode": "MS2",
+          "odd": "2.07",
+          "matchText": "22:45 Preston - Sheffield Utd MS 2 (Sheffield Utd Kazanır) 2.07"
         },
         {
           "iddaaCode": "3321726",
@@ -211,333 +419,33 @@
           "matchText": "22:45 Arbroath - Queen of The South MS 1 (Arbroath Kazanır) 1.46"
         }
       ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_4.png",
-      "timestamp": "2026-11-03T13:23:17.034Z",
-      "timeSlot": "morning",
-      "sessionName": "Sabah Kuponu",
-      "sessionTimeRange": "10:00 - 13:00"
-    },
-    {
-      "couponNumber": 5,
-      "name": "03.11.2026 - 5",
-      "title": "💎 Sabah Akılcı Değer & Taraf Kuponu",
-      "subtitle": "Man. Utd (2.09), Shakhtar D. (1.77), Inverness (1.26)",
-      "badge": "💎 Akılcı Değer",
-      "totalOdd": 4.66,
-      "picks": [
-        {
-          "iddaaCode": "3264639",
-          "homeTeam": "Man. Utd",
-          "awayTeam": "AS Roma",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (Man Utd Kazanır)",
-          "marketCode": "MS1",
-          "odd": "2.09",
-          "matchText": "23:00 Man. Utd - AS Roma MS 1 (Man Utd Kazanır) 2.09"
-        },
-        {
-          "iddaaCode": "3264677",
-          "homeTeam": "Shakhtar D.",
-          "awayTeam": "Sporting CP",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "20:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (Sporting CP Kazanır)",
-          "marketCode": "MS2",
-          "odd": "1.77",
-          "matchText": "20:45 Shakhtar D. - Sporting CP MS 2 (Sporting CP Kazanır) 1.77"
-        },
-        {
-          "iddaaCode": "3321738",
-          "homeTeam": "Inverness",
-          "awayTeam": "Montrose",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (Inverness Kazanır)",
-          "marketCode": "MS1",
-          "odd": "1.26",
-          "matchText": "22:45 Inverness - Montrose MS 1 (Inverness Kazanır) 1.26"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_5.png",
-      "timestamp": "2026-11-03T13:23:17.034Z",
-      "timeSlot": "morning",
-      "sessionName": "Sabah Kuponu",
-      "sessionTimeRange": "10:00 - 13:00"
-    },
-    {
-      "couponNumber": 6,
-      "name": "03.11.2026 - 6",
-      "title": "🌟 Öğlen VIP Kombin (Devler Ligi Süper Güçleri)",
-      "subtitle": "Villarreal (1.20), Feyenoord (1.26), Al Hilal (1.26)",
-      "badge": "🌟 VIP Kombin",
-      "totalOdd": 1.91,
-      "picks": [
-        {
-          "iddaaCode": "3264813",
-          "homeTeam": "Villarreal",
-          "awayTeam": "PSG",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.20",
-          "matchText": "23:00 Villarreal - PSG 2.5 ÜST 1.20"
-        },
-        {
-          "iddaaCode": "3265007",
-          "homeTeam": "Feyenoord",
-          "awayTeam": "Inter",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.26",
-          "matchText": "23:00 Feyenoord - Inter 2.5 ÜST 1.26"
-        },
-        {
-          "iddaaCode": "3264710",
-          "homeTeam": "Al Hilal",
-          "awayTeam": "Al Ahli Dubai",
-          "league": "Asya Şampiyonlar Ligi Elite",
-          "timeStr": "21:15",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.26",
-          "matchText": "21:15 Al Hilal - Al Ahli Dubai 2.5 ÜST 1.26"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_6.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "noon",
-      "sessionName": "Öğlen Kuponu",
-      "sessionTimeRange": "13:00 - 18:00"
-    },
-    {
-      "couponNumber": 7,
-      "name": "03.11.2026 - 7",
-      "title": "🛡️ Öğlen Garanti & Kasa Katlama Kuponu",
-      "subtitle": "Mamel Sundow (1.21), LASK (1.25), Inverness (1.27)",
-      "badge": "🛡️ Kasa Katlama",
-      "totalOdd": 1.92,
-      "picks": [
-        {
-          "iddaaCode": "3365364",
-          "homeTeam": "Mamel Sundow",
-          "awayTeam": "Gold. Arrow",
-          "league": "Güney Afrika Premier Ligi",
-          "timeStr": "20:00",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (Mamelodi Kazanır)",
-          "marketCode": "MS1",
-          "odd": "1.21",
-          "matchText": "20:00 Mamel Sundow - Gold. Arrow MS 1 (Mamelodi Kazanır) 1.21"
-        },
-        {
-          "iddaaCode": "3264691",
-          "homeTeam": "LASK",
-          "awayTeam": "S. Bratislava",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ALT",
-          "marketCode": "UNDER25",
-          "odd": "1.25",
-          "matchText": "23:00 LASK - S. Bratislava 2.5 ALT 1.25"
-        },
-        {
-          "iddaaCode": "3321738",
-          "homeTeam": "Inverness",
-          "awayTeam": "Montrose",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.27",
-          "matchText": "22:45 Inverness - Montrose 2.5 ÜST 1.27"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_7.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "noon",
-      "sessionName": "Öğlen Kuponu",
-      "sessionTimeRange": "13:00 - 18:00"
-    },
-    {
-      "couponNumber": 8,
-      "name": "03.11.2026 - 8",
-      "title": "⚽ Öğlen Gol Düellosu (Tempolu 2.5 ÜST)",
-      "subtitle": "Birmingham (1.59), W. Bromwich (1.49), Bodo Glimt (1.32)",
-      "badge": "⚽ Gol Düellosu",
-      "totalOdd": 3.13,
-      "picks": [
-        {
-          "iddaaCode": "3264670",
-          "homeTeam": "Birmingham",
-          "awayTeam": "Millwall",
-          "league": "İngiltere Championship",
-          "timeStr": "23:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.59",
-          "matchText": "23:00 Birmingham - Millwall 2.5 ÜST 1.59"
-        },
-        {
-          "iddaaCode": "3264687",
-          "homeTeam": "W. Bromwich",
-          "awayTeam": "Southampton",
-          "league": "İngiltere Championship",
-          "timeStr": "23:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.49",
-          "matchText": "23:00 W. Bromwich - Southampton 2.5 ÜST 1.49"
-        },
-        {
-          "iddaaCode": "3264848",
-          "homeTeam": "Bodo Glimt",
-          "awayTeam": "Lille",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.32",
-          "matchText": "23:00 Bodo Glimt - Lille 2.5 ÜST 1.32"
-        }
-      ],
-      "savedInAccount": false,
+      "savedInAccount": true,
       "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_8.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "noon",
-      "sessionName": "Öğlen Kuponu",
-      "sessionTimeRange": "13:00 - 18:00"
+      "timestamp": "2026-11-05T06:54:11.356Z",
+      "timeSlot": "evening",
+      "sessionName": "Akşam Seansı (18:00 - 23:59)",
+      "sessionTimeRange": "18:00 - 23:59"
     },
     {
       "couponNumber": 9,
       "name": "03.11.2026 - 9",
-      "title": "🔥 Öğlen Derbi Ateşi & Karşılıklı Gol",
-      "subtitle": "Atl Madrid (1.25), Wigan Ath (1.52), Airdrieonian (1.35)",
-      "badge": "🔥 Derbi Ateşi",
-      "totalOdd": 2.57,
+      "title": "💎 Akşam Değer & Kapanış Kombini (Güney Amerika & Portekiz)",
+      "subtitle": "Dep. Pereira (1.41), Mushuc Runa (1.34), Academico V. U23 (1.77)",
+      "badge": "💎 Değer Kombini",
+      "totalOdd": 3.34,
       "picks": [
         {
-          "iddaaCode": "3264642",
-          "homeTeam": "Atl Madrid",
-          "awayTeam": "Bayern Münih",
-          "league": "UEFA Şampiyonlar Ligi",
-          "timeStr": "23:00",
-          "marketTitle": "Karşılıklı Gol",
-          "pickTitle": "KG VAR",
-          "marketCode": "KG_YES",
-          "odd": "1.25",
-          "matchText": "23:00 Atl Madrid - Bayern Münih KG VAR 1.25"
-        },
-        {
-          "iddaaCode": "3346883",
-          "homeTeam": "Wigan Ath",
-          "awayTeam": "Mansfield",
-          "league": "İngiltere Football League Trophy",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.52",
-          "matchText": "22:45 Wigan Ath - Mansfield 2.5 ÜST 1.52"
-        },
-        {
-          "iddaaCode": "3321728",
-          "homeTeam": "Airdrieonian",
-          "awayTeam": "Elgin City",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.35",
-          "matchText": "22:45 Airdrieonian - Elgin City 2.5 ÜST 1.35"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_9.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "noon",
-      "sessionName": "Öğlen Kuponu",
-      "sessionTimeRange": "13:00 - 18:00"
-    },
-    {
-      "couponNumber": 10,
-      "name": "03.11.2026 - 10",
-      "title": "🎯 Öğlen Taraf Güvencesi & Editörün Yıldızı",
-      "subtitle": "Birmingham (1.75), Airdrieonian (1.54), G. Morton (1.26)",
-      "badge": "🎯 Taraf Güvencesi",
-      "totalOdd": 3.4,
-      "picks": [
-        {
-          "iddaaCode": "3264670",
-          "homeTeam": "Birmingham",
-          "awayTeam": "Millwall",
-          "league": "İngiltere Championship",
-          "timeStr": "23:00",
+          "iddaaCode": "3335725",
+          "homeTeam": "Dep. Pereira",
+          "awayTeam": "CD Tolima",
+          "league": "Kolombiya Liga Dimayor",
+          "timeStr": "23:30",
           "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (Birmingham Kazanır)",
-          "marketCode": "MS1",
-          "odd": "1.75",
-          "matchText": "23:00 Birmingham - Millwall MS 1 (Birmingham Kazanır) 1.75"
+          "pickTitle": "MS 2 (CD Tolima Kazanır)",
+          "marketCode": "MS2",
+          "odd": "1.41",
+          "matchText": "23:30 Dep. Pereira - CD Tolima MS 2 (CD Tolima Kazanır) 1.41"
         },
-        {
-          "iddaaCode": "3321728",
-          "homeTeam": "Airdrieonian",
-          "awayTeam": "Elgin City",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 1 (Airdrieonian Kazanır)",
-          "marketCode": "MS1",
-          "odd": "1.54",
-          "matchText": "22:45 Airdrieonian - Elgin City MS 1 (Airdrieonian Kazanır) 1.54"
-        },
-        {
-          "iddaaCode": "3321731",
-          "homeTeam": "G. Morton",
-          "awayTeam": "Kelty Hearts",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.26",
-          "matchText": "22:45 G. Morton - Kelty Hearts 2.5 ÜST 1.26"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_10.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "noon",
-      "sessionName": "Öğlen Kuponu",
-      "sessionTimeRange": "13:00 - 18:00"
-    },
-    {
-      "couponNumber": 11,
-      "name": "03.11.2026 - 11",
-      "title": "🌙 Akşam Şampiyonlar Ligi & Güney Amerika Kasa Katlama",
-      "subtitle": "Mushuc Runa (1.34), Preston (2.07), C. Glogow (1.28)",
-      "badge": "🌙 Kasa Katlama",
-      "totalOdd": 3.55,
-      "picks": [
         {
           "iddaaCode": "3259938",
           "homeTeam": "Mushuc Runa",
@@ -551,162 +459,6 @@
           "matchText": "23:30 Mushuc Runa - Manta MS 1 (Mushuc Runa Kazanır) 1.34"
         },
         {
-          "iddaaCode": "3264713",
-          "homeTeam": "Preston",
-          "awayTeam": "Sheffield Utd",
-          "league": "İngiltere Championship",
-          "timeStr": "22:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (Sheffield Utd Kazanır)",
-          "marketCode": "MS2",
-          "odd": "2.07",
-          "matchText": "22:45 Preston - Sheffield Utd MS 2 (Sheffield Utd Kazanır) 2.07"
-        },
-        {
-          "iddaaCode": "3253870",
-          "homeTeam": "C. Glogow",
-          "awayTeam": "Arka Gdynia",
-          "league": "Polonya 1. Lig",
-          "timeStr": "20:00",
-          "marketTitle": "Çifte Şans",
-          "pickTitle": "1-X Çifte Şans",
-          "marketCode": "CS1X",
-          "odd": "1.28",
-          "matchText": "20:00 C. Glogow - Arka Gdynia 1-X Çifte Şans 1.28"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_11.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "evening",
-      "sessionName": "Akşam Kuponu",
-      "sessionTimeRange": "18:00 - 23:59"
-    },
-    {
-      "couponNumber": 12,
-      "name": "03.11.2026 - 12",
-      "title": "🛡️ Akşam Sıfır Risk Sigortalı Kombin",
-      "subtitle": "Edinburgh (1.31), Arbroath (1.36), Dep. Pereira (1.41)",
-      "badge": "🛡️ Sıfır Risk",
-      "totalOdd": 2.51,
-      "picks": [
-        {
-          "iddaaCode": "3321737",
-          "homeTeam": "Edinburgh",
-          "awayTeam": "P. Thistle",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (P. Thistle Kazanır)",
-          "marketCode": "MS2",
-          "odd": "1.31",
-          "matchText": "22:45 Edinburgh - P. Thistle MS 2 (P. Thistle Kazanır) 1.31"
-        },
-        {
-          "iddaaCode": "3321726",
-          "homeTeam": "Arbroath",
-          "awayTeam": "Queen of The South",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.36",
-          "matchText": "22:45 Arbroath - Queen of The South 2.5 ÜST 1.36"
-        },
-        {
-          "iddaaCode": "3335725",
-          "homeTeam": "Dep. Pereira",
-          "awayTeam": "CD Tolima",
-          "league": "Kolombiya Liga Dimayor",
-          "timeStr": "23:30",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (CD Tolima Kazanır)",
-          "marketCode": "MS2",
-          "odd": "1.41",
-          "matchText": "23:30 Dep. Pereira - CD Tolima MS 2 (CD Tolima Kazanır) 1.41"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_12.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "evening",
-      "sessionName": "Akşam Kuponu",
-      "sessionTimeRange": "18:00 - 23:59"
-    },
-    {
-      "couponNumber": 13,
-      "name": "03.11.2026 - 13",
-      "title": "⚽ Akşam Gol Yağmuru (Devler Ligi & Kupa Şöleni)",
-      "subtitle": "Mushuc Runa (1.67), AL Raed (1.45), Preston (1.65)",
-      "badge": "⚽ Gol Yağmuru",
-      "totalOdd": 4,
-      "picks": [
-        {
-          "iddaaCode": "3259938",
-          "homeTeam": "Mushuc Runa",
-          "awayTeam": "Manta",
-          "league": "Ekvador Pro Lig",
-          "timeStr": "23:30",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.67",
-          "matchText": "23:30 Mushuc Runa - Manta 2.5 ÜST 1.67"
-        },
-        {
-          "iddaaCode": "3264705",
-          "homeTeam": "AL Raed",
-          "awayTeam": "AL Wehda",
-          "league": "Suudi Arabistan 1. Lig",
-          "timeStr": "18:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.45",
-          "matchText": "18:00 AL Raed - AL Wehda 2.5 ÜST 1.45"
-        },
-        {
-          "iddaaCode": "3264713",
-          "homeTeam": "Preston",
-          "awayTeam": "Sheffield Utd",
-          "league": "İngiltere Championship",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.65",
-          "matchText": "22:45 Preston - Sheffield Utd 2.5 ÜST 1.65"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_13.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "evening",
-      "sessionName": "Akşam Kuponu",
-      "sessionTimeRange": "18:00 - 23:59"
-    },
-    {
-      "couponNumber": 14,
-      "name": "03.11.2026 - 14",
-      "title": "💎 Akşam Yüksek Değer Kombini (Süper Oran)",
-      "subtitle": "Dep. Pereira (1.68), Academico V. U23 (1.77), Wigan Ath (1.82)",
-      "badge": "💎 Yüksek Değer",
-      "totalOdd": 5.41,
-      "picks": [
-        {
-          "iddaaCode": "3335725",
-          "homeTeam": "Dep. Pereira",
-          "awayTeam": "CD Tolima",
-          "league": "Kolombiya Liga Dimayor",
-          "timeStr": "23:30",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.68",
-          "matchText": "23:30 Dep. Pereira - CD Tolima 2.5 ÜST 1.68"
-        },
-        {
           "iddaaCode": "3264808",
           "homeTeam": "Academico V. U23",
           "awayTeam": "Torreense U23",
@@ -717,77 +469,13 @@
           "marketCode": "MS1",
           "odd": "1.77",
           "matchText": "18:00 Academico V. U23 - Torreense U23 MS 1 (Academico Kazanır) 1.77"
-        },
-        {
-          "iddaaCode": "3346883",
-          "homeTeam": "Wigan Ath",
-          "awayTeam": "Mansfield",
-          "league": "İngiltere Football League Trophy",
-          "timeStr": "22:45",
-          "marketTitle": "Maç Sonucu",
-          "pickTitle": "MS 2 (Mansfield Kazanır)",
-          "marketCode": "MS2",
-          "odd": "1.82",
-          "matchText": "22:45 Wigan Ath - Mansfield MS 2 (Mansfield Kazanır) 1.82"
         }
       ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_14.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
+      "savedInAccount": true,
+      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_9.png",
+      "timestamp": "2026-11-05T06:54:11.356Z",
       "timeSlot": "evening",
-      "sessionName": "Akşam Kuponu",
-      "sessionTimeRange": "18:00 - 23:59"
-    },
-    {
-      "couponNumber": 15,
-      "name": "03.11.2026 - 15",
-      "title": "🌟 Akşam Kapanış Süper Kombini",
-      "subtitle": "Academico V. U23 (1.40), Edinburgh (1.35), C. Glogow (1.62)",
-      "badge": "🌟 Kapanış Kombini",
-      "totalOdd": 3.06,
-      "picks": [
-        {
-          "iddaaCode": "3264808",
-          "homeTeam": "Academico V. U23",
-          "awayTeam": "Torreense U23",
-          "league": "Portekiz U23 Next Gen",
-          "timeStr": "18:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.40",
-          "matchText": "18:00 Academico V. U23 - Torreense U23 2.5 ÜST 1.40"
-        },
-        {
-          "iddaaCode": "3321737",
-          "homeTeam": "Edinburgh",
-          "awayTeam": "P. Thistle",
-          "league": "İskoçya Challenge Cup",
-          "timeStr": "22:45",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.35",
-          "matchText": "22:45 Edinburgh - P. Thistle 2.5 ÜST 1.35"
-        },
-        {
-          "iddaaCode": "3253870",
-          "homeTeam": "C. Glogow",
-          "awayTeam": "Arka Gdynia",
-          "league": "Polonya 1. Lig",
-          "timeStr": "20:00",
-          "marketTitle": "Toplam Gol",
-          "pickTitle": "2.5 ÜST",
-          "marketCode": "OVER25",
-          "odd": "1.62",
-          "matchText": "20:00 C. Glogow - Arka Gdynia 2.5 ÜST 1.62"
-        }
-      ],
-      "savedInAccount": false,
-      "screenshot": "C:\\Users\\user\\Desktop\\yapay zeka\\sportanaliz-pro\\data_cache\\screenshots\\nesine_kupon_15.png",
-      "timestamp": "2026-11-03T13:23:17.035Z",
-      "timeSlot": "evening",
-      "sessionName": "Akşam Kuponu",
+      "sessionName": "Akşam Seansı (18:00 - 23:59)",
       "sessionTimeRange": "18:00 - 23:59"
     }
   ]

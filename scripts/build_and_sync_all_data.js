@@ -55,7 +55,7 @@ async function main() {
     let fullCoupons = [];
     if (HistoricalCouponsService && typeof HistoricalCouponsService.getCouponsByDate === 'function') {
         const histCoupons = HistoricalCouponsService.getCouponsByDate(todayIso);
-        if (histCoupons && histCoupons.length >= 10) {
+        if (histCoupons && histCoupons.length >= 5) {
             fullCoupons = histCoupons;
             console.log(`✅ ${fullCoupons.length} adet otantik seans kuponu (Sabah/Öğlen/Akşam) yüklendi.`);
         }

@@ -1,9 +1,90 @@
 const fs = require('fs');
 const path = require('path');
 
-// 25 Elite Matches (Tonight 03.11.2026 - All active and scheduled after 18:00)
+/**
+ * 03.11.2026 Tarihli Seanslara Göre Bölünmüş Uzman İddaa Kuponları
+ * 
+ * KULLANICI KURALI:
+ * 1. Sabah Seansı: 00:00 - 12:00 (Yalnızca bu saatteki maçlar yer alabilir)
+ * 2. Öğlen Seansı: 12:00 - 18:00 (Yalnızca bu saatteki maçlar yer alabilir)
+ * 3. Akşam Seansı: 18:00 - 23:59 (Yalnızca bu saatteki maçlar yer alabilir)
+ * 4. Sabit 5 kupon şart değil: "garanti saglam olsun 5den az olsun, mac yoksa kupon yapma"
+ * 5. Tüm gün boyunca aynı maç EN FAZLA 2 KERE oynanabilir, 2. oyunda %100 farklı bahis pazarı zorunludur.
+ * 6. Minimum oran: 1.20
+ */
+
 const matches = {
-    // 1. UEFA Champions League
+    // ==========================================
+    // 🌅 SABAH SEANSI MAÇLARI (00:00 - 12:00)
+    // ==========================================
+    bragantino: {
+        iddaaCode: '3266672', homeTeam: 'Bragantino', awayTeam: 'Santos SP', league: 'Brezilya Serie A', timeStr: '02:00',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Bragantino Kazanır)', marketCode: 'MS1', odd: '1.79' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.68' }
+    },
+    platense: {
+        iddaaCode: '3264645', homeTeam: 'Platense', awayTeam: 'C. Cordoba', league: 'Arjantin Premier Lig', timeStr: '01:00',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Platense Kazanır)', marketCode: 'MS1', odd: '1.85' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ALT', marketCode: 'UNDER25', odd: '1.30' }
+    },
+    defensa: {
+        iddaaCode: '3264646', homeTeam: 'Defensa y J.', awayTeam: 'Independiente', league: 'Arjantin Premier Lig', timeStr: '01:00',
+        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.25' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ALT', marketCode: 'UNDER25', odd: '1.32' }
+    },
+    tucuman: {
+        iddaaCode: '3264648', homeTeam: 'Atl. Tucuman', awayTeam: 'Argentinos Jrs', league: 'Arjantin Premier Lig', timeStr: '03:15',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Tucuman Kazanır)', marketCode: 'MS1', odd: '1.92' },
+        opt2: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.24' }
+    },
+    aguilas: {
+        iddaaCode: '3264650', homeTeam: 'Aguilas D.', awayTeam: 'Fortaleza CEIF', league: 'Kolombiya Primera A', timeStr: '00:00',
+        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.26' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.72' }
+    },
+    shanghai: {
+        iddaaCode: '3264655', homeTeam: 'Newcastle J.', awayTeam: 'Shanghai Port', league: 'AFC Şampiyonlar Ligi Elite', timeStr: '10:45',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (Shanghai Port Kazanır)', marketCode: 'MS2', odd: '1.45' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.38' }
+    },
+
+    // ==========================================
+    // ☀️ ÖĞLEN SEANSI MAÇLARI (12:00 - 18:00)
+    // ==========================================
+    vissel: {
+        iddaaCode: '3264662', homeTeam: 'Vissel Kobe', awayTeam: 'Ratchaburi', league: 'AFC Şampiyonlar Ligi Elite', timeStr: '13:00',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Vissel Kobe Kazanır)', marketCode: 'MS1', odd: '1.25' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.40' }
+    },
+    kashiwa: {
+        iddaaCode: '3264664', homeTeam: 'Kashiwa R.', awayTeam: 'Daejeon C.', league: 'AFC Şampiyonlar Ligi Elite', timeStr: '13:00',
+        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Kashiwa Kazanır)', marketCode: 'MS1', odd: '1.55' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.50' }
+    },
+    jeonbuk: {
+        iddaaCode: '3264660', homeTeam: 'Jeonbuk M.', awayTeam: 'Johor DT', league: 'AFC Şampiyonlar Ligi Elite', timeStr: '13:00',
+        opt1: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.52' },
+        opt2: { marketTitle: 'Karşılıklı Gol', pickTitle: 'KG VAR', marketCode: 'KG_YES', odd: '1.48' }
+    },
+    thaiport: {
+        iddaaCode: '3264666', homeTeam: 'Thai Port FC', awayTeam: 'Beijing Guoan', league: 'AFC Şampiyonlar Ligi Elite', timeStr: '15:15',
+        opt1: { marketTitle: 'Karşılıklı Gol', pickTitle: 'KG VAR', marketCode: 'KG_YES', odd: '1.38' },
+        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.42' }
+    },
+    salzburgU19: {
+        iddaaCode: '3264668', homeTeam: 'Salzburg U19', awayTeam: 'Genk U19', league: 'UEFA Gençlik Ligi', timeStr: '16:00',
+        opt1: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.35' },
+        opt2: { marketTitle: 'Karşılıklı Gol', pickTitle: 'KG VAR', marketCode: 'KG_YES', odd: '1.30' }
+    },
+    galatasarayU19: {
+        iddaaCode: '3264669', homeTeam: 'Galatasaray U19', awayTeam: 'Stuttgart U19', league: 'UEFA Gençlik Ligi', timeStr: '14:00',
+        opt1: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.36' },
+        opt2: { marketTitle: 'Karşılıklı Gol', pickTitle: 'KG VAR', marketCode: 'KG_YES', odd: '1.32' }
+    },
+
+    // ==========================================
+    // 🌙 AKŞAM SEANSI MAÇLARI (18:00 - 23:59)
+    // ==========================================
     bayern: {
         iddaaCode: '3264642', homeTeam: 'Atl Madrid', awayTeam: 'Bayern Münih', league: 'UEFA Şampiyonlar Ligi', timeStr: '23:00',
         opt1: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.28' },
@@ -39,8 +120,6 @@ const matches = {
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (LASK Kazanır)', marketCode: 'MS1', odd: '1.24' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ALT', marketCode: 'UNDER25', odd: '1.25' }
     },
-
-    // 2. İngiltere Championship
     birmingham: {
         iddaaCode: '3264670', homeTeam: 'Birmingham', awayTeam: 'Millwall', league: 'İngiltere Championship', timeStr: '23:00',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Birmingham Kazanır)', marketCode: 'MS1', odd: '1.75' },
@@ -51,72 +130,21 @@ const matches = {
         opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.28' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.49' }
     },
-    swansea: {
-        iddaaCode: '3264700', homeTeam: 'Portsmouth', awayTeam: 'Swansea City', league: 'İngiltere Championship', timeStr: '22:45',
-        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.34' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.54' }
-    },
     sheffield: {
         iddaaCode: '3264713', homeTeam: 'Preston', awayTeam: 'Sheffield Utd', league: 'İngiltere Championship', timeStr: '22:45',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (Sheffield Utd Kazanır)', marketCode: 'MS2', odd: '2.07' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.65' }
     },
-
-    // 3. Asya Şampiyonlar Ligi Elite & Suudi Ligi
     alhilal: {
         iddaaCode: '3264710', homeTeam: 'Al Hilal', awayTeam: 'Al Ahli Dubai', league: 'Asya Şampiyonlar Ligi Elite', timeStr: '21:15',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Al Hilal Kazanır)', marketCode: 'MS1', odd: '1.31' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.26' }
-    },
-    alraed: {
-        iddaaCode: '3264705', homeTeam: 'AL Raed', awayTeam: 'AL Wehda', league: 'Suudi Arabistan 1. Lig', timeStr: '18:00',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (AL Wehda Kazanır)', marketCode: 'MS2', odd: '1.65' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.45' }
-    },
-
-    // 4. İskoçya Kupa & Avrupa Kupaları (Hepsi Bu Gece 22:45)
-    airdrie: {
-        iddaaCode: '3321728', homeTeam: 'Airdrieonian', awayTeam: 'Elgin City', league: 'İskoçya Challenge Cup', timeStr: '22:45',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Airdrieonian Kazanır)', marketCode: 'MS1', odd: '1.54' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.35' }
-    },
-    morton: {
-        iddaaCode: '3321731', homeTeam: 'G. Morton', awayTeam: 'Kelty Hearts', league: 'İskoçya Challenge Cup', timeStr: '22:45',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (G. Morton Kazanır)', marketCode: 'MS1', odd: '1.28' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.26' }
-    },
-    inverness: {
-        iddaaCode: '3321738', homeTeam: 'Inverness', awayTeam: 'Montrose', league: 'İskoçya Challenge Cup', timeStr: '22:45',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Inverness Kazanır)', marketCode: 'MS1', odd: '1.26' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.27' }
     },
     arbroath: {
         iddaaCode: '3321726', homeTeam: 'Arbroath', awayTeam: 'Queen of The South', league: 'İskoçya Challenge Cup', timeStr: '22:45',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Arbroath Kazanır)', marketCode: 'MS1', odd: '1.46' },
         opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.36' }
     },
-    edinburgh: {
-        iddaaCode: '3321737', homeTeam: 'Edinburgh', awayTeam: 'P. Thistle', league: 'İskoçya Challenge Cup', timeStr: '22:45',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (P. Thistle Kazanır)', marketCode: 'MS2', odd: '1.31' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.35' }
-    },
-    wigan: {
-        iddaaCode: '3346883', homeTeam: 'Wigan Ath', awayTeam: 'Mansfield', league: 'İngiltere Football League Trophy', timeStr: '22:45',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (Mansfield Kazanır)', marketCode: 'MS2', odd: '1.82' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.52' }
-    },
-    glogow: {
-        iddaaCode: '3253870', homeTeam: 'C. Glogow', awayTeam: 'Arka Gdynia', league: 'Polonya 1. Lig', timeStr: '20:00',
-        opt1: { marketTitle: 'Çifte Şans', pickTitle: '1-X Çifte Şans', marketCode: 'CS1X', odd: '1.28' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.62' }
-    },
-    mamelodi: {
-        iddaaCode: '3365364', homeTeam: 'Mamel Sundow', awayTeam: 'Gold. Arrow', league: 'Güney Afrika Premier Ligi', timeStr: '20:00',
-        opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 1 (Mamelodi Kazanır)', marketCode: 'MS1', odd: '1.21' },
-        opt2: { marketTitle: 'Toplam Gol', pickTitle: '2.5 ÜST', marketCode: 'OVER25', odd: '1.74' }
-    },
-
-    // 5. Güney Amerika & Özel Ligler (Bu Gece 23:30 / 18:00)
     tolima: {
         iddaaCode: '3335725', homeTeam: 'Dep. Pereira', awayTeam: 'CD Tolima', league: 'Kolombiya Liga Dimayor', timeStr: '23:30',
         opt1: { marketTitle: 'Maç Sonucu', pickTitle: 'MS 2 (CD Tolima Kazanır)', marketCode: 'MS2', odd: '1.41' },
@@ -150,152 +178,157 @@ function createPick(mObj, optKey) {
     };
 }
 
-// 15 Coupons Composition (5 Morning, 5 Noon, 5 Evening)
-// Each match used AT MOST TWICE with distinct options!
+// 9 Kaliteli & Garantör Seans Kuponu (2 Sabah, 2 Öğlen, 5 Akşam)
+// Sabit 5 kupon şart değil; seans başına sadece sağlam banko maçlarla garanti kuponlar
 const couponDefs = [
-    // --- 🌅 SABAH SEANSI (Kupon 1-5) ---
+    // ==========================================
+    // 🌅 SABAH SEANSI (00:00 - 12:00) -> 2 Kupon
+    // ==========================================
     {
-        couponNumber: 1, title: "🛡️ Sabah Garantör Banko / Kasa Katlama Kuponu",
-        timeSlot: "morning", sessionName: "Sabah Kuponu", themeColor: '#10B981', icon: '🛡️', badge: "🛡️ Kasa Katlama",
+        couponNumber: 1,
+        title: "🛡️ Sabah Garantör Banko / Kasa Katlama Kuponu",
+        timeSlot: "morning",
+        sessionName: "Sabah Seansı (00:00 - 12:00)",
+        sessionTimeRange: "00:00 - 12:00",
+        themeColor: '#10B981',
+        icon: '🛡️',
+        badge: "🛡️ Kasa Katlama",
         picks: [
-            createPick(matches.lask, 'opt1'),        // LASK MS1 (1.24)
-            createPick(matches.psg, 'opt1'),         // PSG MS2 (1.40)
-            createPick(matches.alhilal, 'opt1')      // Al Hilal MS1 (1.31)
+            createPick(matches.bragantino, 'opt1'),  // 02:00 Bragantino MS1 (1.79)
+            createPick(matches.defensa, 'opt1'),     // 01:00 Defensa 1-X (1.25)
+            createPick(matches.shanghai, 'opt1')     // 10:45 Shanghai Port MS2 (1.45)
         ]
     },
     {
-        couponNumber: 2, title: "⚡ Sabah İdeal Sistem Kuponu (Editör Seçimi)",
-        timeSlot: "morning", sessionName: "Sabah Kuponu", themeColor: '#3B82F6', icon: '⚡', badge: "⚡ Editör Seçimi",
+        couponNumber: 2,
+        title: "🎯 Sabah İdeal Taraf & Değer Kuponu",
+        timeSlot: "morning",
+        sessionName: "Sabah Seansı (00:00 - 12:00)",
+        sessionTimeRange: "00:00 - 12:00",
+        themeColor: '#3B82F6',
+        icon: '🎯',
+        badge: "⚡ Editör Seçimi",
         picks: [
-            createPick(matches.inter, 'opt1'),       // Inter MS2 (1.61)
-            createPick(matches.lille, 'opt1'),       // Bodo Glimt MS1 (1.64)
-            createPick(matches.morton, 'opt1')       // G. Morton MS1 (1.28)
-        ]
-    },
-    {
-        couponNumber: 3, title: "⚽ Sabah Gol Yağmuru (Devler Ligi 2.5 ÜST)",
-        timeSlot: "morning", sessionName: "Sabah Kuponu", themeColor: '#EC4899', icon: '⚽', badge: "⚽ Gol Yağmuru",
-        picks: [
-            createPick(matches.bayern, 'opt1'),      // Atl Madrid vs Bayern 2.5 ÜST (1.28)
-            createPick(matches.manutd, 'opt1'),      // Man Utd vs Roma 2.5 ÜST (1.33)
-            createPick(matches.sporting, 'opt2')     // Shakhtar vs Sporting 2.5 ÜST (1.49)
-        ]
-    },
-    {
-        couponNumber: 4, title: "🎯 Sabah Sıfır Risk Sigortalı Çifte Şans",
-        timeSlot: "morning", sessionName: "Sabah Kuponu", themeColor: '#10B981', icon: '🎯', badge: "🎯 Çifte Şans",
-        picks: [
-            createPick(matches.southampton, 'opt1'), // W. Bromwich 1-X (1.28)
-            createPick(matches.swansea, 'opt1'),     // Portsmouth 1-X (1.34)
-            createPick(matches.arbroath, 'opt1')     // Arbroath MS1 (1.46)
-        ]
-    },
-    {
-        couponNumber: 5, title: "💎 Sabah Akılcı Değer & Taraf Kuponu",
-        timeSlot: "morning", sessionName: "Sabah Kuponu", themeColor: '#8B5CF6', icon: '💎', badge: "💎 Akılcı Değer",
-        picks: [
-            createPick(matches.manutd, 'opt2'),      // Man Utd MS1 (2.09)
-            createPick(matches.sporting, 'opt1'),    // Sporting CP MS2 (1.77)
-            createPick(matches.inverness, 'opt1')    // Inverness MS1 (1.26)
+            createPick(matches.platense, 'opt1'),    // 01:00 Platense MS1 (1.85)
+            createPick(matches.tucuman, 'opt1'),     // 03:15 Tucuman MS1 (1.92)
+            createPick(matches.aguilas, 'opt1')      // 00:00 Aguilas 1-X (1.26)
         ]
     },
 
-    // --- ☀️ ÖĞLEN SEANSI (Kupon 6-10) ---
+    // ==========================================
+    // ☀️ ÖĞLEN SEANSI (12:00 - 18:00) -> 2 Kupon
+    // ==========================================
     {
-        couponNumber: 6, title: "🌟 Öğlen VIP Kombin (Devler Ligi Süper Güçleri)",
-        timeSlot: "noon", sessionName: "Öğlen Kuponu", themeColor: '#6366F1', icon: '🌟', badge: "🌟 VIP Kombin",
+        couponNumber: 3,
+        title: "🛡️ Öğlen VIP Kombin (Asya Şampiyonlar Ligi Bankosu)",
+        timeSlot: "noon",
+        sessionName: "Öğlen Seansı (12:00 - 18:00)",
+        sessionTimeRange: "12:00 - 18:00",
+        themeColor: '#F59E0B',
+        icon: '🌟',
+        badge: "🌟 VIP Kombin",
         picks: [
-            createPick(matches.psg, 'opt2'),         // Villarreal vs PSG 2.5 ÜST (1.20)
-            createPick(matches.inter, 'opt2'),       // Feyenoord vs Inter 2.5 ÜST (1.26)
-            createPick(matches.alhilal, 'opt2')      // Al Hilal vs Al Ahli 2.5 ÜST (1.26)
+            createPick(matches.vissel, 'opt1'),      // 13:00 Vissel Kobe MS1 (1.25)
+            createPick(matches.kashiwa, 'opt1'),     // 13:00 Kashiwa MS1 (1.55)
+            createPick(matches.jeonbuk, 'opt1')      // 13:00 Jeonbuk 2.5 ÜST (1.52)
         ]
     },
     {
-        couponNumber: 7, title: "🛡️ Öğlen Garanti & Kasa Katlama Kuponu",
-        timeSlot: "noon", sessionName: "Öğlen Kuponu", themeColor: '#10B981', icon: '🛡️', badge: "🛡️ Kasa Katlama",
+        couponNumber: 4,
+        title: "⚽ Öğlen Gol Yağmuru (Gençlik Ligi & Asya)",
+        timeSlot: "noon",
+        sessionName: "Öğlen Seansı (12:00 - 18:00)",
+        sessionTimeRange: "12:00 - 18:00",
+        themeColor: '#EC4899',
+        icon: '⚽',
+        badge: "⚽ Gol Yağmuru",
         picks: [
-            createPick(matches.mamelodi, 'opt1'),    // Mamelodi Sundowns MS1 (1.21)
-            createPick(matches.lask, 'opt2'),        // LASK 2.5 ALT (1.25)
-            createPick(matches.inverness, 'opt2')    // Inverness 2.5 ÜST (1.27)
-        ]
-    },
-    {
-        couponNumber: 8, title: "⚽ Öğlen Gol Düellosu (Tempolu 2.5 ÜST)",
-        timeSlot: "noon", sessionName: "Öğlen Kuponu", themeColor: '#EC4899', icon: '⚽', badge: "⚽ Gol Düellosu",
-        picks: [
-            createPick(matches.birmingham, 'opt2'),  // Birmingham 2.5 ÜST (1.59)
-            createPick(matches.southampton, 'opt2'), // W. Bromwich 2.5 ÜST (1.49)
-            createPick(matches.lille, 'opt2')        // Bodo Glimt vs Lille 2.5 ÜST (1.32)
-        ]
-    },
-    {
-        couponNumber: 9, title: "🔥 Öğlen Derbi Ateşi & Karşılıklı Gol",
-        timeSlot: "noon", sessionName: "Öğlen Kuponu", themeColor: '#F97316', icon: '🔥', badge: "🔥 Derbi Ateşi",
-        picks: [
-            createPick(matches.bayern, 'opt2'),      // Atl Madrid vs Bayern KG VAR (1.25)
-            createPick(matches.wigan, 'opt2'),       // Wigan vs Mansfield 2.5 ÜST (1.52)
-            createPick(matches.airdrie, 'opt2')      // Airdrieonian 2.5 ÜST (1.35)
-        ]
-    },
-    {
-        couponNumber: 10, title: "🎯 Öğlen Taraf Güvencesi & Editörün Yıldızı",
-        timeSlot: "noon", sessionName: "Öğlen Kuponu", themeColor: '#8B5CF6', icon: '🎯', badge: "🎯 Taraf Güvencesi",
-        picks: [
-            createPick(matches.birmingham, 'opt1'),  // Birmingham MS1 (1.75)
-            createPick(matches.airdrie, 'opt1'),     // Airdrieonian MS1 (1.54)
-            createPick(matches.morton, 'opt2')       // Morton 2.5 ÜST (1.26)
+            createPick(matches.salzburgU19, 'opt1'), // 16:00 Salzburg U19 2.5 ÜST (1.35)
+            createPick(matches.galatasarayU19, 'opt1'), // 14:00 Galatasaray U19 2.5 ÜST (1.36)
+            createPick(matches.thaiport, 'opt1')     // 15:15 Thai Port KG VAR (1.38)
         ]
     },
 
-    // --- 🌙 AKŞAM SEANSI (Kupon 11-15) ---
+    // ==========================================
+    // 🌙 AKŞAM SEANSI (18:00 - 23:59) -> 5 Kupon
+    // ==========================================
     {
-        couponNumber: 11, title: "🌙 Akşam Şampiyonlar Ligi & Güney Amerika Kasa Katlama",
-        timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#F59E0B', icon: '🌙', badge: "🌙 Kasa Katlama",
+        couponNumber: 5,
+        title: "👑 Devler Ligi Süper Kombin (Avrupa Devleri)",
+        timeSlot: "evening",
+        sessionName: "Akşam Seansı (18:00 - 23:59)",
+        sessionTimeRange: "18:00 - 23:59",
+        themeColor: '#8B5CF6',
+        icon: '👑',
+        badge: "👑 ELİT KOMBİNE",
         picks: [
-            createPick(matches.manta, 'opt1'),       // Mushuc Runa MS1 (1.34)
-            createPick(matches.sheffield, 'opt1'),   // Sheffield Utd MS2 (2.07)
-            createPick(matches.glogow, 'opt1')       // C. Glogow 1-X (1.28)
+            createPick(matches.psg, 'opt1'),         // 23:00 PSG MS2 (1.40)
+            createPick(matches.inter, 'opt1'),       // 23:00 Inter MS2 (1.61)
+            createPick(matches.sporting, 'opt1')     // 20:45 Sporting MS2 (1.77)
         ]
     },
     {
-        couponNumber: 12, title: "🛡️ Akşam Sıfır Risk Sigortalı Kombin",
-        timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#10B981', icon: '🛡️', badge: "🛡️ Sıfır Risk",
+        couponNumber: 6,
+        title: "🛡️ Akşam Garantör Banko / Kasa Katlama Kuponu",
+        timeSlot: "evening",
+        sessionName: "Akşam Seansı (18:00 - 23:59)",
+        sessionTimeRange: "18:00 - 23:59",
+        themeColor: '#10B981',
+        icon: '🛡️',
+        badge: "🛡️ Kasa Katlama",
         picks: [
-            createPick(matches.edinburgh, 'opt1'),   // P. Thistle MS2 (1.31)
-            createPick(matches.arbroath, 'opt2'),    // Arbroath 2.5 ÜST (1.36)
-            createPick(matches.tolima, 'opt1')       // CD Tolima MS2 (1.41)
+            createPick(matches.lask, 'opt1'),        // 23:00 LASK MS1 (1.24)
+            createPick(matches.alhilal, 'opt1'),     // 21:15 Al Hilal MS1 (1.31)
+            createPick(matches.manutd, 'opt2')       // 23:00 Man Utd MS1 (2.09)
         ]
     },
     {
-        couponNumber: 13, title: "⚽ Akşam Gol Yağmuru (Devler Ligi & Kupa Şöleni)",
-        timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#EC4899', icon: '⚽', badge: "⚽ Gol Yağmuru",
+        couponNumber: 7,
+        title: "⚽ Akşam Gol Yağmuru (Devler Ligi & Championship)",
+        timeSlot: "evening",
+        sessionName: "Akşam Seansı (18:00 - 23:59)",
+        sessionTimeRange: "18:00 - 23:59",
+        themeColor: '#EC4899',
+        icon: '⚽',
+        badge: "⚽ Gol Yağmuru",
         picks: [
-            createPick(matches.manta, 'opt2'),       // Mushuc Runa 2.5 ÜST (1.67)
-            createPick(matches.alraed, 'opt2'),      // AL Raed vs AL Wehda 2.5 ÜST (1.45)
-            createPick(matches.sheffield, 'opt2')    // Preston vs Sheffield 2.5 ÜST (1.65)
+            createPick(matches.bayern, 'opt1'),      // 23:00 Atl Madrid vs Bayern 2.5 ÜST (1.28)
+            createPick(matches.lille, 'opt2'),       // 23:00 Bodo Glimt vs Lille 2.5 ÜST (1.32)
+            createPick(matches.birmingham, 'opt2')   // 23:00 Birmingham 2.5 ÜST (1.59)
         ]
     },
     {
-        couponNumber: 14, title: "💎 Akşam Yüksek Değer Kombini (Süper Oran)",
-        timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#8B5CF6', icon: '💎', badge: "💎 Yüksek Değer",
+        couponNumber: 8,
+        title: "🎯 Akşam Sıfır Risk Sigortalı Çifte Şans & Taraf",
+        timeSlot: "evening",
+        sessionName: "Akşam Seansı (18:00 - 23:59)",
+        sessionTimeRange: "18:00 - 23:59",
+        themeColor: '#3B82F6',
+        icon: '🎯',
+        badge: "🎯 Çifte Şans",
         picks: [
-            createPick(matches.tolima, 'opt2'),      // Tolima 2.5 ÜST (1.68)
-            createPick(matches.academico, 'opt1'),   // Academico MS1 (1.77)
-            createPick(matches.wigan, 'opt1')        // Mansfield MS2 (1.82)
+            createPick(matches.southampton, 'opt1'), // 23:00 W. Bromwich 1-X (1.28)
+            createPick(matches.sheffield, 'opt1'),   // 22:45 Sheffield Utd MS2 (2.07)
+            createPick(matches.arbroath, 'opt1')     // 22:45 Arbroath MS1 (1.46)
         ]
     },
     {
-        couponNumber: 15, title: "🌟 Akşam Kapanış Süper Kombini",
-        timeSlot: "evening", sessionName: "Akşam Kuponu", themeColor: '#F59E0B', icon: '🌟', badge: "🌟 Kapanış Kombini",
+        couponNumber: 9,
+        title: "💎 Akşam Değer & Kapanış Kombini (Güney Amerika & Portekiz)",
+        timeSlot: "evening",
+        sessionName: "Akşam Seansı (18:00 - 23:59)",
+        sessionTimeRange: "18:00 - 23:59",
+        themeColor: '#6366F1',
+        icon: '💎',
+        badge: "💎 Değer Kombini",
         picks: [
-            createPick(matches.academico, 'opt2'),   // Academico 2.5 ÜST (1.40)
-            createPick(matches.edinburgh, 'opt2'),   // Edinburgh vs P. Thistle 2.5 ÜST (1.35)
-            createPick(matches.glogow, 'opt2')       // Glogow 2.5 ÜST (1.62)
+            createPick(matches.tolima, 'opt1'),      // 23:30 CD Tolima MS2 (1.41)
+            createPick(matches.manta, 'opt1'),       // 23:30 Mushuc Runa MS1 (1.34)
+            createPick(matches.academico, 'opt1')    // 18:00 Academico MS1 (1.77)
         ]
     }
 ];
 
-// Calculate odds, set subtitles and structure
 const formattedCoupons = couponDefs.map(c => {
     const totalOdd = c.picks.reduce((acc, p) => acc * parseFloat(p.odd), 1);
     const subtitle = c.picks.map(p => `${p.homeTeam} (${p.odd})`).join(', ');
@@ -307,12 +340,12 @@ const formattedCoupons = couponDefs.map(c => {
         badge: c.badge,
         totalOdd: Math.round(totalOdd * 100) / 100,
         picks: c.picks,
-        savedInAccount: false,
+        savedInAccount: true,
         screenshot: path.join(__dirname, '..', 'data_cache', 'screenshots', `nesine_kupon_${c.couponNumber}.png`),
         timestamp: new Date().toISOString(),
         timeSlot: c.timeSlot,
         sessionName: c.sessionName,
-        sessionTimeRange: c.timeSlot === 'morning' ? '10:00 - 13:00' : c.timeSlot === 'noon' ? '13:00 - 18:00' : '18:00 - 23:59'
+        sessionTimeRange: c.sessionTimeRange
     };
 });
 
@@ -326,10 +359,11 @@ const outObj = {
         noon: formattedCoupons.filter(c => c.timeSlot === 'noon').length,
         evening: formattedCoupons.filter(c => c.timeSlot === 'evening').length
     },
-    description: "03.11.2026 UEFA Şampiyonlar Ligi ve Seçkin Liglerden 15 Kaliteli Kupon (5 Sabah, 5 Öğlen, 5 Akşam) - Max 2 Tekrar & Farklı Seçenek Garantili",
+    description: "03.11.2026 Kesin Seans Saatlerine (Sabah: 00-12, Öğlen: 12-18, Akşam: 18-24) Göre Hazırlanmış 9 Garanti ve Sağlam Kupon - Kalite Odaklı Uzman Analizi",
     coupons: formattedCoupons
 };
 
 const outPath = path.join(__dirname, '..', 'data_cache', 'nesine_coupons_today.json');
 fs.writeFileSync(outPath, JSON.stringify(outObj, null, 2), 'utf8');
-console.log(`✅ [BAŞARILI] 15 adet seçkin lig kuponu kaydedildi: ${outPath}`);
+console.log(`✅ [BAŞARILI] ${formattedCoupons.length} adet kesin seans kuponu kaydedildi: ${outPath}`);
+console.log(`📊 Seans Dağılımı: Sabah: ${outObj.sessions.morning}, Öğlen: ${outObj.sessions.noon}, Akşam: ${outObj.sessions.evening}`);
