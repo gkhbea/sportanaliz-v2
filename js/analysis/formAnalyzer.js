@@ -76,3 +76,7 @@ const FormAnalyzer = {
 if (typeof window !== 'undefined') {
     window.FormAnalyzer = FormAnalyzer;
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = FormAnalyzer;
+}

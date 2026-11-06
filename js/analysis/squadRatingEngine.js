@@ -425,3 +425,7 @@ const SquadRatingEngine = {
 if (typeof window !== 'undefined') {
     window.SquadRatingEngine = SquadRatingEngine;
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = SquadRatingEngine;
+}

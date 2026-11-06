@@ -183,4 +183,9 @@ const Helpers = {
     }
 };
 
-window.Helpers = Helpers;
+if (typeof window !== "undefined") {
+    window.Helpers = Helpers;
+}
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = Helpers;
+}

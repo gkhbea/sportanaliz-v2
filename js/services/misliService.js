@@ -216,4 +216,9 @@ const MisliService = {
     }
 };
 
-window.MisliService = MisliService;
+if (typeof window !== 'undefined') {
+    window.MisliService = MisliService;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = MisliService;
+}

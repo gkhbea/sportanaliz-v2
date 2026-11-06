@@ -88,8 +88,9 @@ const EditorEngine = {
         }
 
         // 2. 🔵 Misli.com Yazarları (Uğur Meleke, Ali Naci Küçük, Barış Ertül vb.)
-        if (window.MisliService) {
-            const misliAnalysis = MisliService.getAuthorAnalysis(match, analysis);
+        const MisliRef = (typeof window !== "undefined" && window.MisliService) || (typeof require !== "undefined" ? require("../services/misliService.js") : null);
+        if (MisliRef) {
+            const misliAnalysis = MisliRef.getAuthorAnalysis(match, analysis);
             expertPicks.push({
                 source: 'Misli.com',
                 badge: '🔵 Misli',
@@ -105,8 +106,10 @@ const EditorEngine = {
         }
 
         // 3. 🟢 Bilyoner.com Tribün Yazarları (Bülent Timurlenk, Altan Tanrıkulu vb.)
-        if (window.BilyonerService) {
-            const bilyonerAnalysis = BilyonerService.getTribunInsight(match, analysis);
+        const BilyonerRef = (typeof window !== "undefined" && window.BilyonerService) || (typeof require !== "undefined" ? require("../services/bilyonerService.js") : null);
+        if (BilyonerRef) {
+            const bilyonerAnalysis = (BilyonerRef && typeof BilyonerRef.getTribunInsight === "function") ? BilyonerRef.getTribunInsight(match, analysis) : null;
+            if (!bilyonerAnalysis) return;
             expertPicks.push({
                 source: 'Bilyoner.com',
                 badge: '🟢 Bilyoner',
@@ -122,8 +125,10 @@ const EditorEngine = {
         }
 
         // 4. 🔴 İddaa.com Risk Masası & Trend Raporu
-        if (window.IddaaService) {
-            const iddaaInsight = IddaaService.getRiskDeskInsight(match, analysis);
+        const IddaaRef = (typeof window !== "undefined" && window.IddaaService) || (typeof require !== "undefined" ? require("../services/iddaaService.js") : null);
+        if (IddaaRef) {
+            const iddaaInsight = (IddaaRef && typeof IddaaRef.getRiskDeskInsight === "function") ? IddaaRef.getRiskDeskInsight(match, analysis) : null;
+            if (!iddaaInsight) return;
             expertPicks.push({
                 source: 'İddaa.com',
                 badge: '🔴 İddaa',
@@ -487,4 +492,9 @@ ${fhText}
     }
 };
 
-window.EditorEngine = EditorEngine;
+if (typeof window !== 'undefined') {
+    window.EditorEngine = EditorEngine;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = EditorEngine;
+}

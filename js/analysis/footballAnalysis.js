@@ -1,3 +1,10 @@
+
+const Statistics = (typeof window !== 'undefined' && window.Statistics)
+    || (typeof require !== 'undefined' ? require('../utils/statistics.js') : null);
+
+const PoissonModel = (typeof window !== 'undefined' && window.PoissonModel)
+    || (typeof require !== 'undefined' ? require('./poissonModel.js') : null);
+
 /**
  * footballAnalysis.js — Futbol Analiz Motoru
  */
@@ -269,4 +276,9 @@ const FootballAnalysis = {
     }
 };
 
-window.FootballAnalysis = FootballAnalysis;
+if (typeof window !== 'undefined') {
+    window.FootballAnalysis = FootballAnalysis;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = FootballAnalysis;
+}

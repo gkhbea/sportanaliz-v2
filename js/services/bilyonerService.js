@@ -174,4 +174,9 @@ const BilyonerService = {
     }
 };
 
-window.BilyonerService = BilyonerService;
+if (typeof window !== 'undefined') {
+    window.BilyonerService = BilyonerService;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = BilyonerService;
+}

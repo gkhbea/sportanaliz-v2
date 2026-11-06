@@ -52,26 +52,29 @@ async function main() {
     const todayDot = `${dStr}.${mStr}.${yStr}`; // 31.10.2026
     const todayIso = `${yStr}-${mStr}-${dStr}`; // 2026-10-31
 
-    let fullCoupons = [];
-    if (HistoricalCouponsService && typeof HistoricalCouponsService.getCouponsByDate === 'function') {
-        const histCoupons = HistoricalCouponsService.getCouponsByDate(todayIso);
-        if (histCoupons && histCoupons.length >= 5) {
-            fullCoupons = histCoupons;
-            console.log(`✅ ${fullCoupons.length} adet otantik seans kuponu (Sabah/Öğlen/Akşam) yüklendi.`);
-        }
-    }
+    // KULLANICI KURALI: "iptal et bugunden basla maclara", "canlı oynananları seçme"
+    // Sadece henüz başlamamış (yaklaşan) maçları filtrele
+    const nowMs = Date.now();
+    const futureMatches = parsedMatches.filter(m => {
+        if (!m.matchDate) return true;
+        const mt = new Date(m.matchDate).getTime();
+        return isNaN(mt) || mt > (nowMs + 5 * 60 * 1000);
+    });
+
+    console.log(`📡 [2/3] Bugünün (${todayDot}) henüz başlamamış ${futureMatches.length} maçından dinamik seans kuponları üretiliyor...`);
+    const sessionRes = CouponEngine.generateSessionCoupons(futureMatches, true);
+    let fullCoupons = sessionRes.all || [];
 
     if (fullCoupons.length === 0) {
-        const morning = CouponEngine.generateDailyCoupons(parsedMatches, true, 5, 'morning');
-        const noon = CouponEngine.generateDailyCoupons(parsedMatches, true, 5, 'noon');
-        const evening = CouponEngine.generateDailyCoupons(parsedMatches, true, 5, 'evening');
-        fullCoupons = [...morning, ...noon, ...evening];
+        const evening = CouponEngine.generateDailyCoupons(futureMatches, true, 5, 'evening');
+        const noon = CouponEngine.generateDailyCoupons(futureMatches, true, 5, 'noon');
+        const morning = CouponEngine.generateDailyCoupons(futureMatches, true, 5, 'morning');
+        fullCoupons = [...evening, ...noon, ...morning];
         if (fullCoupons.length === 0) {
-            const gen = CouponEngine.generateDailyCoupons(parsedMatches, true, 8);
-            fullCoupons = (gen.length < 8) ? CouponEngine.expandTo8Coupons(gen, parsedMatches, todayIso) : gen;
+            fullCoupons = CouponEngine.generateDailyCoupons(futureMatches, true, 5, 'all');
         }
-        console.log(`✅ ${fullCoupons.length} adet seans kuponu dinamik motor tarafından üretildi.`);
     }
+    console.log(`✅ ${fullCoupons.length} adet bugünün dinamik seans kuponu üretildi (Akşam: ${sessionRes.evening?.length || 0}, Öğlen: ${sessionRes.noon?.length || 0}, Sabah: ${sessionRes.morning?.length || 0}).`);
 
     // 3. nesine_coupons_today.json formatına dönüştür
     const formattedCoupons = fullCoupons.map((c, idx) => {
@@ -94,7 +97,12 @@ async function main() {
                 marketCode: m.marketCode || 'MS1',
                 odd,
                 timeStr: matchTime,
-                matchText
+                matchText,
+                matchRating: m.matchRating || '',
+                playerRating: m.playerRating || '',
+                siteReview: m.siteReview || '',
+                analysisDetail: m.analysisDetail || '',
+                confidence: m.confidence || m.confidenceScore || 85
             };
         });
 

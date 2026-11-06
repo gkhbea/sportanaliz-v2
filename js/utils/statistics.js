@@ -166,4 +166,9 @@ const Statistics = {
 };
 
 // Global'e ekle
-window.Statistics = Statistics;
+if (typeof window !== "undefined") {
+    window.Statistics = Statistics;
+}
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = Statistics;
+}

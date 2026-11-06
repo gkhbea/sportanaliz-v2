@@ -1603,6 +1603,9 @@ const CouponPanel = {
         const timeStr = matchItem.timeStr || matchItem.match?.timeStr || '20:00';
         const pickTitle = matchItem.pickTitle || 'Maç Bahsi';
         const odd = matchItem.odd || '1.50';
+        const matchRating = matchItem.matchRating || matchItem.match?.matchRating || '';
+        const playerRating = matchItem.playerRating || matchItem.match?.playerRating || '';
+        const siteReview = matchItem.siteReview || matchItem.match?.siteReview || '';
 
         // Skor ve durum (Önce canlı / teyitli MatchTracker skorunu al)
         const trackerScore = window.MatchTracker ? window.MatchTracker.getMatchScore(matchItem.match || matchItem) : null;
@@ -1691,6 +1694,21 @@ const CouponPanel = {
                         </span>
                         ${mackolikLink}
                     </div>
+                    ${matchRating ? `
+                        <div style="font-size:0.72rem;color:#38bdf8;margin-top:5px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.22);padding:3px 8px;border-radius:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+                            <span style="font-weight:800;color:#00F0FF;">📊 Maç Reytingi:</span> <span>${matchRating}</span>
+                        </div>
+                    ` : ''}
+                    ${playerRating ? `
+                        <div style="font-size:0.72rem;color:#c084fc;margin-top:3px;background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.22);padding:3px 8px;border-radius:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+                            <span style="font-weight:800;color:#a855f7;">🏃 Kadro &amp; Oyuncu:</span> <span>${playerRating}</span>
+                        </div>
+                    ` : ''}
+                    ${siteReview ? `
+                        <div style="font-size:0.72rem;color:#fbbf24;margin-top:3px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.22);padding:3px 8px;border-radius:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+                            <span style="font-weight:800;color:#f59e0b;">✍️ Site Yorumu:</span> <span>${siteReview}</span>
+                        </div>
+                    ` : ''}
                     ${detailStr ? `
                         <div style="font-size:0.73rem;color:#94a3b8;margin-top:4px;line-height:1.3;">
                             <span style="color:#10B981;font-weight:800;">✓ Teyit Özeti:</span> ${detailStr}

@@ -1,3 +1,9 @@
+const Helpers = (typeof window !== 'undefined' && window.Helpers)
+    || (typeof require !== 'undefined' ? require('../utils/helpers.js') : null);
+
+const Statistics = (typeof window !== 'undefined' && window.Statistics)
+    || (typeof require !== 'undefined' ? require('../utils/statistics.js') : null);
+
 /**
  * riskEngine.js — Risk & Güven Değerlendirme Motoru
  */
@@ -153,4 +159,9 @@ const RiskEngine = {
     }
 };
 
-window.RiskEngine = RiskEngine;
+if (typeof window !== 'undefined') {
+    window.RiskEngine = RiskEngine;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = RiskEngine;
+}

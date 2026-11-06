@@ -84,4 +84,9 @@ const IddaaService = {
     }
 };
 
-window.IddaaService = IddaaService;
+if (typeof window !== "undefined") {
+    window.IddaaService = IddaaService;
+}
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = IddaaService;
+}

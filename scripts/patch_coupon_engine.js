@@ -224,3 +224,4 @@ if (!code.includes('generateSessionCoupons(')) {
 const crlfCode = code.replace(/\n/g, '\r\n');
 fs.writeFileSync(targetPath, crlfCode, 'utf8');
 console.log('💾 couponEngine.js başarıyla güncellendi.');
+

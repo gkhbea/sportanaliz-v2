@@ -1,3 +1,23 @@
+
+const FootballAnalysis = (typeof window !== 'undefined' && window.FootballAnalysis)
+    || (typeof require !== 'undefined' ? require('./footballAnalysis.js') : null);
+
+const RiskEngine = (typeof window !== 'undefined' && window.RiskEngine)
+    || (typeof require !== 'undefined' ? require('./riskEngine.js') : null);
+
+
+const SquadRatingEngine = (typeof window !== 'undefined' && window.SquadRatingEngine)
+    || (typeof require !== 'undefined' ? require('./squadRatingEngine.js') : null);
+
+const SofascoreService = (typeof window !== 'undefined' && window.SofascoreService)
+    || (typeof require !== 'undefined' ? require('../services/sofascoreService.js') : null);
+
+const EditorEngine = (typeof window !== 'undefined' && window.EditorEngine)
+    || (typeof require !== 'undefined' ? require('./editorEngine.js') : null);
+
+const FormAnalyzer = (typeof window !== 'undefined' && window.FormAnalyzer)
+    || (typeof require !== 'undefined' ? require('./formAnalyzer.js') : null);
+
 /**
  * couponEngine.js — "Benim İçin Bahis Yap" / Günlük 4 Otomatik Garantör Kupon Motoru
  * 4 Platform (Nesine, Bilyoner, İddaa, Misli) verileri, Poisson modelleri ve yazar konsensüsleriyle
@@ -1422,13 +1442,80 @@ const CouponEngine = {
 
             const risk = (typeof RiskEngine !== 'undefined') ? RiskEngine.evaluate(result) : null;
             const editor = (typeof EditorEngine !== 'undefined') ? EditorEngine.evaluate(result, match, risk) : null;
+            const squad = SquadRatingEngine ? SquadRatingEngine.generateSquadAnalysis(match) : null;
+            const sofascore = SofascoreService ? SofascoreService.getMatchAnalytics(match) : null;
+
+            // KULLANICI TALEBİ: Maç Reytingi, Oyuncu Reytingi ve Güncel Site Yorumları
+            let matchRating = '';
+            if (sofascore && sofascore.ratings) {
+                const diffStr = sofascore.ratings.diff > 0 ? `+${sofascore.ratings.diff}` : `${sofascore.ratings.diff}`;
+                matchRating = `SofaScore: ${sofascore.ratings.home || 7.1} vs ${sofascore.ratings.away || 6.8} (Fark: ${diffStr}) | Topla Oynama: %${sofascore.stats?.possession?.home || 50}-%${sofascore.stats?.possession?.away || 50} | xG: ${sofascore.expectedGoals?.totalXG || 2.5}`;
+            }
+
+            let playerRating = '';
+            if (squad && squad.homeSquad && squad.awaySquad) {
+                const hAvg = squad.homeSquad.averages.overall11;
+                const aAvg = squad.awaySquad.averages.overall11;
+                const star = squad.homeSquad.topFormPlayer;
+                const duel = squad.duels.homeAttackVsAwayDefense;
+                playerRating = `İlk 11 Ortalaması: ${hAvg} vs ${aAvg} | Düello: ${duel.verdict} | Yıldız: ${star ? star.name : 'Kaptan'} (${star ? star.avgRating : 7.5} ${star ? star.trendIcon : '📈'})`;
+            }
+
+            let siteReview = '4 Platform (Nesine, Bilyoner, Misli, İddaa) Analist Konsensüsü';
+            if (match.editorChoices && match.editorChoices.length > 0) {
+                const c0 = match.editorChoices[0];
+                siteReview = `Nesine.com (${c0.name}): ${c0.outcomeName} (${c0.odd}) · ${match.editorChoices.length} Uzman Yorumu`;
+            } else if (editor && editor.consensus && editor.consensus.percentage) {
+                siteReview = `4 Platform Konsensüsü: %${editor.consensus.percentage} Uzman Ortak Görüşü`;
+            }
+
+            const enrichCandidates = (cList) => {
+                (cList || []).forEach(cand => {
+                    cand.matchRating = matchRating;
+                    cand.playerRating = playerRating;
+                    cand.siteReview = siteReview;
+
+                    let ratingBonus = 0;
+                    if (squad && squad.duels) {
+                        const mCode = cand.marketCode || '';
+                        if (mCode === 'MS1' || mCode === 'MS_1' || mCode === 'CS1X' || mCode === 'DC_1X') {
+                            if (squad.duels.homeAttackVsAwayDefense.diff >= 0.25) ratingBonus += 8;
+                            if (squad.homeSquad.averages.overall11 >= squad.awaySquad.averages.overall11 + 0.20) ratingBonus += 6;
+                            if (sofascore && sofascore.ratings && sofascore.ratings.diff >= 0.20) ratingBonus += 6;
+                        } else if (mCode === 'MS2' || mCode === 'MS_2' || mCode === 'CSX2' || mCode === 'DC_X2') {
+                            if (squad.duels.awayAttackVsHomeDefense.diff >= 0.25) ratingBonus += 8;
+                            if (squad.awaySquad.averages.overall11 >= squad.homeSquad.averages.overall11 + 0.20) ratingBonus += 6;
+                            if (sofascore && sofascore.ratings && sofascore.ratings.diff <= -0.20) ratingBonus += 6;
+                        } else if (mCode.includes('UST') || mCode.includes('OVER') || mCode.includes('KG')) {
+                            if (squad.duels.homeAttackVsAwayDefense.diff > 0.10 && squad.duels.awayAttackVsHomeDefense.diff > 0.10) ratingBonus += 8;
+                            if (sofascore && sofascore.totalXG >= 2.50) ratingBonus += 8;
+                        } else if (mCode.includes('ALT') || mCode.includes('UNDER')) {
+                            if (squad.duels.homeAttackVsAwayDefense.diff <= -0.20 && squad.duels.awayAttackVsHomeDefense.diff <= -0.20) ratingBonus += 8;
+                        }
+                    }
+
+                    if (match.editorChoices && match.editorChoices.length > 0) {
+                        const matchesChoice = match.editorChoices.some(ec => (ec.outcomeName && cand.shortPick && cand.shortPick.includes(ec.outcomeName)) || (ec.marketName && cand.title && cand.title.includes(ec.marketName)));
+                        if (matchesChoice) ratingBonus += 10;
+                    }
+
+                    cand.confidenceScore = Math.min(98, Math.round((cand.confidenceScore || 75) + ratingBonus));
+                    cand.probability = Math.min(95, Math.round((cand.probability || 70) + (ratingBonus * 0.4)));
+                });
+            };
 
             if (editor && editor.allCandidates && editor.allCandidates.length > 0) {
+                enrichCandidates(editor.allCandidates);
                 pool.push({
                     match,
                     result,
                     risk,
                     editor,
+                    squad,
+                    sofascore,
+                    matchRating,
+                    playerRating,
+                    siteReview,
                     candidates: editor.allCandidates,
                     topPick: editor.topPick,
                     consensus: editor.consensus
@@ -1481,11 +1568,17 @@ const CouponEngine = {
                     });
                 }
                 if (defaultCandidates.length > 0) {
+                    enrichCandidates(defaultCandidates);
                     pool.push({
                         match,
                         result: null,
                         risk: null,
                         editor: null,
+                        squad,
+                        sofascore,
+                        matchRating,
+                        playerRating,
+                        siteReview,
                         candidates: defaultCandidates,
                         topPick: defaultCandidates[0],
                         consensus: { percentage: 85 }
@@ -1555,6 +1648,10 @@ const CouponEngine = {
                 valueEdge: cand.valueEdge,
                 consensusPercentage: cons.percentage,
                 reason,
+                matchRating: cand.matchRating || '',
+                playerRating: cand.playerRating || '',
+                siteReview: cand.siteReview || '',
+                analysisDetail: cand.analysisDetail || `${cand.matchRating ? '📊 ' + cand.matchRating + ' | ' : ''}${cand.playerRating ? '🏃 ' + cand.playerRating + ' | ' : ''}${cand.siteReview ? '✍️ ' + cand.siteReview : ''}`.trim(),
                 nesineBettingOpen: true,
                 bilyonerBettingOpen: true,
                 bettingStatus: 'OPEN',

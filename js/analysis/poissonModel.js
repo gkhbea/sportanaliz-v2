@@ -1,3 +1,6 @@
+const Statistics = (typeof window !== 'undefined' && window.Statistics)
+    || (typeof require !== 'undefined' ? require('../utils/statistics.js') : null);
+
 /**
  * poissonModel.js — Poisson Gol Modeli
  * Çift Poisson modeli: Ev ve deplasman gollerini bağımsız hesaplar

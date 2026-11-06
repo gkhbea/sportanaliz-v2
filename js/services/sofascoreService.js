@@ -47,8 +47,9 @@ const SofascoreService = {
         // xG (Beklenen Gol) hesaplaması (FormAnalyzer veya Poisson ile senkronize)
         let homeXG = 1.65;
         let awayXG = 1.10;
-        if (window.FormAnalyzer) {
-            const formRes = FormAnalyzer.analyzeMatchup(match);
+        const FormAnalyzerRef = (typeof window !== "undefined" && window.FormAnalyzer) || (typeof require !== "undefined" ? require("../analysis/formAnalyzer.js") : null);
+        if (FormAnalyzerRef) {
+            const formRes = FormAnalyzerRef.analyzeMatchup(match);
             if (formRes) {
                 homeXG = formRes.homeXG || 1.65;
                 awayXG = formRes.awayXG || 1.10;
@@ -215,4 +216,8 @@ const SofascoreService = {
 
 if (typeof window !== 'undefined') {
     window.SofascoreService = SofascoreService;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = SofascoreService;
 }

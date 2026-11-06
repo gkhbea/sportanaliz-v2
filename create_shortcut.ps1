@@ -42,4 +42,15 @@ if (Test-Path $nesineBat) {
     $nesineShortcut.Save()
 }
 
+# 3. 7/24 Server Kontrol Paneli Masaüstü Kısayolu
+$serverBat = Join-Path $targetDir "START_SERVER_CONSOLE.bat"
+if (Test-Path $serverBat) {
+    $serverShortcut = $ws.CreateShortcut((Join-Path $desktop "SportAnaliz Server Paneli.lnk"))
+    $serverShortcut.TargetPath = $serverBat
+    $serverShortcut.WorkingDirectory = $targetDir
+    $serverShortcut.IconLocation = "$iconFile,0"
+    $serverShortcut.Description = "SportAnaliz Pro - 7/24 Sunucu ve Web Kontrol Paneli (localhost:3333)"
+    $serverShortcut.Save()
+}
+
 Write-Host "✅ Masaüstü kısayolları başarıyla güncellendi: $desktop\SportAnaliz Pro.lnk"

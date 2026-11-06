@@ -18,8 +18,13 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-let USERNAME = process.env.NESINE_USERNAME || '14410079556';
-let PASSWORD = process.env.NESINE_PASSWORD || 'Efe2016..';
+// Arka plan ve ekran hızlandırma anahtarları (Chromium donmasını ve timer yavaşlamasını engeller)
+app.commandLine.appendSwitch('disable-renderer-backgrounding');
+app.commandLine.appendSwitch('disable-backgrounding-occluded-windows');
+app.commandLine.appendSwitch('disable-background-timer-throttling');
+
+let USERNAME = process.env.NESINE_USERNAME || '';
+let PASSWORD = process.env.NESINE_PASSWORD || '';
 
 try {
     const credPath = path.join(__dirname, '..', 'nesine_credentials.json');
@@ -79,8 +84,9 @@ app.whenReady().then(async () => {
     console.log(`  📋 Kaydedilecek Kupon Sayısı: ${couponsToProcess.length}`);
     console.log('===================================================================');
 
-    // 1. Nesine.com'u görünür pencere olarak aç
-    console.log('[1/4] Nesine ekranda açılıyor, üye bilgileri yazılıyor...');
+    // 1. Nesine.com penceresi (Maksimum hız ve render için açık pencere)
+    const isBackground = process.argv.includes('--background') || process.argv.includes('--headless') || process.env.NESINE_BACKGROUND === '1';
+    console.log(`[1/4] Nesine penceresi açılıyor, üye bilgileri yazılıyor...`);
     const win = new BrowserWindow({
         width: 1550,
         height: 980,
@@ -88,22 +94,30 @@ app.whenReady().then(async () => {
         title: 'Nesine.com — Kupon Kaydedici (SportAnaliz Pro)',
         webPreferences: {
             nodeIntegration: false,
-            contextIsolation: false
+            contextIsolation: false,
+            backgroundThrottling: false
         }
     });
 
     win.maximize();
     win.show();
-    win.focus();
+
+    win.webContents.on('console-message', (e, level, msg) => {
+        if (msg.includes('Maç') || msg.includes('Kupon') || msg.includes('Giriş') || msg.includes('Nesine')) {
+            console.log(`   [Tarayıcı] ${msg}`);
+        }
+    });
+
     await win.loadURL('https://www.nesine.com/iddaa');
     await new Promise(r => setTimeout(r, 4000));
 
     // Popupları kapat ve Giriş Yap modalını açıp formu doldur ve otomatik GİRİŞ butonuna bas
     await win.webContents.executeJavaScript(`
         (async () => {
-            // Alert & Confirm otomatik onayla
+            // Alert, Confirm, Prompt otomatik YES / TAMAM / SUBMIT onayla
             window.alert = () => true;
             window.confirm = () => true;
+            window.prompt = () => true;
 
             const isAlreadyLoggedIn = () => !!(
                 document.querySelector('.member-menu, .user-profile, .user-info, .account-info, .header-user, #memberSummary') ||
@@ -116,9 +130,9 @@ app.whenReady().then(async () => {
             }
 
             const closeModals = () => {
-                Array.from(document.querySelectorAll('button, a, span, .btn-close')).forEach(b => {
+                Array.from(document.querySelectorAll('#onetrust-accept-btn-handler, .cookie-accept, button, a, span')).forEach(b => {
                     const t = (b.innerText || '').toLowerCase().trim();
-                    if (t === 'kabul et' || t === 'tamam' || t === 'anladım' || t === 'kapat') {
+                    if (t === 'kabul et' || t === 'tümünü kabul et' || t === 'anladım') {
                         try { b.click(); } catch(e){}
                     }
                 });
@@ -198,6 +212,11 @@ app.whenReady().then(async () => {
                 })()
             `);
             if (loggedIn) break;
+            if (isBackground && sec === 10) {
+                console.log('⚠️ Otomatik giriş bekleniyor, gerekirse müdahale için pencere kullanıcıya gösteriliyor...');
+                win.show();
+                win.focus();
+            }
         } catch(e) {}
     }
 
@@ -238,20 +257,24 @@ app.whenReady().then(async () => {
         console.log(`▶ [KUPON ${couponNumber}/${couponsToProcess.length}] "${nesineCouponName}" ekleniyor... (${coupon.title || ''})`);
 
         try {
-            const stepResult = await win.webContents.executeJavaScript(`
+            const execPromise = win.webContents.executeJavaScript(`
                 (async () => {
                     const couponNum = ${couponNumber};
                     const nesineCouponName = ${JSON.stringify(nesineCouponName)};
                     const couponPicks = ${JSON.stringify(picks)};
 
-                    // 0. Otomatik Onay & Modal Kapatıcı ("Çıkan her şeye tamam de")
+                    // 0. Otomatik Onay & Modal Kapatıcı ("Çıkan her şeye submit / yes / tamam de")
                     const autoAcceptAll = () => {
                         try {
-                            const btns = Array.from(document.querySelectorAll('.modal button, .popup button, [class*="modal"] button, button.btn-primary, .swal2-confirm, #btnConfirmation, #mod-confirmation-save'));
-                            for (const b of btns) {
-                                const t = (b.innerText || '').toLowerCase().trim();
-                                if (t.includes('tamam') || t.includes('kabul') || t.includes('evet') || t.includes('onayla') || t.includes('anladım') || t.includes('devam') || t.includes('kapat')) {
-                                    b.click();
+                            const modals = Array.from(document.querySelectorAll('.modal.show, .modal[style*="display: block"], .modal[style*="display:block"], .popup, .swal2-container, #mod-give-coupon-name-step2, #mod-confirmation-save'));
+                            for (const modal of modals) {
+                                const btns = Array.from(modal.querySelectorAll('button, a.btn, input[type="submit"], [data-id="btnOk"], .btn-primary, .swal2-confirm'));
+                                for (const b of btns) {
+                                    if (b.closest('#mod-give-coupon-name-step1') && b.id !== 'saveCouponName') continue;
+                                    const t = (b.innerText || b.value || '').toLowerCase().trim();
+                                    if (b.type === 'submit' || t.includes('tamam') || t.includes('submit') || t.includes('yes') || t.includes('ok') || t.includes('kabul') || t.includes('onayla') || t.includes('kaydet') || t.includes('devam')) {
+                                        try { b.click(); } catch(e){}
+                                    }
                                 }
                             }
                         } catch(e) {}
@@ -320,7 +343,7 @@ app.whenReady().then(async () => {
                             }
 
                             // Maç satırını ekrana ortala ve bekle (acele etme)
-                            matchRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            matchRow.scrollIntoView({ block: 'center' });
                             await new Promise(r => setTimeout(r, 700));
 
                             // Butonları topla
@@ -384,7 +407,7 @@ app.whenReady().then(async () => {
                                 const oddBtns = Array.from(row.querySelectorAll('button')).filter(b => /^\\d+\\.\\d{2}$/.test((b.innerText || '').trim()));
                                 if (oddBtns.length >= 3) {
                                     window.__globallyUsedCodes.add(code);
-                                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    row.scrollIntoView({ block: 'center' });
                                     await new Promise(r => setTimeout(r, 500));
                                     oddBtns[0].click(); // MS 1
                                     selectedPicks.push({
@@ -505,6 +528,8 @@ app.whenReady().then(async () => {
                     };
                 })()
             `);
+            const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Kupon ekleme zaman aşımı (45s)')), 45000));
+            const stepResult = await Promise.race([execPromise, timeoutPromise]);
 
             console.log(`   ✅ ${stepResult.selectedCount} maç seçildi.`);
             stepResult.selectedOdds.forEach(p => console.log(`      ⚽ ${p.title} (${p.odd})`));
@@ -552,7 +577,8 @@ app.whenReady().then(async () => {
         })()
     `);
 
-    await new Promise(r => setTimeout(r, 4000));
-    win.close();
-    app.quit();
+    await new Promise(r => setTimeout(r, 2000));
+    try { win.close(); } catch(e){}
+    try { app.quit(); } catch(e){}
+    process.exit(0);
 });
