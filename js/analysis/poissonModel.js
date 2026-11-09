@@ -1,5 +1,6 @@
-const Statistics = (typeof window !== 'undefined' && window.Statistics)
-    || (typeof require !== 'undefined' ? require('../utils/statistics.js') : null);
+if (typeof window === 'undefined' && typeof require !== 'undefined') {
+    if (!global.Statistics) global.Statistics = require('../utils/statistics.js');
+}
 
 /**
  * poissonModel.js — Poisson Gol Modeli

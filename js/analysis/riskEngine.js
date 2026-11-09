@@ -1,8 +1,7 @@
-const Helpers = (typeof window !== 'undefined' && window.Helpers)
-    || (typeof require !== 'undefined' ? require('../utils/helpers.js') : null);
-
-const Statistics = (typeof window !== 'undefined' && window.Statistics)
-    || (typeof require !== 'undefined' ? require('../utils/statistics.js') : null);
+if (typeof window === 'undefined' && typeof require !== 'undefined') {
+    if (!global.Helpers) global.Helpers = require('../utils/helpers.js');
+    if (!global.Statistics) global.Statistics = require('../utils/statistics.js');
+}
 
 /**
  * riskEngine.js — Risk & Güven Değerlendirme Motoru

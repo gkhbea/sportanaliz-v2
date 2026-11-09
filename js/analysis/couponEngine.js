@@ -1,22 +1,11 @@
-
-const FootballAnalysis = (typeof window !== 'undefined' && window.FootballAnalysis)
-    || (typeof require !== 'undefined' ? require('./footballAnalysis.js') : null);
-
-const RiskEngine = (typeof window !== 'undefined' && window.RiskEngine)
-    || (typeof require !== 'undefined' ? require('./riskEngine.js') : null);
-
-
-const SquadRatingEngine = (typeof window !== 'undefined' && window.SquadRatingEngine)
-    || (typeof require !== 'undefined' ? require('./squadRatingEngine.js') : null);
-
-const SofascoreService = (typeof window !== 'undefined' && window.SofascoreService)
-    || (typeof require !== 'undefined' ? require('../services/sofascoreService.js') : null);
-
-const EditorEngine = (typeof window !== 'undefined' && window.EditorEngine)
-    || (typeof require !== 'undefined' ? require('./editorEngine.js') : null);
-
-const FormAnalyzer = (typeof window !== 'undefined' && window.FormAnalyzer)
-    || (typeof require !== 'undefined' ? require('./formAnalyzer.js') : null);
+if (typeof window === 'undefined' && typeof require !== 'undefined') {
+    if (!global.FootballAnalysis) global.FootballAnalysis = require('./footballAnalysis.js');
+    if (!global.RiskEngine) global.RiskEngine = require('./riskEngine.js');
+    if (!global.SquadRatingEngine) global.SquadRatingEngine = require('./squadRatingEngine.js');
+    if (!global.SofascoreService) global.SofascoreService = require('../services/sofascoreService.js');
+    if (!global.EditorEngine) global.EditorEngine = require('./editorEngine.js');
+    if (!global.FormAnalyzer) global.FormAnalyzer = require('./formAnalyzer.js');
+}
 
 /**
  * couponEngine.js — "Benim İçin Bahis Yap" / Günlük 4 Otomatik Garantör Kupon Motoru

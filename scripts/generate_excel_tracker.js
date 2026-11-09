@@ -841,3 +841,4 @@ buildWorkbook().catch(err => {
     console.error('❌ Excel oluşturma hatası:', err);
     process.exit(1);
 });
+

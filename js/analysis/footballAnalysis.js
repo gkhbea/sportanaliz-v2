@@ -1,9 +1,8 @@
 
-const Statistics = (typeof window !== 'undefined' && window.Statistics)
-    || (typeof require !== 'undefined' ? require('../utils/statistics.js') : null);
-
-const PoissonModel = (typeof window !== 'undefined' && window.PoissonModel)
-    || (typeof require !== 'undefined' ? require('./poissonModel.js') : null);
+if (typeof window === 'undefined' && typeof require !== 'undefined') {
+    if (!global.Statistics) global.Statistics = require('../utils/statistics.js');
+    if (!global.PoissonModel) global.PoissonModel = require('./poissonModel.js');
+}
 
 /**
  * footballAnalysis.js — Futbol Analiz Motoru
