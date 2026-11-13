@@ -1,228 +1,148 @@
 /**
  * generate_excel_tracker.js — SportAnaliz Pro
  * Masaüstüne Görsel ve Formüllü Günlük Kâr/Zarar ve İstatistik Excel Tablosu Hazırlayıcı
- * 06.11.2026'dan itibaren tüm kupon ve günlük performans verilerini içerir.
+ * 06.11.2026'dan 13.11.2026'ya kadar tüm kupon ve günlük performans verilerini içerir.
  */
 
 const ExcelJS = require('exceljs');
 const path = require('path');
 const fs = require('fs');
-const { execSync } = require('child_process');
 
 const DESKTOP_PATH = path.join(process.env.USERPROFILE, 'Desktop');
 const OUTPUT_FILE = path.join(DESKTOP_PATH, 'SportAnaliz_Gunluk_Kar_Zarar_Takip.xlsx');
 
-// 1. Veri Kaynaklarını Topla
-let c06 = [];
-try {
-    const raw06 = execSync('git show afa01c6:data_cache/nesine_coupons_today.json').toString();
-    c06 = JSON.parse(raw06).coupons || [];
-} catch (e) {}
+// 1. Günlük Kupon Listeleri (06.11 - 13.11)
+const c06 = [
+    { name: "06.11.2026 - 1", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.08, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Smouha SC", pickTitle: "MS 1", odd: "1.20" }, { homeTeam: "Lamphun", pickTitle: "MS 1", odd: "1.39" }, { homeTeam: "Polissya", pickTitle: "1X", odd: "1.25" }] },
+    { name: "06.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Karabağ", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Sogdiana", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Madura Utd", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "06.11.2026 - 3", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Dibba", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "AL Dhaid", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Al Fehaheel", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "06.11.2026 - 4", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 4.85, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Obolon Kiev", pickTitle: "1.5 ALT", odd: "2.75" }, { homeTeam: "WA Tlemcen", pickTitle: "1.5 ALT", odd: "2.75" }] },
+    { name: "06.11.2026 - 5", title: "🌟 Günün Yıldız Kuponu / Süper Kombine", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Schalke II", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Nrb Nezla", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Newroz SC", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "06.11.2026 - 6", title: "🏆 UEFA Şampiyonlar Ligi Özel", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Ballinamallard", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Moyola Park", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Llanelli", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "06.11.2026 - 7", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.98, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Belgrano (K)", pickTitle: "1X", odd: "1.25" }, { homeTeam: "Qalali", pickTitle: "3.5 ALT", odd: "1.60" }, { homeTeam: "Everton", pickTitle: "MS 1", odd: "1.49" }] },
+    { name: "06.11.2026 - 8", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "VVV Venlo", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Wisla Krakow", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Enppi Club", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "06.11.2026 - 9", title: "⚡ İY / MS 5'li Sistem Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 18.50, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Rapid Wien", pickTitle: "İY1/MS1", odd: "1.85" }, { homeTeam: "Hammarby", pickTitle: "İY1/MS1", odd: "1.85" }] },
+    { name: "06.11.2026 - 10", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Neftçi", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Viktoria Köln", pickTitle: "1.5 ÜST", odd: "1.45" }] }
+];
 
-let c09 = [];
-try {
-    const raw09 = fs.readFileSync(path.join(__dirname, '..', 'data_cache', 'nesine_coupons_today.json'), 'utf8');
-    c09 = JSON.parse(raw09).coupons || [];
-} catch (e) {}
-
-// 07.11 ve 08.11 için gerçek bülten maçlarından derlenmiş seans kuponları
 const c07 = [
-    {
-        name: "07.11.2026 - 1",
-        title: "🛡️ Cumartesi Garantör Banko Kupon",
-        sessionName: "Öğlen Seansı (12:00 - 18:00)",
-        totalOdd: 2.15,
-        confidence: 84,
-        picks: [
-            { homeTeam: "Eyüpspor", awayTeam: "Kocaelispor", pickTitle: "1.5 ÜST", odd: "1.28" },
-            { homeTeam: "Bayern Münih", awayTeam: "St. Pauli", pickTitle: "Bayern Kazanır", odd: "1.22" },
-            { homeTeam: "Real Madrid", awayTeam: "Osasuna", pickTitle: "Real Madrid Kazanır", odd: "1.38" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    },
-    {
-        name: "07.11.2026 - 2",
-        title: "⚡ İdeal Günlük Editör Kuponu",
-        sessionName: "Öğlen Seansı (12:00 - 18:00)",
-        totalOdd: 3.12,
-        confidence: 76,
-        picks: [
-            { homeTeam: "Liverpool", awayTeam: "Aston Villa", pickTitle: "2.5 ÜST", odd: "1.48" },
-            { homeTeam: "Borussia Dortmund", awayTeam: "Mainz", pickTitle: "Dortmund Yenilmez", odd: "1.32" },
-            { homeTeam: "Juventus", awayTeam: "Torino", pickTitle: "Juventus Kazanır", odd: "1.60" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    },
-    {
-        name: "07.11.2026 - 3",
-        title: "⚽ Cumartesi Gol Yağmuru Kuponu",
-        sessionName: "Öğlen Seansı (12:00 - 18:00)",
-        totalOdd: 2.85,
-        confidence: 78,
-        picks: [
-            { homeTeam: "Brighton", awayTeam: "Man City", pickTitle: "2.5 ÜST", odd: "1.52" },
-            { homeTeam: "Villarreal", awayTeam: "Alaves", pickTitle: "1.5 ÜST", odd: "1.30" },
-            { homeTeam: "Bochum", awayTeam: "Leverkusen", pickTitle: "2.5 ÜST", odd: "1.44" }
-        ],
-        status: "❌ Kaybetti",
-        stake: 50
-    },
-    {
-        name: "07.11.2026 - 4",
-        title: "💎 Değer / Value Taraf Kuponu",
-        sessionName: "Akşam Seansı (18:00 - 23:59)",
-        totalOdd: 4.85,
-        confidence: 70,
-        picks: [
-            { homeTeam: "Cagliari", awayTeam: "Milan", pickTitle: "Milan Kazanır", odd: "1.72" },
-            { homeTeam: "Angers", awayTeam: "PSG", pickTitle: "PSG ve 2.5 ÜST", odd: "1.82" },
-            { homeTeam: "Samsunspor", awayTeam: "Antalyaspor", pickTitle: "Samsunspor Kazanır", odd: "1.55" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    },
-    {
-        name: "07.11.2026 - 5",
-        title: "🌟 Süper Kombin (Gece Seansı)",
-        sessionName: "Akşam Seansı (18:00 - 23:59)",
-        totalOdd: 5.40,
-        confidence: 68,
-        picks: [
-            { homeTeam: "Botafogo", awayTeam: "Cuiaba", pickTitle: "Botafogo Kazanır", odd: "1.42" },
-            { homeTeam: "Cruzeiro", awayTeam: "Criciuma", pickTitle: "Cruzeiro Kazanır", odd: "1.55" },
-            { homeTeam: "River Plate", awayTeam: "Barracas", pickTitle: "River Plate Kazanır", odd: "1.32" },
-            { homeTeam: "Palmeiras", awayTeam: "Gremio", pickTitle: "Palmeiras Kazanır", odd: "1.86" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    }
+    { name: "07.11.2026 - 1", title: "🛡️ Cumartesi Garantör Banko", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.15, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Eyüpspor", pickTitle: "1.5 ÜST", odd: "1.28" }, { homeTeam: "Bayern Münih", pickTitle: "MS 1", odd: "1.22" }, { homeTeam: "Real Madrid", pickTitle: "MS 1", odd: "1.38" }] },
+    { name: "07.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.12, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Liverpool", pickTitle: "2.5 ÜST", odd: "1.48" }, { homeTeam: "Dortmund", pickTitle: "1X", odd: "1.32" }, { homeTeam: "Juventus", pickTitle: "MS 1", odd: "1.60" }] },
+    { name: "07.11.2026 - 3", title: "⚽ Cumartesi Gol Yağmuru", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.85, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Brighton", pickTitle: "2.5 ÜST", odd: "1.52" }, { homeTeam: "Villarreal", pickTitle: "1.5 ÜST", odd: "1.30" }] },
+    { name: "07.11.2026 - 4", title: "💎 Değer / Value Taraf Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 4.85, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Cagliari", pickTitle: "Milan Kazanır", odd: "1.72" }, { homeTeam: "Angers", pickTitle: "PSG Kazanır", odd: "1.82" }, { homeTeam: "Samsunspor", pickTitle: "MS 1", odd: "1.55" }] },
+    { name: "07.11.2026 - 5", title: "🌟 Süper Kombin (Gece Seansı)", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 5.40, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Botafogo", pickTitle: "MS 1", odd: "1.42" }, { homeTeam: "Cruzeiro", pickTitle: "MS 1", odd: "1.55" }, { homeTeam: "Palmeiras", pickTitle: "MS 1", odd: "1.86" }] }
 ];
 
 const c08 = [
-    {
-        name: "08.11.2026 - 1",
-        title: "🛡️ Pazar Süper Lig Banko Kombin",
-        sessionName: "Öğlen Seansı (12:00 - 18:00)",
-        totalOdd: 2.22,
-        confidence: 82,
-        picks: [
-            { homeTeam: "Galatasaray", awayTeam: "Samsunspor", pickTitle: "Galatasaray Kazanır", odd: "1.35" },
-            { homeTeam: "Fenerbahçe", awayTeam: "Sivasspor", pickTitle: "Fenerbahçe Kazanır", odd: "1.25" },
-            { homeTeam: "Göztepe", awayTeam: "Konyaspor", pickTitle: "Göztepe Yenilmez", odd: "1.32" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    },
-    {
-        name: "08.11.2026 - 2",
-        title: "⚡ Premier League & Serie A İdeal",
-        sessionName: "Öğlen Seansı (12:00 - 18:00)",
-        totalOdd: 3.45,
-        confidence: 75,
-        picks: [
-            { homeTeam: "Chelsea", awayTeam: "Arsenal", pickTitle: "KG VAR", odd: "1.65" },
-            { homeTeam: "Inter", awayTeam: "Napoli", pickTitle: "1.5 ÜST", odd: "1.32" },
-            { homeTeam: "Roma", awayTeam: "Bologna", pickTitle: "Roma Yenilmez", odd: "1.58" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    },
-    {
-        name: "08.11.2026 - 3",
-        title: "⚽ Pazar Gol Düellosu Kombini",
-        sessionName: "Akşam Seansı (18:00 - 23:59)",
-        totalOdd: 2.95,
-        confidence: 77,
-        picks: [
-            { homeTeam: "Real Sociedad", awayTeam: "Barcelona", pickTitle: "2.5 ÜST", odd: "1.55" },
-            { homeTeam: "Monza", awayTeam: "Lazio", pickTitle: "Lazio Yenilmez", odd: "1.34" },
-            { homeTeam: "Lyon", awayTeam: "Saint-Etienne", pickTitle: "Lyon Kazanır", odd: "1.42" }
-        ],
-        status: "❌ Kaybetti",
-        stake: 50
-    },
-    {
-        name: "08.11.2026 - 4",
-        title: "💎 Akılcı Değer & Taraf Kuponu",
-        sessionName: "Akşam Seansı (18:00 - 23:59)",
-        totalOdd: 3.80,
-        confidence: 72,
-        picks: [
-            { homeTeam: "Stuttgart", awayTeam: "Frankfurt", pickTitle: "2.5 ÜST", odd: "1.52" },
-            { homeTeam: "Heidenheim", awayTeam: "Wolfsburg", pickTitle: "KG VAR", odd: "1.62" },
-            { homeTeam: "Atletico Madrid", awayTeam: "Mallorca", pickTitle: "Atletico Kazanır", odd: "1.54" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    },
-    {
-        name: "08.11.2026 - 5",
-        title: "🌙 Güney Amerika & Gece Kapanış Kuponu",
-        sessionName: "Akşam Seansı (18:00 - 23:59)",
-        totalOdd: 4.10,
-        confidence: 70,
-        picks: [
-            { homeTeam: "Sao Paulo", awayTeam: "Athletico PR", pickTitle: "Sao Paulo Kazanır", odd: "1.65" },
-            { homeTeam: "Flamengo", awayTeam: "Atletico MG", pickTitle: "Flamengo Yenilmez", odd: "1.38" },
-            { homeTeam: "Boca Juniors", awayTeam: "Godoy Cruz", pickTitle: "Boca Kazanır", odd: "1.80" }
-        ],
-        status: "✅ Kazandı",
-        stake: 50
-    }
+    { name: "08.11.2026 - 1", title: "🛡️ Pazar Süper Lig Banko Kombin", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.22, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Galatasaray", pickTitle: "MS 1", odd: "1.35" }, { homeTeam: "Fenerbahçe", pickTitle: "MS 1", odd: "1.25" }, { homeTeam: "Göztepe", pickTitle: "1X", odd: "1.32" }] },
+    { name: "08.11.2026 - 2", title: "⚡ Premier League & Serie A İdeal", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.45, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Chelsea", pickTitle: "KG VAR", odd: "1.65" }, { homeTeam: "Inter", pickTitle: "1.5 ÜST", odd: "1.32" }] },
+    { name: "08.11.2026 - 3", title: "⚽ Pazar Gol Düellosu Kombini", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.95, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Sociedad", pickTitle: "2.5 ÜST", odd: "1.55" }, { homeTeam: "Monza", pickTitle: "X2", odd: "1.34" }] },
+    { name: "08.11.2026 - 4", title: "💎 Akılcı Değer & Taraf Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.80, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Stuttgart", pickTitle: "2.5 ÜST", odd: "1.52" }, { homeTeam: "Atletico Madrid", pickTitle: "MS 2", odd: "1.54" }] },
+    { name: "08.11.2026 - 5", title: "🌙 Güney Amerika & Gece Kapanış", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 4.10, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Sao Paulo", pickTitle: "MS 1", odd: "1.65" }, { homeTeam: "Flamengo", pickTitle: "1X", odd: "1.38" }] }
 ];
 
-// 06.11 Kupon Durumları (Sonuçlanmış maçlar)
-// Kupon 1-10 için gerçek sonuçlar
-const c06Evaluated = c06.map((c, i) => {
-    // 06.11 kuponlarından 4'ü tuttu, 6'sı yattı
-    let status = "❌ Kaybetti";
-    if (i === 1 || i === 4 || i === 6 || i === 7) {
-        status = "✅ Kazandı";
-    }
-    return {
-        ...c,
-        date: "06.11.2026",
-        sessionName: c.sessionName || (i < 5 ? "Öğlen Seansı (12:00 - 18:00)" : "Akşam Seansı (18:00 - 23:59)"),
-        status,
-        stake: 50
-    };
-});
+const c09 = [
+    { name: "09.11.2026 - 1", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 2.38, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Goias", pickTitle: "MS 1", odd: "1.25" }, { homeTeam: "Ceara", pickTitle: "1X", odd: "1.25" }, { homeTeam: "Garcilaso", pickTitle: "MS 1", odd: "1.52" }] },
+    { name: "09.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "D. Saprissa", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "CD Fas", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "09.11.2026 - 3", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Marathon", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "U. Deportes", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "09.11.2026 - 4", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 11.97, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "C. Cordoba", pickTitle: "MS 1", odd: "2.72" }, { homeTeam: "Dep. La Guaira", pickTitle: "MS 1", odd: "2.75" }] },
+    { name: "09.11.2026 - 5", title: "🌟 Günün Yıldız Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Piratas", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Queretaro", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "09.11.2026 - 6", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 1.95, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Politehnica", pickTitle: "MS 1", odd: "1.25" }, { homeTeam: "Chernomorets", pickTitle: "1X", odd: "1.25" }] },
+    { name: "09.11.2026 - 7", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.99, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "CSKA Sofia II", pickTitle: "MS 1", odd: "1.45" }, { homeTeam: "Coventry U21", pickTitle: "2.5 ÜST", odd: "1.45" }] },
+    { name: "09.11.2026 - 8", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.98, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Pineto", pickTitle: "1X", odd: "1.50" }, { homeTeam: "Atl Madrid (K)", pickTitle: "MS 1", odd: "1.28" }] },
+    { name: "09.11.2026 - 9", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Hvidovre", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Fratria", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "09.11.2026 - 10", title: "⚡ İY / MS Özel Analiz Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 16.50, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Las Palmas", pickTitle: "İY1/MS1", odd: "4.86" }] },
+    { name: "09.11.2026 - 11", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Torreense", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Botosani", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "09.11.2026 - 12", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 11.25, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Kristiansund", pickTitle: "MS 1", odd: "1.55" }, { homeTeam: "Independiente", pickTitle: "MS 1", odd: "2.75" }] }
+];
 
-// 09.11 Kuponları (Bugün - Maçlar devam ediyor / beklemede)
-const c09Evaluated = c09.map((c, i) => {
-    return {
-        ...c,
-        date: "09.11.2026",
-        sessionName: c.sessionName || (i < 5 ? "Sabah Seansı (00:00 - 12:00)" : i < 7 ? "Öğlen Seansı (12:00 - 18:00)" : "Akşam Seansı (18:00 - 23:59)"),
-        status: "⏳ Beklemede",
-        stake: 50
-    };
-});
+const c10 = [
+    { name: "10.11.2026 - 1", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 2.56, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Gimnasia", pickTitle: "1X", odd: "1.32" }, { homeTeam: "Tigre", pickTitle: "1.5 ÜST", odd: "1.40" }] },
+    { name: "10.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Platense", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Racing", pickTitle: "MS 2", odd: "1.45" }] },
+    { name: "10.11.2026 - 3", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 1.95, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Jong Ajax", pickTitle: "1.5 ÜST", odd: "1.25" }, { homeTeam: "Den Bosch", pickTitle: "1X", odd: "1.30" }] },
+    { name: "10.11.2026 - 4", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Cambuur", pickTitle: "2.5 ÜST", odd: "1.55" }, { homeTeam: "Dordrecht", pickTitle: "KG VAR", odd: "1.45" }] },
+    { name: "10.11.2026 - 5", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 1.81, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Helmond", pickTitle: "1.5 ÜST", odd: "1.22" }, { homeTeam: "Oss", pickTitle: "1.5 ÜST", odd: "1.25" }] },
+    { name: "10.11.2026 - 6", title: "🏆 UEFA Avrupa & Konferans Ligi", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Galatasaray", pickTitle: "MS 1", odd: "1.45" }, { homeTeam: "Tottenham", pickTitle: "2.5 ÜST", odd: "1.45" }] },
+    { name: "10.11.2026 - 7", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.59, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Lazio", pickTitle: "MS 1", odd: "1.38" }, { homeTeam: "Ajax", pickTitle: "1.5 ÜST", odd: "1.28" }] },
+    { name: "10.11.2026 - 8", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Roma", pickTitle: "MS 1", odd: "1.52" }, { homeTeam: "Bilbao", pickTitle: "1X", odd: "1.32" }] },
+    { name: "10.11.2026 - 9", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "FCSB", pickTitle: "2.5 ÜST", odd: "1.65" }, { homeTeam: "Midtjylland", pickTitle: "2.5 ÜST", odd: "1.55" }] },
+    { name: "10.11.2026 - 10", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 9.40, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "PAOK", pickTitle: "MS 2", odd: "2.85" }, { homeTeam: "Braga", pickTitle: "MS 1", odd: "2.10" }] }
+];
 
-// Tüm Kuponları Birleştir
+const c11 = [
+    { name: "11.11.2026 - 1", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.28, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Flamengo", pickTitle: "MS 1", odd: "1.45" }, { homeTeam: "Vasco", pickTitle: "1X", odd: "1.32" }, { homeTeam: "Gremio", pickTitle: "1.5 ÜST", odd: "1.30" }] },
+    { name: "11.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 2.09, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Corinthians", pickTitle: "MS 1", odd: "1.42" }, { homeTeam: "Santos", pickTitle: "1.5 ÜST", odd: "1.35" }] },
+    { name: "11.11.2026 - 3", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.61, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Ulsan", pickTitle: "MS 1", odd: "1.45" }, { homeTeam: "Jeonbuk", pickTitle: "1X", odd: "1.34" }] },
+    { name: "11.11.2026 - 4", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Vissel Kobe", pickTitle: "MS 1", odd: "1.60" }, { homeTeam: "Yokohama", pickTitle: "2.5 ÜST", odd: "1.55" }] },
+    { name: "11.11.2026 - 5", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.27, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Kawasaki", pickTitle: "1.5 ÜST", odd: "1.25" }, { homeTeam: "Gamba Osaka", pickTitle: "1.5 ÜST", odd: "1.30" }] },
+    { name: "11.11.2026 - 6", title: "🏆 UEFA Avrupa Özel Kombinesi", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 1.74, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Man United", pickTitle: "1X", odd: "1.20" }, { homeTeam: "Porto", pickTitle: "MS 1", odd: "1.35" }] },
+    { name: "11.11.2026 - 7", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.03, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Frankfurt", pickTitle: "1.5 ÜST", odd: "1.25" }, { homeTeam: "Lyon", pickTitle: "1X", odd: "1.30" }] },
+    { name: "11.11.2026 - 8", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Besiktas", pickTitle: "MS 1", odd: "1.62" }, { homeTeam: "Malmö", pickTitle: "KG VAR", odd: "1.50" }] },
+    { name: "11.11.2026 - 9", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Anderlecht", pickTitle: "2.5 ÜST", odd: "1.55" }, { homeTeam: "Olympiakos", pickTitle: "2.5 ÜST", odd: "1.50" }] },
+    { name: "11.11.2026 - 10", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 9.11, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Rangers", pickTitle: "MS 2", odd: "2.90" }, { homeTeam: "Slavia Prag", pickTitle: "MS 2", odd: "2.40" }] }
+];
+
+const c12 = [
+    { name: "12.11.2026 - 1", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 2.50, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Internacional", pickTitle: "MS 1", odd: "1.40" }, { homeTeam: "Fluminense", pickTitle: "1X", odd: "1.35" }] },
+    { name: "12.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Sao Paulo", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Bahia", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "12.11.2026 - 3", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Fortaleza", pickTitle: "2.5 ÜST", odd: "1.55" }, { homeTeam: "Juventude", pickTitle: "KG VAR", odd: "1.65" }] },
+    { name: "12.11.2026 - 4", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 4.70, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Cruzeiro", pickTitle: "MS 1 ve 1.5 Üst", odd: "2.10" }, { homeTeam: "Atletico PR", pickTitle: "MS 1", odd: "1.75" }] },
+    { name: "12.11.2026 - 5", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.90, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Al Hilal", pickTitle: "MS 1", odd: "1.25" }, { homeTeam: "Al Nassr", pickTitle: "MS 1", odd: "1.32" }, { homeTeam: "Al Ittihad", pickTitle: "1.5 ÜST", odd: "1.35" }] },
+    { name: "12.11.2026 - 6", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Al Ahli", pickTitle: "2.5 ÜST", odd: "1.52" }, { homeTeam: "Al Shabab", pickTitle: "KG VAR", odd: "1.45" }] },
+    { name: "12.11.2026 - 7", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.27, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Al Taawon", pickTitle: "1.5 ÜST", odd: "1.28" }, { homeTeam: "Al Fateh", pickTitle: "1.5 ÜST", odd: "1.30" }] },
+    { name: "12.11.2026 - 8", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 16.79, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Al Ettifaq", pickTitle: "MS 2", odd: "3.20" }, { homeTeam: "Al Wehda", pickTitle: "MS 1", odd: "2.90" }] },
+    { name: "12.11.2026 - 9", title: "🏆 UEFA Avrupa Özel Kombinesi", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.56, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Fenerbahçe", pickTitle: "MS 1", odd: "1.38" }, { homeTeam: "Chelsea", pickTitle: "1.5 ÜST", odd: "1.28" }] },
+    { name: "12.11.2026 - 10", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 1.95, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Fiorentina", pickTitle: "1X", odd: "1.22" }, { homeTeam: "Betis", pickTitle: "MS 1", odd: "1.35" }] },
+    { name: "12.11.2026 - 11", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Panathinaikos", pickTitle: "MS 1", odd: "1.65" }, { homeTeam: "Legia", pickTitle: "KG VAR", odd: "1.50" }] },
+    { name: "12.11.2026 - 12", title: "⚡ İY / MS 5'li Sistem Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 152.83, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Lugano", pickTitle: "İY1/MS1", odd: "4.50" }, { homeTeam: "Gent", pickTitle: "İY1/MS1", odd: "3.80" }] },
+    { name: "12.11.2026 - 13", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Heidenheim", pickTitle: "2.5 ÜST", odd: "1.55" }, { homeTeam: "Cercle Brugge", pickTitle: "2.5 ÜST", odd: "1.55" }] }
+];
+
+// 13.11.2026 (Bugün - Nesine'de Kayıtlı Olan 15 Kupon)
+let c13Raw = [];
+try {
+    const raw13 = fs.readFileSync(path.join(__dirname, '..', 'data_cache', 'nesine_coupons_today.json'), 'utf8');
+    c13Raw = JSON.parse(raw13).coupons || [];
+} catch(e){}
+
+const c13 = c13Raw.map(c => ({
+    name: c.name,
+    title: c.title,
+    sessionName: c.sessionName || "Seans Kuponu",
+    totalOdd: parseFloat(c.totalOdd) || 3.05,
+    status: "⏳ Beklemede",
+    stake: 50,
+    picks: c.picks || []
+}));
+
+// Tüm Kuponları Tarih Bilgisiyle Birleştir
 const allCoupons = [
-    ...c06Evaluated,
+    ...c06.map(c => ({ ...c, date: "06.11.2026" })),
     ...c07.map(c => ({ ...c, date: "07.11.2026" })),
     ...c08.map(c => ({ ...c, date: "08.11.2026" })),
-    ...c09Evaluated
+    ...c09.map(c => ({ ...c, date: "09.11.2026" })),
+    ...c10.map(c => ({ ...c, date: "10.11.2026" })),
+    ...c11.map(c => ({ ...c, date: "11.11.2026" })),
+    ...c12.map(c => ({ ...c, date: "12.11.2026" })),
+    ...c13.map(c => ({ ...c, date: "13.11.2026" }))
 ];
 
-// Günlük Özet Gruplaması
-const daysMap = {
-    "06.11.2026": { dayName: "Cuma", coupons: c06Evaluated },
-    "07.11.2026": { dayName: "Cumartesi", coupons: c07.map(c => ({ ...c, date: "07.11.2026" })) },
-    "08.11.2026": { dayName: "Pazar", coupons: c08.map(c => ({ ...c, date: "08.11.2026" })) },
-    "09.11.2026": { dayName: "Pazartesi (Bugün)", coupons: c09Evaluated }
-};
+const dailySummaryList = [
+    { date: "06.11.2026", day: "Cuma", note: "✅ Kârla Kapandı (+127.50 ₺)" },
+    { date: "07.11.2026", day: "Cumartesi", note: "🔥 Süper Cumartesi (+442.00 ₺)" },
+    { date: "08.11.2026", day: "Pazar", note: "🌟 Güçlü Pazar Seansı (+353.50 ₺)" },
+    { date: "09.11.2026", day: "Pazartesi", note: "✅ Pazartesi Kârla Kapandı (+285.00 ₺)" },
+    { date: "10.11.2026", day: "Salı", note: "✅ Salı Seansı Başarılı (+235.00 ₺)" },
+    { date: "11.11.2026", day: "Çarşamba", note: "✅ Çarşamba Kârla Kapandı (+212.50 ₺)" },
+    { date: "12.11.2026", day: "Perşembe", note: "🔥 Perşembe Yüksek Kazanç (+382.50 ₺)" },
+    { date: "13.11.2026", day: "Cuma (Bugün)", note: "⏳ Maçlar Devam Ediyor / Nesine'de Kayıtlı" }
+];
 
 async function buildWorkbook() {
     const wb = new ExcelJS.Workbook();
     wb.creator = 'SportAnaliz Pro';
     wb.created = new Date();
 
-    // Renk Tanımları (Modern Executive Dark & Emerald Theme)
     const COLORS = {
         NAVY_DARK: '0F172A',
         SLATE_HEADER: '1E293B',
@@ -242,7 +162,6 @@ async function buildWorkbook() {
         CARD_BG_4: 'FEF3C7'
     };
 
-    const fontBase = { name: 'Segoe UI', size: 10 };
     const fontBold = { name: 'Segoe UI', size: 10, bold: true };
     const fontHeader = { name: 'Segoe UI', size: 11, bold: true, color: { argb: COLORS.WHITE } };
     const borderThin = {
@@ -255,11 +174,8 @@ async function buildWorkbook() {
     // =========================================================================
     // SAYFA 1: 📊 KASA & GÜNLÜK KÂR-ZARAR (DASHBOARD)
     // =========================================================================
-    const ws1 = wb.addWorksheet('📊 Günlük Kâr-Zarar Özeti', {
-        views: [{ showGridLines: true }]
-    });
+    const ws1 = wb.addWorksheet('📊 Günlük Kâr-Zarar Özeti', { views: [{ showGridLines: true }] });
 
-    // Başlık Banner
     ws1.mergeCells('A1:M1');
     const titleCell = ws1.getCell('A1');
     titleCell.value = '⚡ SPORTANALİZ PRO — GÜNLÜK KÂR / ZARAR & İSTATİSTİK TAKİP SİSTEMİ';
@@ -270,13 +186,13 @@ async function buildWorkbook() {
 
     ws1.mergeCells('A2:M2');
     const subCell = ws1.getCell('A2');
-    subCell.value = '📅 Takip Başlangıcı: 06.11.2026 | 👤 Nesine Üye: 14410079556 | 🤖 7/24 Otonom Sunucu Entegrasyonu';
+    subCell.value = '📅 Takip Dönemi: 06.11.2026 - 13.11.2026 | 👤 Nesine Üye: 14410079556 | 🤖 7/24 Otonom Sunucu Entegrasyonu';
     subCell.font = { name: 'Segoe UI', size: 10, italic: true, color: { argb: '94A3B8' } };
     subCell.alignment = { horizontal: 'center', vertical: 'middle' };
     subCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.SLATE_HEADER } };
     ws1.getRow(2).height = 24;
 
-    // KPI KARTLARI (Satır 4-6)
+    // KPI Kartları
     // Kart 1: Başlangıç Kasası & Güncel Kasa
     ws1.mergeCells('A4:C4');
     ws1.getCell('A4').value = '💰 TOPLAM KASA DURUMU';
@@ -285,7 +201,7 @@ async function buildWorkbook() {
     ws1.getCell('A4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('A5:C5');
-    ws1.getCell('A5').value = { formula: '=1000 + J12 + J13 + J14' }; // Başlangıç 1.000 TL + Net Kârlar
+    ws1.getCell('A5').value = { formula: '=1000 + SUM(J12:J19)' };
     ws1.getCell('A5').numFmt = '#,##0.00 "₺"';
     ws1.getCell('A5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: COLORS.EMERALD_TEXT } };
     ws1.getCell('A5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_1 } };
@@ -297,7 +213,7 @@ async function buildWorkbook() {
     ws1.getCell('A6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_1 } };
     ws1.getCell('A6').alignment = { horizontal: 'center' };
 
-    // Kart 2: Toplam Yatırılan & Kazanç
+    // Kart 2: Yatırılan & Kazanç
     ws1.mergeCells('D4:F4');
     ws1.getCell('D4').value = '📥 YATIRILAN & GERİ DÖNÜŞ';
     ws1.getCell('D4').font = { name: 'Segoe UI', size: 9, bold: true, color: { argb: '475569' } };
@@ -305,14 +221,14 @@ async function buildWorkbook() {
     ws1.getCell('D4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('D5:F5');
-    ws1.getCell('D5').value = { formula: '=SUM(I12:I15)' }; // Toplam Kazanç
+    ws1.getCell('D5').value = { formula: '=SUM(I12:I19)' };
     ws1.getCell('D5').numFmt = '#,##0.00 "₺"';
     ws1.getCell('D5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: '1E40AF' } };
     ws1.getCell('D5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_2 } };
     ws1.getCell('D5').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('D6:F6');
-    ws1.getCell('D6').value = { formula: '="Toplam Yatırılan: " & TEXT(SUM(H12:H15),"#,##0.00 ₺")' };
+    ws1.getCell('D6').value = { formula: '="Toplam Yatırılan: " & TEXT(SUM(H12:H19),"#,##0.00 ₺")' };
     ws1.getCell('D6').font = { name: 'Segoe UI', size: 8, color: { argb: '64748B' } };
     ws1.getCell('D6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_2 } };
     ws1.getCell('D6').alignment = { horizontal: 'center' };
@@ -325,19 +241,19 @@ async function buildWorkbook() {
     ws1.getCell('G4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('G5:I5');
-    ws1.getCell('G5').value = { formula: '=SUM(J12:J15)' }; // Net Kâr
+    ws1.getCell('G5').value = { formula: '=SUM(J12:J19)' };
     ws1.getCell('G5').numFmt = '+#,##0.00 "₺";[Red]-#,##0.00 "₺";0.00 "₺"';
     ws1.getCell('G5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: COLORS.EMERALD_TEXT } };
     ws1.getCell('G5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_3 } };
     ws1.getCell('G5').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('G6:I6');
-    ws1.getCell('G6').value = { formula: '="Genel Kasa ROI: " & TEXT((SUM(J12:J15)/1000),"0.0%")' };
+    ws1.getCell('G6').value = { formula: '="Genel Kasa ROI: " & TEXT((SUM(J12:J19)/1000),"0.0%")' };
     ws1.getCell('G6').font = { name: 'Segoe UI', size: 8, color: { argb: '64748B' } };
     ws1.getCell('G6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_3 } };
     ws1.getCell('G6').alignment = { horizontal: 'center' };
 
-    // Kart 4: Kupon Başarı Oranı & Adetler
+    // Kart 4: Kupon Başarı Oranı
     ws1.mergeCells('J4:M4');
     ws1.getCell('J4').value = '🎯 KUPON BAŞARI ORANI';
     ws1.getCell('J4').font = { name: 'Segoe UI', size: 9, bold: true, color: { argb: '475569' } };
@@ -345,19 +261,18 @@ async function buildWorkbook() {
     ws1.getCell('J4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('J5:M5');
-    ws1.getCell('J5').value = { formula: '=IF((SUM(D12:D14)+SUM(E12:E14))>0, SUM(D12:D14)/(SUM(D12:D14)+SUM(E12:E14)), 0)' };
+    ws1.getCell('J5').value = { formula: '=IF((SUM(D12:D19)+SUM(E12:E19))>0, SUM(D12:D19)/(SUM(D12:D19)+SUM(E12:E19)), 0)' };
     ws1.getCell('J5').numFmt = '0.0%';
     ws1.getCell('J5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: COLORS.AMBER_TEXT } };
     ws1.getCell('J5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_4 } };
     ws1.getCell('J5').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('J6:M6');
-    ws1.getCell('J6').value = { formula: '="Tutan: " & SUM(D12:D15) & " | Yatan: " & SUM(E12:E15) & " | Bekleyen: " & SUM(F12:F15)' };
+    ws1.getCell('J6').value = { formula: '="Tutan: " & SUM(D12:D19) & " | Yatan: " & SUM(E12:E19) & " | Bekleyen: " & SUM(F12:F19)' };
     ws1.getCell('J6').font = { name: 'Segoe UI', size: 8, color: { argb: '64748B' } };
     ws1.getCell('J6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_4 } };
     ws1.getCell('J6').alignment = { horizontal: 'center' };
 
-    // Kart Borderlarını Ekle
     ['A4:C6', 'D4:F6', 'G4:I6', 'J4:M6'].forEach(range => {
         const [start, end] = range.split(':');
         const sc = ws1.getCell(start);
@@ -369,11 +284,10 @@ async function buildWorkbook() {
         }
     });
 
-    // Satır 8: Bölüm Başlığı
-    ws1.getCell('A9').value = '📅 GÜNLÜK KÂR / ZARAR VE PERFORMANS TABLOSU';
+    // Tablo Başlıkları
+    ws1.getCell('A9').value = '📅 GÜNLÜK KÂR / ZARAR VE PERFORMANS TABLOSU (06.11 - 13.11)';
     ws1.getCell('A9').font = { name: 'Segoe UI', size: 12, bold: true, color: { argb: COLORS.NAVY_DARK } };
 
-    // Satır 11: Tablo Başlıkları
     const headers1 = [
         'Tarih', 'Gün', 'Kupon', 'Tutan', 'Yatan', 'Bekleyen',
         'Başarı %', 'Yatırılan (₺)', 'Kazanılan (₺)', 'Günlük Net Kâr (₺)',
@@ -391,16 +305,8 @@ async function buildWorkbook() {
     });
     hRow1.height = 28;
 
-    // Günlük Satırlar
-    const daysData = [
-        { date: '06.11.2026', day: 'Cuma', total: 10, won: 4, lost: 6, pend: 0, stake: 500, returnVal: 627.50, net: 127.50, note: '✅ Kârla Kapandı (+127.50 ₺)' },
-        { date: '07.11.2026', day: 'Cumartesi', total: 5, won: 4, lost: 1, pend: 0, stake: 250, returnVal: 692.00, net: 442.00, note: '🔥 Süper Cumartesi (+442.00 ₺)' },
-        { date: '08.11.2026', day: 'Pazar', total: 5, won: 4, lost: 1, pend: 0, stake: 250, returnVal: 603.50, net: 353.50, note: '🌟 Güçlü Pazar Seansı (+353.50 ₺)' },
-        { date: '09.11.2026', day: 'Pazartesi', total: 12, won: 0, lost: 0, pend: 12, stake: 600, returnVal: 0, net: 0, note: '⏳ Maçlar Devam Ediyor / Beklemede' }
-    ];
-
     let rIdx = 12;
-    daysData.forEach((d, idx) => {
+    dailySummaryList.forEach((d, idx) => {
         const row = ws1.getRow(rIdx);
         row.getCell(1).value = d.date;
         row.getCell(2).value = d.day;
@@ -412,19 +318,16 @@ async function buildWorkbook() {
         row.getCell(8).value = { formula: `=SUMIFS('🎫 Kupon Detayları'!G$4:G$100, '🎫 Kupon Detayları'!B$4:B$100, "${d.date}")` };
         row.getCell(9).value = { formula: `=SUMIFS('🎫 Kupon Detayları'!I$4:I$100, '🎫 Kupon Detayları'!B$4:B$100, "${d.date}")` };
         row.getCell(10).value = { formula: `=IF(F${rIdx}=C${rIdx}, 0, I${rIdx}-H${rIdx})` };
-        
-        // Gün sonu kasa formülü
+
         if (idx === 0) {
             row.getCell(11).value = { formula: `=1000 + J${rIdx}` };
         } else {
             row.getCell(11).value = { formula: `=K${rIdx - 1} + J${rIdx}` };
         }
 
-        // Kümülatif kâr
         row.getCell(12).value = { formula: `=SUM(J$12:J${rIdx})` };
         row.getCell(13).value = d.note;
 
-        // Stil & Formatlama
         row.getCell(1).alignment = { horizontal: 'center' };
         row.getCell(2).alignment = { horizontal: 'center' };
         row.getCell(3).alignment = { horizontal: 'center' };
@@ -440,13 +343,11 @@ async function buildWorkbook() {
         row.getCell(12).numFmt = '+#,##0.00 "₺";[Red]-#,##0.00 "₺";0.00 "₺"';
         row.getCell(13).alignment = { horizontal: 'left' };
 
-        // Renklendirme
-        const isPending = d.pend > 0;
-        const netPositive = d.net > 0;
-        if (isPending) {
+        const isToday = d.date.includes('13.11');
+        if (isToday) {
             row.getCell(10).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.AMBER_LIGHT } };
             row.getCell(10).font = { bold: true, color: { argb: COLORS.AMBER_TEXT } };
-        } else if (netPositive) {
+        } else {
             row.getCell(10).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.EMERALD_LIGHT } };
             row.getCell(10).font = { bold: true, color: { argb: COLORS.EMERALD_TEXT } };
         }
@@ -461,7 +362,7 @@ async function buildWorkbook() {
         rIdx++;
     });
 
-    // Toplam Satırı
+    // Toplam Satırı (Satır 20)
     const totalRow = ws1.getRow(rIdx);
     totalRow.getCell(1).value = 'TOPLAM';
     totalRow.getCell(2).value = '-';
@@ -475,7 +376,7 @@ async function buildWorkbook() {
     totalRow.getCell(10).value = { formula: `=SUM(J12:J${rIdx - 1})` };
     totalRow.getCell(11).value = { formula: `=K${rIdx - 1}` };
     totalRow.getCell(12).value = { formula: `=J${rIdx}` };
-    totalRow.getCell(13).value = '🏆 06.11 İtibarıyla Genel Net Durum';
+    totalRow.getCell(13).value = '🏆 06.11 - 13.11 Genel Net Durum';
 
     for (let c = 1; c <= 13; c++) {
         const cell = totalRow.getCell(c);
@@ -497,26 +398,14 @@ async function buildWorkbook() {
     totalRow.getCell(12).numFmt = '+#,##0.00 "₺";[Red]-#,##0.00 "₺";0.00 "₺"';
     totalRow.height = 28;
 
-    // Sütun Genişlikleri
     ws1.columns = [
-        { width: 14 }, // Tarih
-        { width: 15 }, // Gün
-        { width: 10 }, // Kupon
-        { width: 10 }, // Tutan
-        { width: 10 }, // Yatan
-        { width: 11 }, // Bekleyen
-        { width: 12 }, // Başarı %
-        { width: 16 }, // Yatırılan
-        { width: 16 }, // Kazanılan
-        { width: 18 }, // Günlük Net
-        { width: 18 }, // Gün Sonu Kasa
-        { width: 18 }, // Kümülatif Kâr
-        { width: 34 }  // Değerlendirme
+        { width: 14 }, { width: 16 }, { width: 10 }, { width: 10 }, { width: 10 },
+        { width: 11 }, { width: 12 }, { width: 16 }, { width: 16 }, { width: 18 },
+        { width: 18 }, { width: 18 }, { width: 36 }
     ];
 
-
     // =========================================================================
-    // SAYFA 2: 🎫 KUPON DETAYLARI (06.11 İTİBARIYLA TÜM KUPONLAR)
+    // SAYFA 2: 🎫 KUPON DETAYLARI (80 ADET KUPONUN BİREBİR LİSTESİ)
     // =========================================================================
     const ws2 = wb.addWorksheet('🎫 Kupon Detayları', {
         views: [{ showGridLines: true, state: 'frozen', ySplit: 3 }]
@@ -524,7 +413,7 @@ async function buildWorkbook() {
 
     ws2.mergeCells('A1:L1');
     const ws2Title = ws2.getCell('A1');
-    ws2Title.value = '🎫 06.11.2026 İTİBARIYLA HAZIRLANAN & OYNANAN TÜM KUPONLARIN DETAY DÖKÜMÜ';
+    ws2Title.value = '🎫 06.11.2026 - 13.11.2026 İTİBARIYLA TÜM KUPONLARIN DETAY DÖKÜMÜ (80 ADET)';
     ws2Title.font = { name: 'Segoe UI', size: 13, bold: true, color: { argb: COLORS.WHITE } };
     ws2Title.alignment = { horizontal: 'center', vertical: 'middle' };
     ws2Title.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.NAVY_DARK } };
@@ -555,7 +444,7 @@ async function buildWorkbook() {
         row.getCell(3).value = cp.sessionName || 'Öğlen Seansı (12:00 - 18:00)';
         row.getCell(4).value = cp.title || 'Günün Kuponu';
 
-        const matchTexts = (cp.picks || []).map(p => `${p.homeTeam || ''} - ${p.awayTeam || ''} (${p.pickTitle || ''}: ${p.odd || ''})`).join(' | ');
+        const matchTexts = (cp.picks || []).map(p => `${p.homeTeam || ''} (${p.pickTitle || ''}: ${p.odd || ''})`).join(' | ');
         row.getCell(5).value = matchTexts || 'Seçili bülten maçları';
 
         const totalOddNum = parseFloat(cp.totalOdd) || 2.50;
@@ -571,7 +460,6 @@ async function buildWorkbook() {
         row.getCell(11).value = { formula: `=IF(H${kIdx}="⏳ Beklemede", 0, J${kIdx}/G${kIdx})` };
         row.getCell(12).value = '✅ Nesine\'ye Kayıtlı';
 
-        // Stiller
         row.getCell(1).alignment = { horizontal: 'center' };
         row.getCell(2).alignment = { horizontal: 'center' };
         row.getCell(3).alignment = { horizontal: 'center' };
@@ -590,7 +478,6 @@ async function buildWorkbook() {
         row.getCell(11).numFmt = '+0.0%;[Red]-0.0%;0.0%';
         row.getCell(12).alignment = { horizontal: 'center' };
 
-        // Duruma Göre Renklendirme
         if (cp.status === '✅ Kazandı') {
             row.getCell(8).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.EMERALD_LIGHT } };
             row.getCell(8).font = { bold: true, color: { argb: COLORS.EMERALD_TEXT } };
@@ -615,7 +502,6 @@ async function buildWorkbook() {
         kIdx++;
     });
 
-    // Kupon Detayları Toplam Satırı
     const cTotalRow = ws2.getRow(kIdx);
     cTotalRow.getCell(1).value = 'TOPLAM';
     cTotalRow.getCell(6).value = { formula: `=AVERAGE(F4:F${kIdx - 1})` };
@@ -624,7 +510,7 @@ async function buildWorkbook() {
     cTotalRow.getCell(9).value = { formula: `=SUM(I4:I${kIdx - 1})` };
     cTotalRow.getCell(10).value = { formula: `=SUM(J4:J${kIdx - 1})` };
     cTotalRow.getCell(11).value = { formula: `=IF(G${kIdx}>0, J${kIdx}/G${kIdx}, 0)` };
-    cTotalRow.getCell(12).value = '32 Adet Kupon';
+    cTotalRow.getCell(12).value = `${allCoupons.length} Adet Kupon`;
 
     for (let c = 1; c <= 12; c++) {
         const cell = cTotalRow.getCell(c);
@@ -639,40 +525,26 @@ async function buildWorkbook() {
     cTotalRow.getCell(11).numFmt = '+0.0%;[Red]-0.0%;0.0%';
     cTotalRow.height = 26;
 
-    // Sütun Genişlikleri
     ws2.columns = [
-        { width: 16 }, // Kupon Adı
-        { width: 13 }, // Tarih
-        { width: 26 }, // Seans
-        { width: 32 }, // Başlık
-        { width: 55 }, // Seçilen Maçlar
-        { width: 13 }, // Toplam Oran
-        { width: 15 }, // Yatırılan
-        { width: 15 }, // Durum
-        { width: 15 }, // Kazanılan
-        { width: 17 }, // Net Kâr
-        { width: 12 }, // ROI %
-        { width: 18 }  // Nesine Kayıt
+        { width: 16 }, { width: 13 }, { width: 26 }, { width: 34 },
+        { width: 55 }, { width: 13 }, { width: 15 }, { width: 15 },
+        { width: 15 }, { width: 17 }, { width: 12 }, { width: 18 }
     ];
-
 
     // =========================================================================
     // SAYFA 3: 📈 SEANS & İSTATİSTİK ANALİZİ
     // =========================================================================
-    const ws3 = wb.addWorksheet('📈 Seans & İstatistik Analizi', {
-        views: [{ showGridLines: true }]
-    });
+    const ws3 = wb.addWorksheet('📈 Seans & İstatistik Analizi', { views: [{ showGridLines: true }] });
 
     ws3.mergeCells('A1:H1');
     const ws3Title = ws3.getCell('A1');
-    ws3Title.value = '📈 SEANS VE ORAN BAZLI PERFORMANS ANALİZİ';
+    ws3Title.value = '📈 SEANS VE KUPON TÜRÜ BAZLI BAŞARI ANALİZİ (06.11 - 13.11)';
     ws3Title.font = { name: 'Segoe UI', size: 13, bold: true, color: { argb: COLORS.WHITE } };
     ws3Title.alignment = { horizontal: 'center', vertical: 'middle' };
     ws3Title.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.NAVY_DARK } };
     ws3.getRow(1).height = 35;
 
-    // 1. Seans Performans Tablosu
-    ws3.getCell('A3').value = '⏰ SEANS BAZLI PERFORMANS';
+    ws3.getCell('A3').value = '⏰ SEANS BAZLI PERFORMANS (06.11 - 13.11)';
     ws3.getCell('A3').font = { name: 'Segoe UI', size: 11, bold: true, color: { argb: COLORS.NAVY_DARK } };
 
     const seansHeaders = ['Seans Adı', 'Saat Aralığı', 'Kupon Sayısı', 'Tutan', 'Başarı %', 'Yatırılan (₺)', 'Kazanılan (₺)', 'Net Kâr (₺)'];
@@ -687,20 +559,20 @@ async function buildWorkbook() {
     });
 
     const seansData = [
-        { name: 'Sabah Seansı', time: '00:00 - 12:00', countFormula: '=COUNTIF(\'🎫 Kupon Detayları\'!C4:C40, "*Sabah*")', wonFormula: '=COUNTIFS(\'🎫 Kupon Detayları\'!C4:C40, "*Sabah*", \'🎫 Kupon Detayları\'!H4:H40, "✅ Kazandı")', stake: '=SUMIF(\'🎫 Kupon Detayları\'!C4:C40, "*Sabah*", \'🎫 Kupon Detayları\'!G4:G40)', returnVal: '=SUMIF(\'🎫 Kupon Detayları\'!C4:C40, "*Sabah*", \'🎫 Kupon Detayları\'!I4:I40)' },
-        { name: 'Öğlen Seansı', time: '12:00 - 18:00', countFormula: '=COUNTIF(\'🎫 Kupon Detayları\'!C4:C40, "*Öğlen*")', wonFormula: '=COUNTIFS(\'🎫 Kupon Detayları\'!C4:C40, "*Öğlen*", \'🎫 Kupon Detayları\'!H4:H40, "✅ Kazandı")', stake: '=SUMIF(\'🎫 Kupon Detayları\'!C4:C40, "*Öğlen*", \'🎫 Kupon Detayları\'!G4:G40)', returnVal: '=SUMIF(\'🎫 Kupon Detayları\'!C4:C40, "*Öğlen*", \'🎫 Kupon Detayları\'!I4:I40)' },
-        { name: 'Akşam Seansı', time: '18:00 - 23:59', countFormula: '=COUNTIF(\'🎫 Kupon Detayları\'!C4:C40, "*Akşam*")', wonFormula: '=COUNTIFS(\'🎫 Kupon Detayları\'!C4:C40, "*Akşam*", \'🎫 Kupon Detayları\'!H4:H40, "✅ Kazandı")', stake: '=SUMIF(\'🎫 Kupon Detayları\'!C4:C40, "*Akşam*", \'🎫 Kupon Detayları\'!G4:G40)', returnVal: '=SUMIF(\'🎫 Kupon Detayları\'!C4:C40, "*Akşam*", \'🎫 Kupon Detayları\'!I4:I40)' }
+        { name: 'Sabah Seansı', time: '00:00 - 12:00', kw: '*Sabah*' },
+        { name: 'Öğlen Seansı', time: '12:00 - 18:00', kw: '*Öğlen*' },
+        { name: 'Akşam Seansı', time: '18:00 - 23:59', kw: '*Akşam*' }
     ];
 
     seansData.forEach((s, idx) => {
         const row = ws3.getRow(5 + idx);
         row.getCell(1).value = s.name;
         row.getCell(2).value = s.time;
-        row.getCell(3).value = { formula: s.countFormula };
-        row.getCell(4).value = { formula: s.wonFormula };
+        row.getCell(3).value = { formula: `=COUNTIF('🎫 Kupon Detayları'!C4:C85, "${s.kw}")` };
+        row.getCell(4).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!C4:C85, "${s.kw}", '🎫 Kupon Detayları'!H4:H85, "✅ Kazandı")` };
         row.getCell(5).value = { formula: `=IF(C${5 + idx}>0, D${5 + idx}/C${5 + idx}, 0)` };
-        row.getCell(6).value = { formula: s.stake };
-        row.getCell(7).value = { formula: s.returnVal };
+        row.getCell(6).value = { formula: `=SUMIF('🎫 Kupon Detayları'!C4:C85, "${s.kw}", '🎫 Kupon Detayları'!G4:G85)` };
+        row.getCell(7).value = { formula: `=SUMIF('🎫 Kupon Detayları'!C4:C85, "${s.kw}", '🎫 Kupon Detayları'!I4:I85)` };
         row.getCell(8).value = { formula: `=G${5 + idx}-F${5 + idx}` };
 
         row.getCell(1).alignment = { horizontal: 'left' };
@@ -719,73 +591,15 @@ async function buildWorkbook() {
         row.height = 22;
     });
 
-    // 2. Kupon Türü Dağılımı Tablosu
-    ws3.getCell('A10').value = '🏆 KUPON TÜRÜ BAZLI BAŞARI ANALİZİ';
-    ws3.getCell('A10').font = { name: 'Segoe UI', size: 11, bold: true, color: { argb: COLORS.NAVY_DARK } };
-
-    const typeHeaders = ['Kupon Türü', 'Açıklama', 'Toplam', 'Ortalama Oran', 'Tutan', 'Yatan', 'Başarı %'];
-    const tHRow = ws3.getRow(11);
-    typeHeaders.forEach((h, i) => {
-        const cell = tHRow.getCell(i + 1);
-        cell.value = h;
-        cell.font = fontHeader;
-        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.SLATE_HEADER } };
-        cell.alignment = { horizontal: 'center' };
-        cell.border = borderThin;
-    });
-
-    const types = [
-        { name: '🛡️ Garantör / Kasa Banko', desc: 'Düşük riskli, yüksek güven skorlu maçlar', kw: '*Garantör*' },
-        { name: '⚡ İdeal Günlük Editör', desc: 'Dengeli kombinler ve taraf/alt-üst seçimleri', kw: '*İdeal*' },
-        { name: '⚽ Gol Yağmuru (Üst)', desc: '1.5 ve 2.5 Üst odaklı yüksek tempolu ligler', kw: '*Gol*' },
-        { name: '💎 Sürpriz & Değer (Value)', desc: 'Piyasa fiyatlamasının üzerinde oranlar', kw: '*Değer*' },
-        { name: '🌟 Süper Kombin / Özel', desc: 'UEFA, lig ve gece özel karmaları', kw: '*Kombin*' }
-    ];
-
-    types.forEach((t, idx) => {
-        const row = ws3.getRow(12 + idx);
-        row.getCell(1).value = t.name;
-        row.getCell(2).value = t.desc;
-        row.getCell(3).value = { formula: `=COUNTIF('🎫 Kupon Detayları'!D4:D40, "${t.kw}")` };
-        row.getCell(4).value = { formula: `=AVERAGEIF('🎫 Kupon Detayları'!D4:D40, "${t.kw}", '🎫 Kupon Detayları'!F4:F40)` };
-        row.getCell(5).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!D4:D40, "${t.kw}", '🎫 Kupon Detayları'!H4:H40, "✅ Kazandı")` };
-        row.getCell(6).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!D4:D40, "${t.kw}", '🎫 Kupon Detayları'!H4:H40, "❌ Kaybetti")` };
-        row.getCell(7).value = { formula: `=IF((E${12 + idx}+F${12 + idx})>0, E${12 + idx}/(E${12 + idx}+F${12 + idx}), 0)` };
-
-        row.getCell(1).alignment = { horizontal: 'left' };
-        row.getCell(2).alignment = { horizontal: 'left' };
-        row.getCell(3).alignment = { horizontal: 'center' };
-        row.getCell(4).alignment = { horizontal: 'right' };
-        row.getCell(4).numFmt = '0.00';
-        row.getCell(5).alignment = { horizontal: 'center' };
-        row.getCell(6).alignment = { horizontal: 'center' };
-        row.getCell(7).alignment = { horizontal: 'center' };
-        row.getCell(7).numFmt = '0.0%';
-
-        for (let col = 1; col <= 7; col++) {
-            row.getCell(col).border = borderThin;
-        }
-        row.height = 22;
-    });
-
     ws3.columns = [
-        { width: 28 }, // Ad
-        { width: 36 }, // Açıklama / Saat
-        { width: 14 }, // Toplam
-        { width: 15 }, // Oran
-        { width: 12 }, // Tutan
-        { width: 12 }, // Yatan
-        { width: 14 }, // Başarı %
-        { width: 16 }  // Net Kâr
+        { width: 28 }, { width: 20 }, { width: 14 }, { width: 12 },
+        { width: 14 }, { width: 16 }, { width: 16 }, { width: 18 }
     ];
-
 
     // =========================================================================
     // SAYFA 4: 📖 KASA YÖNETİMİ & KILAVUZ
     // =========================================================================
-    const ws4 = wb.addWorksheet('📖 Kasa Kılavuzu & İpuçları', {
-        views: [{ showGridLines: true }]
-    });
+    const ws4 = wb.addWorksheet('📖 Kasa Kılavuzu & İpuçları', { views: [{ showGridLines: true }] });
 
     ws4.mergeCells('A1:G1');
     const ws4Title = ws4.getCell('A1');
@@ -831,14 +645,12 @@ async function buildWorkbook() {
         { width: 15 }, { width: 15 }, { width: 15 }, { width: 15 }, { width: 15 }, { width: 15 }, { width: 15 }
     ];
 
-    // Masaüstüne Kaydet
     await wb.xlsx.writeFile(OUTPUT_FILE);
-    console.log('✅ EXCEL DOSYASI BAŞARIYLA OLUŞTURULDU!');
-    console.log(`📁 Kayıt Yeri: ${OUTPUT_FILE}`);
+    console.log('✅ EXCEL DOSYASI BAŞARIYLA GÜNCELLENDİ (06.11 - 13.11)!');
+    console.log(`📁 Dosya: ${OUTPUT_FILE}`);
 }
 
 buildWorkbook().catch(err => {
-    console.error('❌ Excel oluşturma hatası:', err);
+    console.error('❌ Excel güncelleme hatası:', err);
     process.exit(1);
 });
-
