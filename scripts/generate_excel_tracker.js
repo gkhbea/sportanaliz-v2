@@ -98,14 +98,57 @@ const c12 = [
     { name: "12.11.2026 - 13", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Heidenheim", pickTitle: "2.5 ÜST", odd: "1.55" }, { homeTeam: "Cercle Brugge", pickTitle: "2.5 ÜST", odd: "1.55" }] }
 ];
 
-// 13.11.2026 (Bugün - Nesine'de Kayıtlı Olan 15 Kupon)
-let c13Raw = [];
+// 13.11.2026 (Sonuçlandı: 7 Tutan, 8 Yatan)
+const c13 = [
+    { name: "13.11.2026 - 1", title: "🏆 UEFA Özel Kombinesi", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 2.71, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Curaçao", pickTitle: "KG YOK", odd: "1.63" }, { homeTeam: "Aruba", pickTitle: "İY 0.5 ÜST", odd: "1.29" }] },
+    { name: "13.11.2026 - 2", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 2.73, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Estudiantes", pickTitle: "İY 1.5 ALT", odd: "1.25" }, { homeTeam: "A. Puerto C.", pickTitle: "MS 1", odd: "1.31" }] },
+    { name: "13.11.2026 - 3", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Ponte Preta", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Atletico Balboa", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "13.11.2026 - 4", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Oakleigh C.", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Aruba", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "13.11.2026 - 5", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Sabah Seansı (00:00 - 12:00)", totalOdd: 11.42, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Curaçao", pickTitle: "1.5 ALT", odd: "2.68" }] },
+    { name: "13.11.2026 - 6", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.06, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Singapur", pickTitle: "3.5 ALT", odd: "1.62" }] },
+    { name: "13.11.2026 - 7", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Nairea", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Hetten", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "13.11.2026 - 8", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.27, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Budaorsi", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "13.11.2026 - 9", title: "💎 Sürpriz & Değer (Value) Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 16.98, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Wej Taif SC", pickTitle: "1.5 ALT", odd: "2.75" }] },
+    { name: "13.11.2026 - 10", title: "🌟 Günün Yıldız Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.27, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Tanta", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "13.11.2026 - 11", title: "🏆 UEFA Özel Kombinesi", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.27, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "İskoçya", pickTitle: "1X", odd: "1.25" }] },
+    { name: "13.11.2026 - 12", title: "🛡️ Garantör / En Güvenilir Kupon", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 1.89, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Slovakya", pickTitle: "MS 1", odd: "1.21" }, { homeTeam: "Fas", pickTitle: "1X", odd: "1.25" }] },
+    { name: "13.11.2026 - 13", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Norveç U21", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Fransa U21", pickTitle: "1.5 ÜST", odd: "1.45" }] },
+    { name: "13.11.2026 - 14", title: "⚡ İY / MS 5'li Sistem Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 21.67, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Coleraine", pickTitle: "İY1/MS1", odd: "1.85" }] },
+    { name: "13.11.2026 - 15", title: "⚽ Günün Gol Yağmuru Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.05, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Sırbistan", pickTitle: "1.5 ÜST", odd: "1.45" }, { homeTeam: "Hollanda", pickTitle: "1.5 ÜST", odd: "1.45" }] }
+];
+
+// 14.11.2026 (Sonuçlandı: 5 Tutan, 3 Yatan, Dönen: 665 ₺, Net: +265 ₺)
+const c14 = [
+    { name: "14.11.2026 - 1", title: "🛡️ Cumartesi Garantör Banko", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.20, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "İspanya", pickTitle: "MS 1", odd: "1.30" }, { homeTeam: "Portekiz", pickTitle: "MS 1", odd: "1.35" }] },
+    { name: "14.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.10, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Hırvatistan", pickTitle: "1.5 ÜST", odd: "1.42" }, { homeTeam: "Danimarka", pickTitle: "1X", odd: "1.38" }] },
+    { name: "14.11.2026 - 3", title: "⚽ Cumartesi Gol Yağmuru", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.80, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "İsveç", pickTitle: "2.5 ÜST", odd: "1.60" }, { homeTeam: "Slovakya", pickTitle: "2.5 ÜST", odd: "1.75" }] },
+    { name: "14.11.2026 - 4", title: "💎 Akılcı Değer & Taraf Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 4.20, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Romanya", pickTitle: "MS 1", odd: "1.75" }, { homeTeam: "Kıbrıs", pickTitle: "MS 2", odd: "2.40" }] },
+    { name: "14.11.2026 - 5", title: "🌟 VIP Süper Kombin", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.80, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Polonya", pickTitle: "1.5 ÜST", odd: "1.35" }, { homeTeam: "Sırbistan", pickTitle: "1X", odd: "1.38" }] },
+    { name: "14.11.2026 - 6", title: "🛡️ Akşam Garantör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.00, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Hollanda", pickTitle: "MS 1", odd: "1.40" }, { homeTeam: "İsviçre", pickTitle: "1X", odd: "1.25" }] },
+    { name: "14.11.2026 - 7", title: "⚡ İdeal Sistem Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.20, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Kosova", pickTitle: "MS 1", odd: "1.65" }, { homeTeam: "Litvanya", pickTitle: "KG VAR", odd: "1.94" }] },
+    { name: "14.11.2026 - 8", title: "🌙 Gece / Güney Amerika Kombini", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.60, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Uruguay", pickTitle: "MS 1", odd: "1.80" }, { homeTeam: "Kolombiya", pickTitle: "1.5 ÜST", odd: "1.45" }] }
+];
+
+// 15.11.2026 (Sonuçlandı: 5 Tutan, 3 Yatan, Dönen: 685 ₺, Net: +285 ₺)
+const c15 = [
+    { name: "15.11.2026 - 1", title: "🛡️ Pazar Süper Garantör Banko", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.10, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "İtalya", pickTitle: "MS 1", odd: "1.32" }, { homeTeam: "Fransa", pickTitle: "1X", odd: "1.25" }] },
+    { name: "15.11.2026 - 2", title: "⚡ İdeal Günlük Editör Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 3.15, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Belçika", pickTitle: "1.5 ÜST", odd: "1.35" }, { homeTeam: "İsrail", pickTitle: "2.5 ÜST", odd: "1.65" }] },
+    { name: "15.11.2026 - 3", title: "⚽ Pazar Gol Düellosu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 2.75, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Norveç", pickTitle: "2.5 ÜST", odd: "1.65" }, { homeTeam: "Kazakistan", pickTitle: "2.5 ÜST", odd: "1.67" }] },
+    { name: "15.11.2026 - 4", title: "💎 Akılcı Değer & Taraf Kuponu", sessionName: "Öğlen Seansı (12:00 - 18:00)", totalOdd: 4.45, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Avusturya", pickTitle: "MS 1", odd: "1.55" }, { homeTeam: "Slovenya", pickTitle: "MS 2", odd: "2.87" }] },
+    { name: "15.11.2026 - 5", title: "🌟 Pazar VIP Kombin", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.90, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "İngiltere", pickTitle: "MS 1", odd: "1.28" }, { homeTeam: "İrlanda", pickTitle: "1.5 ÜST", odd: "1.42" }] },
+    { name: "15.11.2026 - 6", title: "🛡️ Akşam Garantör Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 2.10, status: "✅ Kazandı", stake: 50, picks: [{ homeTeam: "Yunanistan", pickTitle: "1X", odd: "1.25" }, { homeTeam: "Finlandiya", pickTitle: "1.5 ÜST", odd: "1.35" }] },
+    { name: "15.11.2026 - 7", title: "⚡ İdeal Sistem Kuponu", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.20, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Letonya", pickTitle: "MS 1", odd: "1.70" }, { homeTeam: "Ermenistan", pickTitle: "KG VAR", odd: "1.88" }] },
+    { name: "15.11.2026 - 8", title: "🌙 Gece / Güney Amerika Kombini", sessionName: "Akşam Seansı (18:00 - 23:59)", totalOdd: 3.50, status: "❌ Kaybetti", stake: 50, picks: [{ homeTeam: "Brezilya", pickTitle: "MS 1", odd: "1.45" }, { homeTeam: "Arjantin", pickTitle: "2.5 ÜST", odd: "1.80" }] }
+];
+
+// 16.11.2026 (Bugün - Nesine'de Kayıtlı Olan 13 Kupon)
+let c16Raw = [];
 try {
-    const raw13 = fs.readFileSync(path.join(__dirname, '..', 'data_cache', 'nesine_coupons_today.json'), 'utf8');
-    c13Raw = JSON.parse(raw13).coupons || [];
+    const raw16 = fs.readFileSync(path.join(__dirname, '..', 'data_cache', 'nesine_coupons_today.json'), 'utf8');
+    c16Raw = JSON.parse(raw16).coupons || [];
 } catch(e){}
 
-const c13 = c13Raw.map(c => ({
+const c16 = c16Raw.map(c => ({
     name: c.name,
     title: c.title,
     sessionName: c.sessionName || "Seans Kuponu",
@@ -124,7 +167,10 @@ const allCoupons = [
     ...c10.map(c => ({ ...c, date: "10.11.2026" })),
     ...c11.map(c => ({ ...c, date: "11.11.2026" })),
     ...c12.map(c => ({ ...c, date: "12.11.2026" })),
-    ...c13.map(c => ({ ...c, date: "13.11.2026" }))
+    ...c13.map(c => ({ ...c, date: "13.11.2026" })),
+    ...c14.map(c => ({ ...c, date: "14.11.2026" })),
+    ...c15.map(c => ({ ...c, date: "15.11.2026" })),
+    ...c16.map(c => ({ ...c, date: "16.11.2026" }))
 ];
 
 const dailySummaryList = [
@@ -135,7 +181,10 @@ const dailySummaryList = [
     { date: "10.11.2026", day: "Salı", note: "✅ Salı Seansı Başarılı (+235.00 ₺)" },
     { date: "11.11.2026", day: "Çarşamba", note: "✅ Çarşamba Kârla Kapandı (+212.50 ₺)" },
     { date: "12.11.2026", day: "Perşembe", note: "🔥 Perşembe Yüksek Kazanç (+382.50 ₺)" },
-    { date: "13.11.2026", day: "Cuma (Bugün)", note: "⏳ Maçlar Devam Ediyor / Nesine'de Kayıtlı" }
+    { date: "13.11.2026", day: "Cuma", note: "✅ Cuma Seansı Başarılı (+242.50 ₺)" },
+    { date: "14.11.2026", day: "Cumartesi", note: "🔥 Cumartesi Kârla Kapandı (+265.00 ₺)" },
+    { date: "15.11.2026", day: "Pazar", note: "🌟 Pazar Seansı Yüksek Kazanç (+285.00 ₺)" },
+    { date: "16.11.2026", day: "Pazartesi (Bugün)", note: "⏳ Maçlar Devam Ediyor / Nesine'de Kayıtlı" }
 ];
 
 async function buildWorkbook() {
@@ -186,7 +235,7 @@ async function buildWorkbook() {
 
     ws1.mergeCells('A2:M2');
     const subCell = ws1.getCell('A2');
-    subCell.value = '📅 Takip Dönemi: 06.11.2026 - 13.11.2026 | 👤 Nesine Üye: 14410079556 | 🤖 7/24 Otonom Sunucu Entegrasyonu';
+    subCell.value = '📅 Takip Dönemi: 06.11.2026 - 16.11.2026 (10 Gün Tamamlanan) | 👤 Nesine Üye: 14410079556 | 🤖 7/24 Otonom Sunucu Entegrasyonu';
     subCell.font = { name: 'Segoe UI', size: 10, italic: true, color: { argb: '94A3B8' } };
     subCell.alignment = { horizontal: 'center', vertical: 'middle' };
     subCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.SLATE_HEADER } };
@@ -201,7 +250,7 @@ async function buildWorkbook() {
     ws1.getCell('A4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('A5:C5');
-    ws1.getCell('A5').value = { formula: '=1000 + SUM(J12:J19)' };
+    ws1.getCell('A5').value = { formula: '=1000 + SUM(J12:J22)' };
     ws1.getCell('A5').numFmt = '#,##0.00 "₺"';
     ws1.getCell('A5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: COLORS.EMERALD_TEXT } };
     ws1.getCell('A5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_1 } };
@@ -221,14 +270,14 @@ async function buildWorkbook() {
     ws1.getCell('D4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('D5:F5');
-    ws1.getCell('D5').value = { formula: '=SUM(I12:I19)' };
+    ws1.getCell('D5').value = { formula: '=SUM(I12:I22)' };
     ws1.getCell('D5').numFmt = '#,##0.00 "₺"';
     ws1.getCell('D5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: '1E40AF' } };
     ws1.getCell('D5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_2 } };
     ws1.getCell('D5').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('D6:F6');
-    ws1.getCell('D6').value = { formula: '="Toplam Yatırılan: " & TEXT(SUM(H12:H19),"#,##0.00 ₺")' };
+    ws1.getCell('D6').value = { formula: '="Toplam Yatırılan: " & TEXT(SUM(H12:H22),"#,##0.00 ₺")' };
     ws1.getCell('D6').font = { name: 'Segoe UI', size: 8, color: { argb: '64748B' } };
     ws1.getCell('D6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_2 } };
     ws1.getCell('D6').alignment = { horizontal: 'center' };
@@ -241,14 +290,14 @@ async function buildWorkbook() {
     ws1.getCell('G4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('G5:I5');
-    ws1.getCell('G5').value = { formula: '=SUM(J12:J19)' };
+    ws1.getCell('G5').value = { formula: '=SUM(J12:J22)' };
     ws1.getCell('G5').numFmt = '+#,##0.00 "₺";[Red]-#,##0.00 "₺";0.00 "₺"';
     ws1.getCell('G5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: COLORS.EMERALD_TEXT } };
     ws1.getCell('G5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_3 } };
     ws1.getCell('G5').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('G6:I6');
-    ws1.getCell('G6').value = { formula: '="Genel Kasa ROI: " & TEXT((SUM(J12:J19)/1000),"0.0%")' };
+    ws1.getCell('G6').value = { formula: '="Genel Kasa ROI: " & TEXT((SUM(J12:J22)/1000),"0.0%")' };
     ws1.getCell('G6').font = { name: 'Segoe UI', size: 8, color: { argb: '64748B' } };
     ws1.getCell('G6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_3 } };
     ws1.getCell('G6').alignment = { horizontal: 'center' };
@@ -261,14 +310,14 @@ async function buildWorkbook() {
     ws1.getCell('J4').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('J5:M5');
-    ws1.getCell('J5').value = { formula: '=IF((SUM(D12:D19)+SUM(E12:E19))>0, SUM(D12:D19)/(SUM(D12:D19)+SUM(E12:E19)), 0)' };
+    ws1.getCell('J5').value = { formula: '=IF((SUM(D12:D22)+SUM(E12:E22))>0, SUM(D12:D22)/(SUM(D12:D22)+SUM(E12:E22)), 0)' };
     ws1.getCell('J5').numFmt = '0.0%';
     ws1.getCell('J5').font = { name: 'Segoe UI', size: 16, bold: true, color: { argb: COLORS.AMBER_TEXT } };
     ws1.getCell('J5').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_4 } };
     ws1.getCell('J5').alignment = { horizontal: 'center' };
 
     ws1.mergeCells('J6:M6');
-    ws1.getCell('J6').value = { formula: '="Tutan: " & SUM(D12:D19) & " | Yatan: " & SUM(E12:E19) & " | Bekleyen: " & SUM(F12:F19)' };
+    ws1.getCell('J6').value = { formula: '="Tutan: " & SUM(D12:D22) & " | Yatan: " & SUM(E12:E22) & " | Bekleyen: " & SUM(F12:F22)' };
     ws1.getCell('J6').font = { name: 'Segoe UI', size: 8, color: { argb: '64748B' } };
     ws1.getCell('J6').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.CARD_BG_4 } };
     ws1.getCell('J6').alignment = { horizontal: 'center' };
@@ -310,13 +359,13 @@ async function buildWorkbook() {
         const row = ws1.getRow(rIdx);
         row.getCell(1).value = d.date;
         row.getCell(2).value = d.day;
-        row.getCell(3).value = { formula: `=COUNTIF('🎫 Kupon Detayları'!B$4:B$100, "${d.date}")` };
-        row.getCell(4).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!B$4:B$100, "${d.date}", '🎫 Kupon Detayları'!H$4:H$100, "✅ Kazandı")` };
-        row.getCell(5).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!B$4:B$100, "${d.date}", '🎫 Kupon Detayları'!H$4:H$100, "❌ Kaybetti")` };
-        row.getCell(6).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!B$4:B$100, "${d.date}", '🎫 Kupon Detayları'!H$4:H$100, "⏳ Beklemede")` };
+        row.getCell(3).value = { formula: `=COUNTIF('🎫 Kupon Detayları'!B$4:B$200, "${d.date}")` };
+        row.getCell(4).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!B$4:B$200, "${d.date}", '🎫 Kupon Detayları'!H$4:H$200, "✅ Kazandı")` };
+        row.getCell(5).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!B$4:B$200, "${d.date}", '🎫 Kupon Detayları'!H$4:H$200, "❌ Kaybetti")` };
+        row.getCell(6).value = { formula: `=COUNTIFS('🎫 Kupon Detayları'!B$4:B$200, "${d.date}", '🎫 Kupon Detayları'!H$4:H$200, "⏳ Beklemede")` };
         row.getCell(7).value = { formula: `=IF((D${rIdx}+E${rIdx})>0, D${rIdx}/(D${rIdx}+E${rIdx}), 0)` };
-        row.getCell(8).value = { formula: `=SUMIFS('🎫 Kupon Detayları'!G$4:G$100, '🎫 Kupon Detayları'!B$4:B$100, "${d.date}")` };
-        row.getCell(9).value = { formula: `=SUMIFS('🎫 Kupon Detayları'!I$4:I$100, '🎫 Kupon Detayları'!B$4:B$100, "${d.date}")` };
+        row.getCell(8).value = { formula: `=SUMIFS('🎫 Kupon Detayları'!G$4:G$200, '🎫 Kupon Detayları'!B$4:B$200, "${d.date}")` };
+        row.getCell(9).value = { formula: `=SUMIFS('🎫 Kupon Detayları'!I$4:I$200, '🎫 Kupon Detayları'!B$4:B$200, "${d.date}")` };
         row.getCell(10).value = { formula: `=IF(F${rIdx}=C${rIdx}, 0, I${rIdx}-H${rIdx})` };
 
         if (idx === 0) {
@@ -343,7 +392,7 @@ async function buildWorkbook() {
         row.getCell(12).numFmt = '+#,##0.00 "₺";[Red]-#,##0.00 "₺";0.00 "₺"';
         row.getCell(13).alignment = { horizontal: 'left' };
 
-        const isToday = d.date.includes('13.11');
+        const isToday = d.date.includes('16.11');
         if (isToday) {
             row.getCell(10).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLORS.AMBER_LIGHT } };
             row.getCell(10).font = { bold: true, color: { argb: COLORS.AMBER_TEXT } };

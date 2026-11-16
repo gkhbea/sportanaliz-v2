@@ -113,13 +113,55 @@ const dailyRecords = [
     },
     {
         date: "13.11.2026",
-        dayName: "Cuma (Bugün)",
+        dayName: "Cuma",
         total: 15,
-        won: 0,
-        lost: 0,
-        pend: 15,
+        won: 7,
+        lost: 8,
+        pend: 0,
         stakePerCoupon: 50,
         totalStake: 750,
+        totalReturn: 992.50,
+        netProfit: 242.50,
+        roi: 32.3,
+        statusNote: "✅ Cuma Seansı Başarılı (+242.50 ₺)"
+    },
+    {
+        date: "14.11.2026",
+        dayName: "Cumartesi",
+        total: 8,
+        won: 5,
+        lost: 3,
+        pend: 0,
+        stakePerCoupon: 50,
+        totalStake: 400,
+        totalReturn: 665.00,
+        netProfit: 265.00,
+        roi: 66.3,
+        statusNote: "🔥 Cumartesi Kârla Kapandı (+265.00 ₺)"
+    },
+    {
+        date: "15.11.2026",
+        dayName: "Pazar",
+        total: 8,
+        won: 5,
+        lost: 3,
+        pend: 0,
+        stakePerCoupon: 50,
+        totalStake: 400,
+        totalReturn: 685.00,
+        netProfit: 285.00,
+        roi: 71.3,
+        statusNote: "🌟 Pazar Seansı Yüksek Kazanç (+285.00 ₺)"
+    },
+    {
+        date: "16.11.2026",
+        dayName: "Pazartesi (Bugün)",
+        total: 13,
+        won: 0,
+        lost: 0,
+        pend: 13,
+        stakePerCoupon: 50,
+        totalStake: 650,
         totalReturn: 0,
         netProfit: 0,
         roi: 0,
@@ -159,7 +201,7 @@ const bankrollGrowth = ((runningCapital - STARTING_CAPITAL) / STARTING_CAPITAL) 
 
 console.log('===================================================================');
 console.log('  ⚡ SPORTANALIZ PRO — KÂR / ZARAR VE PERFORMANS RAPORU');
-console.log('  📅 Dönem: 06.11.2026 - 13.11.2026');
+console.log('  📅 Dönem: 06.11.2026 - 16.11.2026 (10 Gün Tamamlanan)');
 console.log('===================================================================');
 console.log(`💰 Başlangıç Kasası    : ${STARTING_CAPITAL.toFixed(2)} ₺`);
 console.log(`🎫 Kupon Başı Bahis    : 50.00 ₺ (Sabit Flat Stake — Fazlası Yok)`);
