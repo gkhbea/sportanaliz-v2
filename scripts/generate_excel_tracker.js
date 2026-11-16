@@ -610,7 +610,7 @@ async function buildWorkbook() {
     ws4.getRow(1).height = 35;
 
     const guidePoints = [
-        ['🎯 1. Sabit Birim Bahis (Flat Stake)', 'Kasa tutarınızın %3 ile %5\'i arasında sabit birim belirleyin (Örn: 1.000 ₺ kasa için 50 ₺ kupon başı tutar). Asla tek kupona kasa basmayın.'],
+        ['🎯 1. Sabit 50 ₺ Kuralı (Flat Stake - Fazlası Yok)', 'Tüm kuponlar istisnasız ve net olarak 50 ₺ tutarında oynanır, kesinlikle fazlası veya eksiği basılmaz. Kasa büyümesi ve risk yönetimi tamamen bu 50 ₺ disiplinine göre optimize edilmiştir.'],
         ['⏰ 2. Seans Dağılım Stratejisi', 'Günün kuponlarını tek bir saatte tüketmeyin. Sabah (00-12), Öğlen (12-18) ve Akşam (18-24) seansları arasında bütçeyi dengeli paylaştırın.'],
         ['🛡️ 3. Garantör / Kasa Kuponu Önceliği', 'Kasa güvenliği için her gün en az 1 adet 1.80 - 2.50 arası düşük riskli Garantör kuponu ana kasa koruması olarak değerlendirin.'],
         ['⛔ 4. Günlük Stop-Loss Kuralı', 'Günün 3 kuponu üst üste kaybettiğinde o gün için yeni kupon oynamayı bırakın. Duygusal telafi bahisleri en büyük kasa düşmanıdır.'],

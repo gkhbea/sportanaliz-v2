@@ -162,6 +162,7 @@ console.log('  ⚡ SPORTANALIZ PRO — KÂR / ZARAR VE PERFORMANS RAPORU');
 console.log('  📅 Dönem: 06.11.2026 - 13.11.2026');
 console.log('===================================================================');
 console.log(`💰 Başlangıç Kasası    : ${STARTING_CAPITAL.toFixed(2)} ₺`);
+console.log(`🎫 Kupon Başı Bahis    : 50.00 ₺ (Sabit Flat Stake — Fazlası Yok)`);
 console.log(`🏦 Güncel Kasa (Bakiye) : ${runningCapital.toFixed(2)} ₺`);
 console.log(`📈 Toplam Net Kâr      : +${totalNetProfit.toFixed(2)} ₺`);
 console.log(`🚀 Kasa Büyümesi        : +%${bankrollGrowth.toFixed(1)}`);
@@ -179,3 +180,4 @@ console.log('\nGÜNLÜK GELİŞİM TABLOSU:');
 dailyRecords.forEach(d => {
     console.log(`${d.date} (${d.dayName.padEnd(14)}) | Kupon: ${String(d.total).padStart(2)} (T:${d.won} Y:${d.lost} B:${d.pend}) | Net: ${(d.netProfit >= 0 ? '+' : '') + d.netProfit.toFixed(2)} ₺ | Kasa: ${d.endCapital.toFixed(2)} ₺ | ${d.statusNote}`);
 });
+
