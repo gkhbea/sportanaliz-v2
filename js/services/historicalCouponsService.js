@@ -3505,7 +3505,7 @@ const HistoricalCouponsService = {
         const yDate = targetDate || '2026-11-03';
         const dFmt = '03 Kasım 2026';
 
-        // 1. Önce diske yazılmış güncel 15 kuponu yükle
+        // 1. Önce diske yazılmış güncel kuponları yükle (Nesine'ye otonom kaydedilen en güncel bülten kuponları)
         try {
             if (typeof require !== 'undefined') {
                 const fsModule = require('fs');
@@ -3513,7 +3513,7 @@ const HistoricalCouponsService = {
                 const p = pathModule.join(__dirname, '..', '..', 'data_cache', 'nesine_coupons_today.json');
                 if (fsModule.existsSync(p)) {
                     const data = JSON.parse(fsModule.readFileSync(p, 'utf8'));
-                    if (data && (data.date === '03.11.2026' || data.date === '02.11.2026') && Array.isArray(data.coupons) && data.coupons.length > 0) {
+                    if (data && Array.isArray(data.coupons) && data.coupons.length > 0) {
                         return { coupons: data.coupons, euroCoupons: [] };
                     }
                 }
@@ -6654,6 +6654,21 @@ _generateAuthentic2026_11_01Coupons(targetDate = '2026-11-01') {
                 dateStr = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
             }
         }
+
+        // 0. Öncelikli Kontrol: Diskteki en güncel nesine_coupons_today.json dosyasını yükle
+        try {
+            if (typeof require !== 'undefined') {
+                const fsModule = require('fs');
+                const pathModule = require('path');
+                const p = pathModule.join(__dirname, '..', '..', 'data_cache', 'nesine_coupons_today.json');
+                if (fsModule.existsSync(p)) {
+                    const data = JSON.parse(fsModule.readFileSync(p, 'utf8'));
+                    if (data && Array.isArray(data.coupons) && data.coupons.length > 0) {
+                        return data.coupons;
+                    }
+                }
+            }
+        } catch(e) {}
         // Güncel Bülten & Bugün (31 Ekim 2026 ve sonrası) için doğrudan otantik 15 seans kuponlarını dön
         // 1 Kasım 2026 ve sonrası: Güncel 1 Kasım Seans Kuponları
         if (dateStr >= '2026-11-01' || dateStr === '01 Kasım 2026' || dateStr === '1 Kasım 2026' || (typeof dateStr === 'string' && dateStr.includes('Kasım 2026'))) {
