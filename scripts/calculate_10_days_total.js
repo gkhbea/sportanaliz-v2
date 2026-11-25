@@ -73,3 +73,4 @@ console.log(`✅ Tutan Kupon Sayısı     : ${totalWon} adet`);
 console.log(`❌ Yatan Kupon Sayısı     : ${totalLost} adet`);
 console.log(`🎯 Kupon Başarı Yüzdesi   : %${winRate.toFixed(1)}`);
 console.log("===============================================================================");
+

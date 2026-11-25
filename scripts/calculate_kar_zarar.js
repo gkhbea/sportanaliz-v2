@@ -183,17 +183,31 @@ const dailyRecords = [
     },
     {
         date: "23.11.2026",
-        dayName: "Pazartesi (Bugün)",
+        dayName: "Pazartesi",
         total: 10,
-        won: 0,
-        lost: 0,
-        pend: 10,
+        won: 5,
+        lost: 5,
+        pend: 0,
         stakePerCoupon: 50,
         totalStake: 500,
+        totalReturn: 762.50,
+        netProfit: 262.50,
+        roi: 52.5,
+        statusNote: "✅ Pazartesi Kârla Kapandı (+262.50 ₺)"
+    },
+    {
+        date: "24.11.2026",
+        dayName: "Salı (Bugün)",
+        total: 14,
+        won: 0,
+        lost: 0,
+        pend: 14,
+        stakePerCoupon: 50,
+        totalStake: 700,
         totalReturn: 0,
         netProfit: 0,
         roi: 0,
-        statusNote: "⏳ Bugünün 10 Kuponu / Nesine'de Kayıtlı"
+        statusNote: "⏳ Bugünün 14 Kuponu / Nesine'de Kayıtlı"
     }
 ];
 
