@@ -197,17 +197,45 @@ const dailyRecords = [
     },
     {
         date: "24.11.2026",
-        dayName: "Salı (Bugün)",
+        dayName: "Salı",
         total: 14,
-        won: 0,
-        lost: 0,
-        pend: 14,
+        won: 7,
+        lost: 7,
+        pend: 0,
         stakePerCoupon: 50,
         totalStake: 700,
+        totalReturn: 980.00,
+        netProfit: 280.00,
+        roi: 40.0,
+        statusNote: "🔥 Salı Seansı Kârla Kapandı (+280.00 ₺)"
+    },
+    {
+        date: "25.11.2026",
+        dayName: "Çarşamba (Dün)",
+        total: 13,
+        won: 6,
+        lost: 7,
+        pend: 0,
+        stakePerCoupon: 50,
+        totalStake: 650,
+        totalReturn: 879.50,
+        netProfit: 229.50,
+        roi: 35.3,
+        statusNote: "✅ Çarşamba Şampiyonlar Ligi Seansı (+229.50 ₺)"
+    },
+    {
+        date: "26.11.2026",
+        dayName: "Perşembe (Bugün)",
+        total: 15,
+        won: 0,
+        lost: 0,
+        pend: 15,
+        stakePerCoupon: 50,
+        totalStake: 750,
         totalReturn: 0,
         netProfit: 0,
         roi: 0,
-        statusNote: "⏳ Bugünün 14 Kuponu / Nesine'de Kayıtlı"
+        statusNote: "⏳ Bugünün 15 Kuponu / Avrupa Seansı Devam Ediyor"
     }
 ];
 
