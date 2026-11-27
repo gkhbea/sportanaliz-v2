@@ -382,7 +382,7 @@ const CouponEngine = {
         // KULLANICI KURALI: 1.5 Üst çok olmuyor! 0-0 ve 1-0 riski nedeniyle Kasa Katlama kuponuna 1.5 Üst ALINMAZ!
         // KULLANICI KURALI: 1.20 nin altında oranlara kupon yapma!
         let safePicks = selectPicksForCoupon(
-            (c, item) => (c.probability >= 75 && c.odd >= 1.20 && c.odd <= 1.68 && c.shortPick !== '1.5 ÜST' && c.marketCode !== '1.5UST'),
+            (c, item) => (c.probability >= 76 && c.odd >= 1.20 && c.odd <= 1.68 && c.shortPick !== '1.5 ÜST' && c.marketCode !== '1.5UST' && c.marketCode !== 'IY1.5ALT'),
             (a, b) => (b.pick.probability * 1.6 + b.pick.confidenceScore * 1.4) - (a.pick.probability * 1.6 + a.pick.confidenceScore * 1.4),
             3,
             false
@@ -391,7 +391,7 @@ const CouponEngine = {
         if (safePicks.length < 3) {
             const needed = 3 - safePicks.length;
             const extra = selectPicksForCoupon(
-                (c, item) => (c.probability >= 68 && c.odd >= 1.20 && c.odd <= 1.75 && c.shortPick !== '1.5 ÜST' && c.marketCode !== '1.5UST'),
+                (c, item) => (c.probability >= 72 && c.odd >= 1.20 && c.odd <= 1.75 && c.shortPick !== '1.5 ÜST' && c.marketCode !== '1.5UST' && c.marketCode !== 'IY1.5ALT'),
                 (a, b) => (b.pick.probability * 1.5 + b.pick.confidenceScore) - (a.pick.probability * 1.5 + a.pick.confidenceScore),
                 needed,
                 false
@@ -406,10 +406,10 @@ const CouponEngine = {
             (c, item) => {
                 if (c.marketCode === '1.5UST') {
                     const xgTot = (item.result?.expectedGoals?.home || 0) + (item.result?.expectedGoals?.away || 0);
-                    if (xgTot < 2.65) return false;
+                    if (xgTot < 2.75) return false;
                 }
                 const cons = item.editor?.consensus?.percentage || 70;
-                return (c.probability >= 68 && cons >= 75 && c.odd >= 1.25 && c.odd <= 2.25);
+                return (c.probability >= 72 && cons >= 80 && c.odd >= 1.22 && c.odd <= 2.25 && c.marketCode !== 'IY1.5ALT');
             },
             (a, b) => {
                 const consA = a.item.editor?.consensus?.percentage || 70;
@@ -422,7 +422,7 @@ const CouponEngine = {
         if (editorPicks.length < 3) {
             const needed = 3 - editorPicks.length;
             const extra = selectPicksForCoupon(
-                (c, item) => (c.probability >= 64 && c.odd >= 1.20 && c.odd <= 2.40 && c.marketCode !== '1.5UST'),
+                (c, item) => (c.probability >= 68 && c.odd >= 1.20 && c.odd <= 2.35 && c.marketCode !== '1.5UST' && c.marketCode !== 'IY1.5ALT'),
                 (a, b) => (b.pick.confidenceScore + b.pick.probability) - (a.pick.confidenceScore + a.pick.probability),
                 needed,
                 false
@@ -435,7 +435,7 @@ const CouponEngine = {
         // ============================================================
         const isGoalMarket = (c) => c.category === 'gol' || c.category === 'ilkyari' || (c.marketCode && (c.marketCode.includes('UST') || c.marketCode.includes('ALT') || c.marketCode.includes('KG')));
         let goalPicks = selectPicksForCoupon(
-            (c, item) => isGoalMarket(c) && c.probability >= 68 && c.odd >= 1.20 && c.odd <= 2.15,
+            (c, item) => isGoalMarket(c) && c.probability >= 72 && c.odd >= 1.20 && c.odd <= 2.15 && c.marketCode !== 'IY1.5ALT',
             (a, b) => (b.pick.probability * 1.5 + (b.pick.valueEdge > 0 ? 8 : 0)) - (a.pick.probability * 1.5 + (a.pick.valueEdge > 0 ? 8 : 0)),
             3,
             false
@@ -443,7 +443,7 @@ const CouponEngine = {
         if (goalPicks.length < 3) {
             const needed = 3 - goalPicks.length;
             const extra = selectPicksForCoupon(
-                (c, item) => isGoalMarket(c) && c.probability >= 60 && c.odd >= 1.20 && c.odd <= 2.30,
+                (c, item) => isGoalMarket(c) && c.probability >= 66 && c.odd >= 1.20 && c.odd <= 2.25 && c.marketCode !== 'IY1.5ALT',
                 (a, b) => b.pick.probability - a.pick.probability,
                 needed,
                 false
@@ -455,7 +455,7 @@ const CouponEngine = {
         // 4. KUPON: 💎 SÜRPRİZ & VALUE AVCISI KUPONU (Yüksek Getiri & Pozitif Edge)
         // ============================================================
         let valuePicks = selectPicksForCoupon(
-            (c, item) => (c.valueEdge >= 0.02 && c.probability >= 48 && c.odd >= 1.55 && c.odd <= 3.10),
+            (c, item) => (c.valueEdge >= 0.02 && c.probability >= 52 && c.odd >= 1.55 && c.odd <= 3.10 && c.marketCode !== 'IY1.5ALT'),
             (a, b) => (b.pick.valueEdge * 3.0 + b.pick.probability * 0.8 + b.pick.odd * 4) - (a.pick.valueEdge * 3.0 + a.pick.probability * 0.8 + a.pick.odd * 4),
             3,
             false
@@ -463,7 +463,7 @@ const CouponEngine = {
         if (valuePicks.length < 3) {
             const needed = 3 - valuePicks.length;
             const extra = selectPicksForCoupon(
-                (c, item) => (c.odd >= 1.50 && c.odd <= 3.60 && c.probability >= 40),
+                (c, item) => (c.odd >= 1.50 && c.odd <= 3.20 && c.probability >= 48 && c.marketCode !== 'IY1.5ALT'),
                 (a, b) => (b.pick.odd * 6 + b.pick.confidenceScore + b.pick.probability) - (a.pick.odd * 6 + a.pick.confidenceScore + a.pick.probability),
                 needed,
                 false
@@ -480,7 +480,7 @@ const CouponEngine = {
                 const a = (item.match?.awayTeam || '').toLowerCase();
                 const l = (item.match?.league || '').toLowerCase();
                 const isElite = l.includes('şampiyonlar') || l.includes('champions') || l.includes('avrupa') || l.includes('premier') || l.includes('la liga') || l.includes('serie a') || l.includes('bundesliga') || l.includes('süper lig');
-                return (isElite || c.confidenceScore >= 68) && c.probability >= 68 && c.odd >= 1.25 && c.odd <= 2.20 && c.marketCode !== '1.5UST';
+                return (isElite || c.confidenceScore >= 72) && c.probability >= 72 && c.odd >= 1.22 && c.odd <= 2.20 && c.marketCode !== '1.5UST' && c.marketCode !== 'IY1.5ALT';
             },
             (a, b) => (b.pick.confidenceScore * 1.4 + b.pick.probability * 1.3) - (a.pick.confidenceScore * 1.4 + a.pick.probability * 1.3),
             3,
@@ -489,7 +489,7 @@ const CouponEngine = {
         if (starPicks.length < 3) {
             const needed = 3 - starPicks.length;
             const extra = selectPicksForCoupon(
-                (c, item) => (c.probability >= 62 && c.odd >= 1.20 && c.odd <= 2.30 && c.marketCode !== '1.5UST'),
+                (c, item) => (c.probability >= 66 && c.odd >= 1.20 && c.odd <= 2.25 && c.marketCode !== '1.5UST' && c.marketCode !== 'IY1.5ALT'),
                 (a, b) => (b.pick.confidenceScore + b.pick.probability) - (a.pick.confidenceScore + a.pick.probability),
                 needed,
                 false
